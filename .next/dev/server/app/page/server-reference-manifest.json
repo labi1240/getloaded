@@ -1,0 +1,140 @@
+{
+  "node": {
+    "80fcf35f570cfd8eb3398618ec045de9c789c811a8": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/Downloads/getLoaded/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/Downloads/getLoaded/lib/data.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/Downloads/getLoaded/lib/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "$$RSC_SERVER_CACHE_0",
+          "filename": "Downloads/getLoaded/lib/data.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_CACHE_0",
+      "filename": "Downloads/getLoaded/lib/data.ts"
+    },
+    "c029eb3f883a459029afd42c430fafeef4462046b5": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/Downloads/getLoaded/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/Downloads/getLoaded/lib/data.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/Downloads/getLoaded/lib/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "$$RSC_SERVER_CACHE_4",
+          "filename": "Downloads/getLoaded/lib/data.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_CACHE_4",
+      "filename": "Downloads/getLoaded/lib/data.ts"
+    },
+    "c05eec283681c380e9d4394ceddcb02fbdb46ef476": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/Downloads/getLoaded/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/Downloads/getLoaded/lib/data.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/Downloads/getLoaded/lib/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "$$RSC_SERVER_CACHE_3",
+          "filename": "Downloads/getLoaded/lib/data.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_CACHE_3",
+      "filename": "Downloads/getLoaded/lib/data.ts"
+    },
+    "c0735ce8044084cc47eed8ce73c42b73b6f33c84a6": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/Downloads/getLoaded/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/Downloads/getLoaded/lib/data.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/Downloads/getLoaded/lib/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "$$RSC_SERVER_CACHE_6",
+          "filename": "Downloads/getLoaded/lib/data.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_CACHE_6",
+      "filename": "Downloads/getLoaded/lib/data.ts"
+    },
+    "c073c82766c35f3e43e74d6aa14242344e67ce83d8": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/Downloads/getLoaded/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/Downloads/getLoaded/lib/data.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/Downloads/getLoaded/lib/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "$$RSC_SERVER_CACHE_7",
+          "filename": "Downloads/getLoaded/lib/data.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_CACHE_7",
+      "filename": "Downloads/getLoaded/lib/data.ts"
+    },
+    "c0a256c4f7e7072aab1cf2560b5aeaca8abe7556e7": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/Downloads/getLoaded/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/Downloads/getLoaded/lib/data.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/Downloads/getLoaded/lib/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "$$RSC_SERVER_CACHE_5",
+          "filename": "Downloads/getLoaded/lib/data.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_CACHE_5",
+      "filename": "Downloads/getLoaded/lib/data.ts"
+    },
+    "c0f08d3c95c925e03e3df0f8a758d6ddf9a3d15e8b": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/Downloads/getLoaded/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/Downloads/getLoaded/lib/data.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/Downloads/getLoaded/lib/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "$$RSC_SERVER_CACHE_2",
+          "filename": "Downloads/getLoaded/lib/data.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_CACHE_2",
+      "filename": "Downloads/getLoaded/lib/data.ts"
+    },
+    "f806162ab3a899e7d73137c4b086f1730b265ad903": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/Downloads/getLoaded/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/Downloads/getLoaded/lib/data.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/Downloads/getLoaded/lib/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "$$RSC_SERVER_CACHE_1",
+          "filename": "Downloads/getLoaded/lib/data.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_CACHE_1",
+      "filename": "Downloads/getLoaded/lib/data.ts"
+    },
+    "7018251b6cb52c5d302280bcf1b6e45d3e7dba4ea1": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/Downloads/getLoaded/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/Downloads/getLoaded/lib/data.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/Downloads/getLoaded/lib/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "getProducts",
+          "filename": "Downloads/getLoaded/lib/actions.ts"
+        }
+      },
+      "layer": {
+        "app/page": "action-browser"
+      },
+      "exportedName": "getProducts",
+      "filename": "Downloads/getLoaded/lib/actions.ts"
+    }
+  },
+  "edge": {}
+}
