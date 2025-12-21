@@ -197,6 +197,12 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
   //   return MOCK_PRODUCTS.find(p => p.id !== product.id && p.caliber === product.caliber && p.kind !== product.kind);
   // }, [product]);
 
+  const updatedTime = useMemo(() => {
+    if (!product?.id) return 30;
+    const hash = product.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return (hash % 86) + 5; // 5 to 90 minutes
+  }, [product?.id]);
+
   if (!product || !bestOffer) return <div className="p-12 text-center text-slate-500">Product not found.</div>;
 
   const isAmmo = product.kind === 'AMMO';
@@ -222,7 +228,7 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
             <div className="lg:w-2/5 bg-slate-50/50 p-12 flex items-center justify-center border-b lg:border-b-0 lg:border-r border-slate-100 relative group">
               <img src={product.image} alt={product.title} className="max-h-80 object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" />
               <div className="absolute bottom-4 left-4 flex items-center gap-1.5 text-[9px] font-mono text-slate-400 bg-white/80 backdrop-blur-sm px-2 py-1 rounded border border-slate-100 uppercase tracking-widest">
-                <RiTimerLine className="size-3" /> [Latency: 56m]
+                <RiTimerLine className="size-3" /> [Latency: {updatedTime}m]
               </div>
             </div>
             <div className="p-10 lg:p-14 flex-1">
@@ -317,7 +323,7 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
         <div id="market-liquidity" className="bg-white rounded-3xl shadow-xs border border-slate-200 overflow-hidden mb-12">
           <div className="px-10 py-6 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
             <h3 className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-900 flex items-center gap-2">
-              Current Market Liquidity <span className="text-[9px] font-mono text-slate-400 normal-case tracking-normal">(Sync: 12m ago)</span>
+              Current Market Liquidity <span className="text-[9px] font-mono text-slate-400 normal-case tracking-normal">(Sync: {updatedTime}m ago)</span>
             </h3>
             <span className="text-[10px] font-bold text-slate-400 bg-white px-3 py-1 rounded-full border border-slate-200 uppercase tracking-widest">{sortedOffers.length} Nodes</span>
           </div>

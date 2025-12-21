@@ -29,7 +29,9 @@ export default function RootLayout({
                         <Suspense>
                             <RetailerFetcher />
                         </Suspense>
-                        <Navbar />
+                        <Suspense>
+                            <Navbar />
+                        </Suspense>
                         <main>
                             {children}
                         </main>

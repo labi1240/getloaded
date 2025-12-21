@@ -6,6 +6,9 @@ const nextConfig = {
     images: {
         domains: [],
     },
+    experimental: {
+        serverComponentsHmrCache: true, // defaults to true
+    },
 };
 
 export default nextConfig;

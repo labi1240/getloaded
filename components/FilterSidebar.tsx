@@ -21,7 +21,7 @@ const FilterGroup: React.FC<FilterGroupProps> = ({ title, techLabel, options, se
       <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{title}</h3>
       <span className="text-[9px] font-mono text-slate-300 font-bold">{techLabel}</span>
     </div>
-    <div className="space-y-1.5 max-h-56 overflow-y-auto custom-scrollbar pr-2">
+    <div className="space-y-1.5 max-h-56 overflow-y-auto no-scrollbar pr-2">
       {options.map((opt) => {
         const isActive = selectedValues.includes(opt.value); // Check against value (slug)
         return (
@@ -72,7 +72,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ kind, facets, filters, se
 
   return (
     <aside className="w-full lg:w-72 shrink-0">
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 sticky top-8 shadow-xs max-h-[85vh] overflow-y-auto custom-scrollbar">
+      <div className="bg-white rounded-2xl border border-slate-200 p-6 sticky top-8 shadow-xs max-h-[85vh] overflow-y-auto no-scrollbar">
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
           <div className="flex items-center gap-2 text-slate-900">
             <RiFilter3Line className="size-5" />
