@@ -1,4 +1,4 @@
-import { JSDOM } from 'jsdom'; // If available, else Regex
+// JSDOM import removed - using Regex implementation
 
 // Regex is safer given no JSDOM in package.json
 export interface ExternalOffer {

@@ -24,7 +24,7 @@ export async function getOffers(itemId: string): Promise<Offer[]> {
     // cacheTag(`offers-${itemId}`)
     const offers = await prisma.offer.findMany({
         where: { itemId },
-        include: { retailer: true },
+        include: { Retailer: true },
         orderBy: { price: 'asc' }
     });
 
@@ -40,13 +40,13 @@ export async function getOffers(itemId: string): Promise<Offer[]> {
         shippingNote: offer.shippingNote,
         freeShipping: offer.freeShipping || false,
         retailer: {
-            id: offer.retailer.id,
-            name: offer.retailer.name,
-            domain: offer.retailer.domain,
-            logo: offer.retailer.logo
+            id: offer.Retailer.id,
+            name: offer.Retailer.name,
+            domain: offer.Retailer.domain,
+            logo: offer.Retailer.logo
         },
         roundCount: offer.unitsCount || undefined,
-        cpr: offer.unitPrice || undefined // Use direct DB value (mapped from unitPrice)
+        cpr: offer.cpr || undefined // Use direct DB value (mapped from unitPrice)
     }));
 }
 
@@ -142,7 +142,7 @@ export async function getProducts(
             Brand: true,
             Offer: {
                 include: {
-                    retailer: true
+                    Retailer: true
                 },
                 // If In Stock filter is on, we might want to prioritize in-stock offers in the returned structure?
                 // But the Requirement is about LISTING products.
@@ -185,7 +185,7 @@ export async function getProduct(id: string): Promise<Product | null> {
             Brand: true,
             Offer: {
                 include: {
-                    retailer: true
+                    Retailer: true
                 },
                 orderBy: {
                     price: 'asc'
@@ -257,7 +257,7 @@ export async function getProductsByIds(ids: string[]): Promise<Product[]> {
             Brand: true,
             Offer: {
                 include: {
-                    retailer: true
+                    Retailer: true
                 },
                 orderBy: {
                     price: 'asc'
@@ -343,7 +343,7 @@ export async function getPairedProduct(itemId: string): Promise<Product | null> 
             Brand: true,
             Offer: {
                 include: {
-                    retailer: true
+                    Retailer: true
                 },
                 orderBy: {
                     price: 'asc'
@@ -408,7 +408,7 @@ export async function getPairedProduct(itemId: string): Promise<Product | null> 
                             Brand: true,
                             Offer: {
                                 include: {
-                                    retailer: true
+                                    Retailer: true
                                 },
                                 orderBy: {
                                     price: 'asc'
@@ -471,7 +471,7 @@ function mapToProduct(item: any): Product {
         },
         roundCount: offer.unitsCount || undefined,
         // roundCount: offer.unitsCount || undefined,
-        cpr: offer.unitPrice || undefined // Use direct DB value (mapped from unitPrice)
+        cpr: offer.cpr || undefined // Use direct DB value (mapped from unitPrice)
     }));
 
     // Common Product Fields
