@@ -222,7 +222,7 @@ model Offer {
   AlertDelivery     AlertDelivery[]
   CatalogItem       CatalogItem     @relation(fields: [itemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
   Retailer          Retailer        @relation(fields: [retailerId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  OfferHistory      OfferHistory[]
+  OfferHistory      OfferHistory[]  @ignore
 
   @@unique([itemId, retailerId, unitsCount, currency], map: "Offer_unique_idx")
 }
