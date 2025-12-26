@@ -186,10 +186,41 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
 
   const sortedOffers = useMemo(() => {
     if (!product?.offers) return [];
-    return [...product.offers].sort((a, b) => (a.inStock !== b.inStock ? (a.inStock ? -1 : 1) : a.price - b.price));
+    const isAmmo = product.kind === 'AMMO';
+    return [...product.offers].sort((a, b) => {
+      // 1. Stock Status
+      if (a.inStock !== b.inStock) return a.inStock ? -1 : 1;
+
+      // 2. Ammo: Sort by CPR
+      if (isAmmo) {
+        // Handle Missing CPR - Fallback to price
+        if (!a.cpr && !b.cpr) return a.price - b.price;
+        if (!a.cpr) return 1;
+        if (!b.cpr) return -1;
+
+        // Handle Suspiciously Low CPR (e.g. data errors < 0.01 like $0.001)
+        // We push them to the bottom so they don't become the "Hero" price unless they are the only option
+        const aLow = a.cpr < 0.01;
+        const bLow = b.cpr < 0.01;
+        if (aLow !== bLow) return aLow ? 1 : -1;
+
+        return a.cpr - b.cpr;
+      }
+
+      // 3. Firearm/Other: Sort by Price
+      return a.price - b.price;
+    });
   }, [product]);
 
   const bestOffer = sortedOffers.length > 0 ? sortedOffers[0] : null;
+
+  // Helper for CPR formatting
+  const formatCpr = (val?: number) => {
+    if (val === undefined || val === null) return 'N/A';
+    if (val < 0.01) return val.toFixed(4); // Show detailed precision for potential errors or micro-ammo
+    if (val < 0.10) return val.toFixed(3); // Show 3 decimals for typical rimfire range
+    return val.toFixed(2);
+  };
 
   // const pairedProduct = null;
   // useMemo(() => {
@@ -234,7 +265,7 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
             <div className="p-10 lg:p-14 flex-1">
               <div className="flex items-center justify-between mb-8">
                 <Link
-                  href={isAmmo ? `/ammo/${product.brand.slug}` : `/?brands=${encodeURIComponent(product.brand.slug)}`}
+                  href={isAmmo ? `/ammo?brands=${product.brand.slug}` : `/firearms?brands=${product.brand.slug}`}
                   className="text-[11px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-600 transition-colors"
                 >
                   {product.brand.name}
@@ -250,7 +281,7 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
                   label="Caliber"
                   value={product.caliber || 'N/A'}
                   icon={RiCrosshair2Line}
-                  href={product.caliber ? (isAmmo ? `/ammo/${product.caliberSlug || product.caliber}` : `/?calibers=${encodeURIComponent(product.caliberSlug || product.caliber)}`) : undefined}
+                  href={product.caliberSlug ? (isAmmo ? `/ammo?calibers=${product.caliberSlug}` : `/firearms?calibers=${product.caliberSlug}`) : (product.caliber ? (isAmmo ? `/ammo?q=${encodeURIComponent(product.caliber)}` : `/firearms?q=${encodeURIComponent(product.caliber)}`) : undefined)}
                 />
                 {isAmmo ? (
                   <>
@@ -260,16 +291,14 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
                         label="Mass"
                         value={`${product.grain} GR`}
                         icon={RiScales3Line}
-                        href={isAmmo ?
-                          (product.caliberSlug ? `/ammo/${product.caliberSlug}/${product.grain}gr` : `/ammo/mass/${product.grain}gr`)
-                          : undefined}
+                        href={product.grain ? `/ammo?grains=${product.grain}` : undefined}
                       />
                     ) : product.gauge ? (
                       <SpecBadge
                         label="Gauge"
                         value={product.gauge}
                         icon={RiScales3Line}
-                      // Could link to gauge filter if we had one, for now just display
+                        href={undefined} // No gauge filter yet
                       />
                     ) : null}
 
@@ -277,17 +306,23 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
                       label="Shell"
                       value={product.casing || 'Brass'}
                       icon={RiShieldCheckLine}
-                      href={product.casing ?
-                        (isAmmo ?
-                          (product.caliberSlug ? `/ammo/${product.caliberSlug}/${product.casing.toLowerCase()}` : `/ammo/unknown/${product.casing.toLowerCase()}`)
-                          : undefined // No casing filter for firearms typically or different format
-                        ) : undefined}
+                      href={product.casing ? `/ammo?casings=${product.casing}` : undefined}
                     />
                   </>
                 ) : (
                   <>
-                    <SpecBadge label="Capacity" value={product.capacity || 'N/A'} icon={RiStackLine} />
-                    <SpecBadge label="Barrel" value={product.barrelLength || 'N/A'} icon={RiRuler2Line} />
+                    <SpecBadge
+                      label="Capacity"
+                      value={product.capacity || 'N/A'}
+                      icon={RiStackLine}
+                      href={product.capacity ? `/firearms?capacity=${encodeURIComponent(product.capacity)}` : undefined}
+                    />
+                    <SpecBadge
+                      label="Barrel"
+                      value={product.barrelLength || 'N/A'}
+                      icon={RiRuler2Line}
+                      href={product.barrelLength ? `/firearms?barrel=${encodeURIComponent(product.barrelLength)}` : undefined}
+                    />
                   </>
                 )}
               </div>
@@ -299,7 +334,7 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
                   </p>
                   <div className="flex items-baseline gap-3">
                     <span className={`text-6xl font-black font-mono tracking-tighter ${isAmmo ? 'text-emerald-700' : 'text-slate-900'}`}>
-                      ${isAmmo ? bestOffer.cpr?.toFixed(2) : bestOffer.price.toLocaleString()}
+                      ${isAmmo ? formatCpr(bestOffer.cpr) : bestOffer.price.toLocaleString()}
                     </span>
                     {isAmmo && <span className="text-2xl font-bold text-slate-400 font-mono">/RD</span>}
 
@@ -388,7 +423,7 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
                     </td>
                     {isAmmo && (
                       <td className={`px-10 py-8 text-right font-mono text-xl ${i === 0 ? 'font-black text-emerald-700' : 'font-bold text-slate-600'}`}>
-                        ${offer.cpr?.toFixed(2)}
+                        ${formatCpr(offer.cpr)}
                       </td>
                     )}
                     <td className="px-10 py-8 text-right">
@@ -404,9 +439,14 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
                       </div>
                     </td>
                     <td className="px-10 py-8 text-right">
-                      <button className={`inline-flex items-center gap-3 px-6 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all shadow-lg ${i === 0 ? 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-900/10' : 'bg-slate-100 text-slate-900 hover:bg-slate-900 hover:text-white shadow-slate-900/5'}`}>
+                      <a
+                        href={offer.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center gap-3 px-6 py-3.5 rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all shadow-lg ${i === 0 ? 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-900/10' : 'bg-slate-100 text-slate-900 hover:bg-slate-900 hover:text-white shadow-slate-900/5'}`}
+                      >
                         Visit Store <RiExternalLinkLine className="size-4" />
-                      </button>
+                      </a>
                     </td>
                   </tr>
                 ))}
@@ -521,7 +561,7 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
                   <div className="bg-white p-12 rounded-[2.5rem] border border-slate-200 shadow-xs ring-1 ring-slate-900/5">
                     <span className="text-[11px] font-black text-slate-500 uppercase tracking-[0.3em] font-mono">[90D_BENCHMARK]</span>
                     <div className="text-5xl font-black text-slate-900 font-mono mt-4 tracking-tighter">
-                      {isAmmo ? `$${bestOffer.cpr?.toFixed(2)}` : `$${bestOffer.price.toLocaleString()}`}
+                      {isAmmo ? `$${formatCpr(bestOffer.cpr)}` : `$${bestOffer.price.toLocaleString()}`}
                     </div>
                     <div className="mt-5 text-[11px] font-bold text-emerald-600 flex items-center gap-2 uppercase tracking-[0.2em]">
                       <RiArrowRightUpLine className="size-5 -rotate-45" /> Asset Value: Stable

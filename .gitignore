@@ -22,3 +22,19 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Next.js
+/.next/
+/out/
+
+# Environment variables
+.env
+.env*.local
+
+# Debug scripts and reports (optional, keep out of repo for cleanliness)
+debug_*.ts
+update_offer.ts
+compare_inventory.ts
+inventory_full_report.txt
+filter_options.json
+

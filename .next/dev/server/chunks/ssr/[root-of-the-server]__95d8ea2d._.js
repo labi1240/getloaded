@@ -367,20 +367,26 @@ async function SmartContent({ params }) {
     for (const segment of segments){
         // Check Caliber
         if (await (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$lib$2f$data$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["isValidCaliberSlug"])(segment)) {
-            filters.caliberSlug = segment;
+            filters.caliberSlug = [
+                segment
+            ];
             hasValidFilter = true;
             continue;
         }
         // Check Brand
         if (await (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$lib$2f$data$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["isValidBrandSlug"])(segment)) {
-            filters.brandSlug = segment;
+            filters.brandSlug = [
+                segment
+            ];
             hasValidFilter = true;
             continue;
         }
         // Check Grain (e.g. "147gr", "115gr")
         const grainMatch = segment.match(/^(\d+)gr$/i);
         if (grainMatch) {
-            filters.grain = parseInt(grainMatch[1], 10);
+            filters.grain = [
+                grainMatch[1]
+            ]; // Pass as string array
             hasValidFilter = true;
             continue;
         }
@@ -396,7 +402,7 @@ async function SmartContent({ params }) {
     }
     if (hasValidFilter) {
         // Fetch server-side filtered products for SEO
-        const initialProducts = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$lib$2f$data$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getProducts"])('AMMO', 50, 0, filters);
+        const initialProducts = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$lib$2f$data$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getProducts"])('AMMO', 100, 0, filters);
         // Pass Hydrated State to Category Page
         // We construct the initialFilters object for NUQS to sync
         const initialClientFilters = {};

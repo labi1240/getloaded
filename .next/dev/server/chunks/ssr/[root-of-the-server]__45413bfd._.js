@@ -206,23 +206,9 @@ __turbopack_async_result__();
 
 return __turbopack_context__.a(async (__turbopack_handle_async_dependencies__, __turbopack_async_result__) => { try {
 
-/* __next_internal_action_entry_do_not_use__ [{"80fcf35f570cfd8eb3398618ec045de9c789c811a8":"$$RSC_SERVER_CACHE_0","c029eb3f883a459029afd42c430fafeef4462046b5":"$$RSC_SERVER_CACHE_4","c05eec283681c380e9d4394ceddcb02fbdb46ef476":"$$RSC_SERVER_CACHE_3","c0735ce8044084cc47eed8ce73c42b73b6f33c84a6":"$$RSC_SERVER_CACHE_6","c073c82766c35f3e43e74d6aa14242344e67ce83d8":"$$RSC_SERVER_CACHE_7","c0a256c4f7e7072aab1cf2560b5aeaca8abe7556e7":"$$RSC_SERVER_CACHE_5","c0f08d3c95c925e03e3df0f8a758d6ddf9a3d15e8b":"$$RSC_SERVER_CACHE_2","f806162ab3a899e7d73137c4b086f1730b265ad903":"$$RSC_SERVER_CACHE_1"},"",""] */ __turbopack_context__.s([
+/* __next_internal_action_entry_do_not_use__ [{"80fcf35f570cfd8eb3398618ec045de9c789c811a8":"$$RSC_SERVER_CACHE_0"},"",""] */ __turbopack_context__.s([
     "$$RSC_SERVER_CACHE_0",
     ()=>$$RSC_SERVER_CACHE_0,
-    "$$RSC_SERVER_CACHE_1",
-    ()=>$$RSC_SERVER_CACHE_1,
-    "$$RSC_SERVER_CACHE_2",
-    ()=>$$RSC_SERVER_CACHE_2,
-    "$$RSC_SERVER_CACHE_3",
-    ()=>$$RSC_SERVER_CACHE_3,
-    "$$RSC_SERVER_CACHE_4",
-    ()=>$$RSC_SERVER_CACHE_4,
-    "$$RSC_SERVER_CACHE_5",
-    ()=>$$RSC_SERVER_CACHE_5,
-    "$$RSC_SERVER_CACHE_6",
-    ()=>$$RSC_SERVER_CACHE_6,
-    "$$RSC_SERVER_CACHE_7",
-    ()=>$$RSC_SERVER_CACHE_7,
     "getOffers",
     ()=>getOffers,
     "getPairedProduct",
@@ -311,51 +297,95 @@ async function getOffers(itemId) {
                 logo: offer.retailer.logo
             },
             roundCount: offer.unitsCount || undefined,
-            cpr: offer.totalUnitPrice || (offer.unitsCount && offer.unitsCount > 0 ? offer.price / offer.unitsCount : undefined)
+            cpr: offer.unitPrice || undefined // Use direct DB value (mapped from unitPrice)
         }));
 }
-const $$RSC_SERVER_CACHE_1_INNER = async function getProducts(kind, limit = 50, skip = 0, filters) {
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cacheLife"])("minutes");
-    // Update cache tag to include filters
-    const filterKey = filters ? `-${filters.brandSlug || 'all'}-${filters.caliberSlug || 'all'}-${filters.grain || 'all'}` : '';
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cacheTag"])(`products-${kind.toLowerCase()}${filterKey}`);
+async function getProducts(kind, limit = 100, skip = 0, filters) {
+    // "use cache"
+    // cacheLife("minutes")
+    // Create a cache tag that uniquely identifies this query
+    // const filterKey = JSON.stringify(filters || {});
+    // cacheTag(`products-${kind.toLowerCase()}-${Buffer.from(filterKey).toString('base64')}`);
     const where = {
-        kind: kind,
-        offerCount: {
-            gt: 0
-        }
+        kind: kind
     };
-    if (filters?.brandSlug) {
+    // 1. Text Search (Title, Brand Name, Caliber Name via Alias/Slug)
+    if (filters?.search) {
+        const search = filters.search.trim();
+        if (search) {
+            where.OR = [
+                {
+                    title: {
+                        contains: search,
+                        mode: 'insensitive'
+                    }
+                },
+                {
+                    Brand: {
+                        name: {
+                            contains: search,
+                            mode: 'insensitive'
+                        }
+                    }
+                }
+            ];
+        }
+    }
+    // 2. Filters
+    if (filters?.brandSlug && filters.brandSlug.length > 0) {
         where.Brand = {
-            slug: filters.brandSlug
+            slug: {
+                in: filters.brandSlug
+            }
         };
     }
-    // Handle Caliber and Grain filters
-    if (filters?.caliberSlug || filters?.grain) {
+    // Handle In Stock
+    if (filters?.inStock) {
+        // Must have at least one In Stock offer
+        where.Offer = {
+            some: {
+                inStock: true
+            }
+        };
+    } else {
+        // Default behavior: Must have at least one offer (in stock or not)
+        where.offerCount = {
+            gt: 0
+        };
+    }
+    // Handle Caliber and Grain
+    if (filters?.caliberSlug && filters.caliberSlug.length > 0 || filters?.grain && filters.grain.length > 0) {
         if (kind === 'FIREARM') {
-            // For firearms, check FirearmSpecs -> FirearmChamber -> Caliber
             const firearmSpecsWhere = {};
-            if (filters.caliberSlug) {
+            if (filters.caliberSlug && filters.caliberSlug.length > 0) {
                 firearmSpecsWhere.FirearmChamber = {
                     some: {
                         Caliber: {
-                            slug: filters.caliberSlug
+                            slug: {
+                                in: filters.caliberSlug
+                            }
                         }
                     }
                 };
             }
-            // Firearms typically don't have 'grain' but if schema supports it validation logic goes here
             where.FirearmSpecs = firearmSpecsWhere;
         } else {
-            // For ammo, check AmmoSpecs -> Caliber AND/OR Grain
             const ammoSpecsWhere = {};
-            if (filters.caliberSlug) {
+            if (filters.caliberSlug && filters.caliberSlug.length > 0) {
                 ammoSpecsWhere.Caliber = {
-                    slug: filters.caliberSlug
+                    slug: {
+                        in: filters.caliberSlug
+                    }
                 };
             }
-            if (filters.grain) {
-                ammoSpecsWhere.grain = filters.grain;
+            if (filters.grain && filters.grain.length > 0) {
+                // Cast grain strings to int only if valid numbers
+                const validGrains = filters.grain.map((g)=>parseInt(g)).filter((n)=>!isNaN(n));
+                if (validGrains.length > 0) {
+                    ammoSpecsWhere.grain = {
+                        in: validGrains
+                    };
+                }
             }
             where.AmmoSpecs = ammoSpecsWhere;
         }
@@ -369,6 +399,11 @@ const $$RSC_SERVER_CACHE_1_INNER = async function getProducts(kind, limit = 50, 
             Offer: {
                 include: {
                     retailer: true
+                },
+                // If In Stock filter is on, we might want to prioritize in-stock offers in the returned structure?
+                // But the Requirement is about LISTING products.
+                orderBy: {
+                    price: 'asc'
                 }
             },
             FirearmSpecs: {
@@ -386,22 +421,22 @@ const $$RSC_SERVER_CACHE_1_INNER = async function getProducts(kind, limit = 50, 
                 }
             }
         },
-        orderBy: {
-            bestPrice: 'asc' // Sort by best price ascending
-        }
+        orderBy: [
+            // Requirement: Default Sort Price Per Round.
+            // prioritize in-stock if mixed? The requirement just says "Sort Order ... Price Per Round"
+            {
+                bestCpr: 'asc'
+            },
+            {
+                bestPrice: 'asc'
+            } // Fallback
+        ]
     });
     return items.map(mapToProduct);
-};
-var $$RSC_SERVER_CACHE_1 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(function getProducts() {
-    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$cache$2d$wrapper$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])("default", "f806162ab3a899e7d73137c4b086f1730b265ad903", 0, $$RSC_SERVER_CACHE_1_INNER, arguments);
-});
-(0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])($$RSC_SERVER_CACHE_1, "f806162ab3a899e7d73137c4b086f1730b265ad903", null);
-Object["defineProperty"]($$RSC_SERVER_CACHE_1, "name", {
-    value: "getProducts"
-});
-var getProducts = $$RSC_SERVER_CACHE_1;
-const $$RSC_SERVER_CACHE_2_INNER = async function getProduct(id) {
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cacheLife"])("minutes");
+}
+async function getProduct(id) {
+    // "use cache"
+    // cacheLife("minutes")
     const item = await __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].catalogItem.findUnique({
         where: {
             id
@@ -434,17 +469,10 @@ const $$RSC_SERVER_CACHE_2_INNER = async function getProduct(id) {
     });
     if (!item) return null;
     return mapToProduct(item);
-};
-var $$RSC_SERVER_CACHE_2 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(function getProduct() {
-    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$cache$2d$wrapper$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])("default", "c0f08d3c95c925e03e3df0f8a758d6ddf9a3d15e8b", 0, $$RSC_SERVER_CACHE_2_INNER, arguments);
-});
-(0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])($$RSC_SERVER_CACHE_2, "c0f08d3c95c925e03e3df0f8a758d6ddf9a3d15e8b", null);
-Object["defineProperty"]($$RSC_SERVER_CACHE_2, "name", {
-    value: "getProduct"
-});
-var getProduct = $$RSC_SERVER_CACHE_2;
-const $$RSC_SERVER_CACHE_3_INNER = async function getProductBySlug(slug) {
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cacheLife"])("max");
+}
+async function getProductBySlug(slug) {
+    // "use cache"
+    // cacheLife("max")
     const item = await __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].catalogItem.findUnique({
         where: {
             slug
@@ -470,17 +498,8 @@ const $$RSC_SERVER_CACHE_3_INNER = async function getProductBySlug(slug) {
     });
     if (!item) return null;
     return mapToProduct(item);
-};
-var $$RSC_SERVER_CACHE_3 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(function getProductBySlug() {
-    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$cache$2d$wrapper$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])("default", "c05eec283681c380e9d4394ceddcb02fbdb46ef476", 0, $$RSC_SERVER_CACHE_3_INNER, arguments);
-});
-(0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])($$RSC_SERVER_CACHE_3, "c05eec283681c380e9d4394ceddcb02fbdb46ef476", null);
-Object["defineProperty"]($$RSC_SERVER_CACHE_3, "name", {
-    value: "getProductBySlug"
-});
-var getProductBySlug = $$RSC_SERVER_CACHE_3;
-const $$RSC_SERVER_CACHE_4_INNER = async function getProductsByIds(ids) {
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cacheLife"])("minutes");
+}
+async function getProductsByIds(ids) {
     if (!ids || ids.length === 0) return [];
     const items = await __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].catalogItem.findMany({
         where: {
@@ -515,17 +534,10 @@ const $$RSC_SERVER_CACHE_4_INNER = async function getProductsByIds(ids) {
         }
     });
     return items.map(mapToProduct);
-};
-var $$RSC_SERVER_CACHE_4 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(function getProductsByIds() {
-    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$cache$2d$wrapper$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])("default", "c029eb3f883a459029afd42c430fafeef4462046b5", 0, $$RSC_SERVER_CACHE_4_INNER, arguments);
-});
-(0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])($$RSC_SERVER_CACHE_4, "c029eb3f883a459029afd42c430fafeef4462046b5", null);
-Object["defineProperty"]($$RSC_SERVER_CACHE_4, "name", {
-    value: "getProductsByIds"
-});
-var getProductsByIds = $$RSC_SERVER_CACHE_4;
-const $$RSC_SERVER_CACHE_5_INNER = async function getPairedProduct(itemId) {
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cacheLife"])("minutes");
+}
+async function getPairedProduct(itemId) {
+    // "use cache"
+    // cacheLife("minutes")
     // 1. Get the item to determine its type and specs
     const item = await __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].catalogItem.findUnique({
         where: {
@@ -711,20 +723,12 @@ const $$RSC_SERVER_CACHE_5_INNER = async function getPairedProduct(itemId) {
     }
     if (!pairedItem) return null;
     return mapToProduct(pairedItem);
-};
-var $$RSC_SERVER_CACHE_5 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(function getPairedProduct() {
-    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$cache$2d$wrapper$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])("default", "c0a256c4f7e7072aab1cf2560b5aeaca8abe7556e7", 0, $$RSC_SERVER_CACHE_5_INNER, arguments);
-});
-(0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])($$RSC_SERVER_CACHE_5, "c0a256c4f7e7072aab1cf2560b5aeaca8abe7556e7", null);
-Object["defineProperty"]($$RSC_SERVER_CACHE_5, "name", {
-    value: "getPairedProduct"
-});
-var getPairedProduct = $$RSC_SERVER_CACHE_5;
+}
 function mapToProduct(item) {
     // Map Brand
     const brand = {
         id: item.Brand?.id || 0,
-        name: item.Brand?.name || 'Unknown Brand',
+        name: item.Brand?.name || 'Mixed Brand',
         slug: item.Brand?.slug || '',
         logo: item.Brand?.logo || null
     };
@@ -747,7 +751,8 @@ function mapToProduct(item) {
                 logo: offer.retailer.logo
             },
             roundCount: offer.unitsCount || undefined,
-            cpr: offer.totalUnitPrice || (offer.unitsCount && offer.unitsCount > 0 ? offer.price / offer.unitsCount : undefined)
+            // roundCount: offer.unitsCount || undefined,
+            cpr: offer.unitPrice || undefined // Use direct DB value (mapped from unitPrice)
         }));
     // Common Product Fields
     const product = {
@@ -780,40 +785,26 @@ function mapToProduct(item) {
     }
     return product;
 }
-const $$RSC_SERVER_CACHE_6_INNER = async function isValidCaliberSlug(slug) {
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cacheLife"])("days");
+async function isValidCaliberSlug(slug) {
+    // "use cache"
+    // cacheLife("days")
     const count = await __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].caliber.count({
         where: {
             slug
         }
     });
     return count > 0;
-};
-var $$RSC_SERVER_CACHE_6 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(function isValidCaliberSlug() {
-    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$cache$2d$wrapper$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])("default", "c0735ce8044084cc47eed8ce73c42b73b6f33c84a6", 0, $$RSC_SERVER_CACHE_6_INNER, arguments);
-});
-(0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])($$RSC_SERVER_CACHE_6, "c0735ce8044084cc47eed8ce73c42b73b6f33c84a6", null);
-Object["defineProperty"]($$RSC_SERVER_CACHE_6, "name", {
-    value: "isValidCaliberSlug"
-});
-var isValidCaliberSlug = $$RSC_SERVER_CACHE_6;
-const $$RSC_SERVER_CACHE_7_INNER = async function isValidBrandSlug(slug) {
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cacheLife"])("days");
+}
+async function isValidBrandSlug(slug) {
+    // "use cache"
+    // cacheLife("days")
     const count = await __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$lib$2f$prisma$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].brand.count({
         where: {
             slug
         }
     });
     return count > 0;
-};
-var $$RSC_SERVER_CACHE_7 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])(function isValidBrandSlug() {
-    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$cache$2d$wrapper$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cache"])("default", "c073c82766c35f3e43e74d6aa14242344e67ce83d8", 0, $$RSC_SERVER_CACHE_7_INNER, arguments);
-});
-(0, __TURBOPACK__imported__module__$5b$project$5d2f$Downloads$2f$getLoaded$2f$node_modules$2f2e$pnpm$2f$next$40$16$2e$0$2e$10_$40$babel$2b$core$40$7$2e$28$2e$5_react$2d$dom$40$19$2e$2$2e$3_react$40$19$2e$2$2e$3_$5f$react$40$19$2e$2$2e$3$2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])($$RSC_SERVER_CACHE_7, "c073c82766c35f3e43e74d6aa14242344e67ce83d8", null);
-Object["defineProperty"]($$RSC_SERVER_CACHE_7, "name", {
-    value: "isValidBrandSlug"
-});
-var isValidBrandSlug = $$RSC_SERVER_CACHE_7;
+}
 __turbopack_async_result__();
 } catch(e) { __turbopack_async_result__(e); } }, false);}),
 "[project]/Downloads/getLoaded/components/RetailerHydrator.tsx [app-rsc] (client reference proxy) <module evaluation>", ((__turbopack_context__) => {

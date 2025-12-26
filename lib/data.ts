@@ -46,65 +46,90 @@ export async function getOffers(itemId: string): Promise<Offer[]> {
             logo: offer.retailer.logo
         },
         roundCount: offer.unitsCount || undefined,
-        cpr: offer.totalUnitPrice || (offer.unitsCount && offer.unitsCount > 0 ? offer.price / offer.unitsCount : undefined)
+        cpr: offer.unitPrice || undefined // Use direct DB value (mapped from unitPrice)
     }));
 }
 
 
 export async function getProducts(
     kind: 'FIREARM' | 'AMMO',
-    limit = 50,
+    limit = 100,
     skip = 0,
     filters?: {
-        brandSlug?: string;
-        caliberSlug?: string;
-        grain?: number;
+        search?: string;
+        brandSlug?: string[];
+        caliberSlug?: string[];
+        grain?: string[];
+        inStock?: boolean;
     }
 ): Promise<Product[]> {
-    "use cache"
-    cacheLife("minutes")
-    // Update cache tag to include filters
-    const filterKey = filters ? `-${filters.brandSlug || 'all'}-${filters.caliberSlug || 'all'}-${filters.grain || 'all'}` : '';
-    cacheTag(`products-${kind.toLowerCase()}${filterKey}`)
+    // "use cache"
+    // cacheLife("minutes")
+
+    // Create a cache tag that uniquely identifies this query
+    // const filterKey = JSON.stringify(filters || {});
+    // cacheTag(`products-${kind.toLowerCase()}-${Buffer.from(filterKey).toString('base64')}`);
 
     const where: Prisma.CatalogItemWhereInput = {
         kind: kind,
-        offerCount: { gt: 0 }
     };
 
-    if (filters?.brandSlug) {
-        where.Brand = { slug: filters.brandSlug };
+    // 1. Text Search (Title, Brand Name, Caliber Name via Alias/Slug)
+    if (filters?.search) {
+        const search = filters.search.trim();
+        if (search) {
+            where.OR = [
+                { title: { contains: search, mode: 'insensitive' } },
+                { Brand: { name: { contains: search, mode: 'insensitive' } } },
+                // Note: Searching deep relations like Caliber Name in top-level OR is tricky in Prisma 
+                // without overly complex queries. Usually Title contains caliber info.
+                // We'll stick to Title and Brand + potentially slug partials for now.
+            ];
+        }
     }
 
-    // Handle Caliber and Grain filters
-    if (filters?.caliberSlug || filters?.grain) {
-        if (kind === 'FIREARM') {
-            // For firearms, check FirearmSpecs -> FirearmChamber -> Caliber
-            const firearmSpecsWhere: any = {};
+    // 2. Filters
+    if (filters?.brandSlug && filters.brandSlug.length > 0) {
+        where.Brand = { slug: { in: filters.brandSlug } };
+    }
 
-            if (filters.caliberSlug) {
+    // Handle In Stock
+    if (filters?.inStock) {
+        // Must have at least one In Stock offer
+        where.Offer = {
+            some: {
+                inStock: true
+            }
+        };
+    } else {
+        // Default behavior: Must have at least one offer (in stock or not)
+        where.offerCount = { gt: 0 };
+    }
+
+    // Handle Caliber and Grain
+    if ((filters?.caliberSlug && filters.caliberSlug.length > 0) || (filters?.grain && filters.grain.length > 0)) {
+        if (kind === 'FIREARM') {
+            const firearmSpecsWhere: any = {};
+            if (filters.caliberSlug && filters.caliberSlug.length > 0) {
                 firearmSpecsWhere.FirearmChamber = {
                     some: {
-                        Caliber: { slug: filters.caliberSlug }
+                        Caliber: { slug: { in: filters.caliberSlug } }
                     }
                 };
             }
-            // Firearms typically don't have 'grain' but if schema supports it validation logic goes here
-
             where.FirearmSpecs = firearmSpecsWhere;
-
         } else {
-            // For ammo, check AmmoSpecs -> Caliber AND/OR Grain
             const ammoSpecsWhere: any = {};
-
-            if (filters.caliberSlug) {
-                ammoSpecsWhere.Caliber = { slug: filters.caliberSlug };
+            if (filters.caliberSlug && filters.caliberSlug.length > 0) {
+                ammoSpecsWhere.Caliber = { slug: { in: filters.caliberSlug } };
             }
-
-            if (filters.grain) {
-                ammoSpecsWhere.grain = filters.grain;
+            if (filters.grain && filters.grain.length > 0) {
+                // Cast grain strings to int only if valid numbers
+                const validGrains = filters.grain.map(g => parseInt(g)).filter(n => !isNaN(n));
+                if (validGrains.length > 0) {
+                    ammoSpecsWhere.grain = { in: validGrains };
+                }
             }
-
             where.AmmoSpecs = ammoSpecsWhere;
         }
     }
@@ -118,6 +143,11 @@ export async function getProducts(
             Offer: {
                 include: {
                     retailer: true
+                },
+                // If In Stock filter is on, we might want to prioritize in-stock offers in the returned structure?
+                // But the Requirement is about LISTING products.
+                orderBy: {
+                    price: 'asc'
                 }
             },
             FirearmSpecs: {
@@ -135,17 +165,20 @@ export async function getProducts(
                 }
             }
         },
-        orderBy: {
-            bestPrice: 'asc' // Sort by best price ascending
-        }
+        orderBy: [
+            // Requirement: Default Sort Price Per Round.
+            // prioritize in-stock if mixed? The requirement just says "Sort Order ... Price Per Round"
+            { bestCpr: 'asc' },
+            { bestPrice: 'asc' } // Fallback
+        ]
     });
 
     return items.map(mapToProduct);
 }
 
 export async function getProduct(id: string): Promise<Product | null> {
-    "use cache"
-    cacheLife("minutes")
+    // "use cache"
+    // cacheLife("minutes")
     const item = await prisma.catalogItem.findUnique({
         where: { id },
         include: {
@@ -182,8 +215,8 @@ export async function getProduct(id: string): Promise<Product | null> {
 
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
-    "use cache"
-    cacheLife("max")
+    // "use cache"
+    // cacheLife("max")
     const item = await prisma.catalogItem.findUnique({
         where: { slug },
         include: {
@@ -213,8 +246,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
 
 
 export async function getProductsByIds(ids: string[]): Promise<Product[]> {
-    "use cache"
-    cacheLife("minutes")
+
     if (!ids || ids.length === 0) return [];
 
     const items = await prisma.catalogItem.findMany({
@@ -253,8 +285,8 @@ export async function getProductsByIds(ids: string[]): Promise<Product[]> {
 
 
 export async function getPairedProduct(itemId: string): Promise<Product | null> {
-    "use cache"
-    cacheLife("minutes")
+    // "use cache"
+    // cacheLife("minutes")
 
     // 1. Get the item to determine its type and specs
     const item = await prisma.catalogItem.findUnique({
@@ -414,7 +446,7 @@ function mapToProduct(item: any): Product {
     // Map Brand
     const brand: Brand = {
         id: item.Brand?.id || 0,
-        name: item.Brand?.name || 'Unknown Brand',
+        name: item.Brand?.name || 'Mixed Brand',
         slug: item.Brand?.slug || '',
         logo: item.Brand?.logo || null
     };
@@ -438,7 +470,8 @@ function mapToProduct(item: any): Product {
             logo: offer.retailer.logo
         },
         roundCount: offer.unitsCount || undefined,
-        cpr: offer.totalUnitPrice || (offer.unitsCount && offer.unitsCount > 0 ? offer.price / offer.unitsCount : undefined)
+        // roundCount: offer.unitsCount || undefined,
+        cpr: offer.unitPrice || undefined // Use direct DB value (mapped from unitPrice)
     }));
 
     // Common Product Fields
@@ -478,8 +511,8 @@ function mapToProduct(item: any): Product {
 }
 
 export async function isValidCaliberSlug(slug: string): Promise<boolean> {
-    "use cache"
-    cacheLife("days")
+    // "use cache"
+    // cacheLife("days")
     const count = await prisma.caliber.count({
         where: { slug }
     });
@@ -487,8 +520,8 @@ export async function isValidCaliberSlug(slug: string): Promise<boolean> {
 }
 
 export async function isValidBrandSlug(slug: string): Promise<boolean> {
-    "use cache"
-    cacheLife("days")
+    // "use cache"
+    // cacheLife("days")
     const count = await prisma.brand.count({
         where: { slug }
     });

@@ -28,16 +28,35 @@ const AmmoCard: React.FC<AmmoCardProps> = ({ product, isComparing, onToggleCompa
     if (!product?.offers) return [];
     return [...product.offers].sort((a, b) => {
       if (a.inStock !== b.inStock) return a.inStock ? -1 : 1;
-      if (a.cpr && b.cpr) return a.cpr - b.cpr;
+
+      // Ammo: Sort by CPR with data validation
+      if (a.cpr && b.cpr) {
+        // Push suspicious CPR (< 0.01) to bottom unless both are low
+        const aLow = a.cpr < 0.01;
+        const bLow = b.cpr < 0.01;
+        if (aLow !== bLow) return aLow ? 1 : -1;
+
+        return a.cpr - b.cpr;
+      }
+
+      if (a.cpr) return -1;
+      if (b.cpr) return 1;
       return a.price - b.price;
     });
   }, [product?.offers]);
 
   const bestOffer = sortedOffers.length > 0 ? sortedOffers[0] : null;
 
+  const formatCpr = (val?: number) => {
+    if (val === undefined || val === null) return 'N/A';
+    // If it's effectively 0 but we have a value, show more precision
+    if (val < 0.01) return val.toFixed(4);
+    if (val < 0.10) return val.toFixed(3);
+    return val.toFixed(2);
+  };
+
   if (!product || !bestOffer) return null;
   const isInStock = bestOffer.inStock;
-  // if (!isInStock) console.log(`[AmmoCard] Product ${product.id} Sold Out. Best Offer:`, bestOffer.inStock, typeof bestOffer.inStock);
 
   return (
     <Link
@@ -114,7 +133,7 @@ const AmmoCard: React.FC<AmmoCardProps> = ({ product, isComparing, onToggleCompa
           <div className="flex flex-col items-end">
             <div className="flex items-baseline">
               <span className={`text-xl font-bold tracking-tight tabular-nums ${isInStock ? 'text-brand-600' : 'text-slate-400'}`}>
-                ${bestOffer.cpr?.toFixed(2)}
+                ${formatCpr(bestOffer.cpr)}
               </span>
               <span className="ml-1 text-[10px] font-bold uppercase text-slate-400">/ rd</span>
             </div>

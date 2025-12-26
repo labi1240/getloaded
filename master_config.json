@@ -1,0 +1,3248 @@
+[
+    {
+        "cal_id": 88,
+        "name": ".17 HMR",
+        "seo_name": "17hmr",
+        "type": "rimfire"
+    },
+    {
+        "cal_id": 346,
+        "name": ".17 WSM",
+        "seo_name": "17wsm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 90,
+        "name": ".22 Long",
+        "seo_name": "22-long",
+        "type": "rimfire"
+    },
+    {
+        "cal_id": 94,
+        "name": ".22 Mag",
+        "seo_name": "22-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 351,
+        "name": ".223 Remington",
+        "seo_name": "223-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 91,
+        "name": ".22LR",
+        "seo_name": "22lr",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 138,
+        "name": ".30-06",
+        "seo_name": "30-06",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 152,
+        "name": ".30-30 Win",
+        "seo_name": "30-30-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 332,
+        "name": ".300 AAC Blackout",
+        "seo_name": "300aac-blackout",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 159,
+        "name": ".308/7.62x51mm",
+        "seo_name": "308-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 14,
+        "name": ".357 Mag",
+        "seo_name": "357-magnum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 24,
+        "name": ".38 Special",
+        "seo_name": "38-special",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 18,
+        "name": ".380 Auto",
+        "seo_name": "380-auto",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 29,
+        "name": ".40 S&W",
+        "seo_name": "40sw",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 35,
+        "name": ".44 Mag",
+        "seo_name": "44-magnum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 48,
+        "name": ".45 ACP/Auto",
+        "seo_name": "45acp",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 50,
+        "name": ".45 Colt",
+        "seo_name": "45-colt",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 228,
+        "name": ".45-70",
+        "seo_name": "45-70",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1,
+        "name": "10mm Auto",
+        "seo_name": "10mm-auto",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 311,
+        "name": "12 Gauge",
+        "seo_name": "12-gauge",
+        "type": "shotgun"
+    },
+    {
+        "cal_id": 352,
+        "name": "5.56x45mm NATO",
+        "seo_name": "5.56x45mm-nato",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 67,
+        "name": "5.7x28mm",
+        "seo_name": "5.7x28mm",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 255,
+        "name": "6.5mm Creedmoor",
+        "seo_name": "6.5mm-creedmoor",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 276,
+        "name": "7.62x39mm",
+        "seo_name": "7.62x39mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 302,
+        "name": "8mm Mauser",
+        "seo_name": "8mm-mauser",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 82,
+        "name": "9mm Luger",
+        "seo_name": "9mm-luger",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 310,
+        "name": "10 Gauge",
+        "seo_name": "10-gauge",
+        "type": "shotgun"
+    },
+    {
+        "cal_id": 587,
+        "name": "10.15x61R",
+        "seo_name": "10.15x61r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 871,
+        "name": "10.4 Italian Ordnance",
+        "seo_name": "10.4-italian",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 1080,
+        "name": "10.4x47mmR",
+        "seo_name": "10.4x47mmR",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 874,
+        "name": "10.6 German Ordnance",
+        "seo_name": "10.6-german",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 1101,
+        "name": "10.8x47R Martini Target",
+        "seo_name": "10.8x47r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 738,
+        "name": "10mm Magnum",
+        "seo_name": "10mm-magnum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 1083,
+        "name": "11.15x36R",
+        "seo_name": "11.15x36r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1086,
+        "name": "11.15x42R",
+        "seo_name": "11.15x42r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 548,
+        "name": "11.15x58R",
+        "seo_name": "11.15x58r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 584,
+        "name": "11.2x72mm Schuler",
+        "seo_name": "11.2x72mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1033,
+        "name": "11.3x36 Austrian Gasser",
+        "seo_name": "11.3x36mm",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 629,
+        "name": "11.7x51mm Danish",
+        "seo_name": "11.7x51mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 877,
+        "name": "11mm French Ordnance",
+        "seo_name": "11mm-french",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 482,
+        "name": "11mm Mauser",
+        "seo_name": "11mm-mauser",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 458,
+        "name": "12.7x108mm",
+        "seo_name": "12.7x108",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 563,
+        "name": "12.7x44mm Rimmed Danish",
+        "seo_name": "12.7x44r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 831,
+        "name": "14.5x114mm",
+        "seo_name": "14.5x114",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 312,
+        "name": "16 Gauge",
+        "seo_name": "16-gauge",
+        "type": "shotgun"
+    },
+    {
+        "cal_id": 87,
+        "name": ".17 HM2",
+        "seo_name": "17hm2",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 338,
+        "name": ".17 Hornet",
+        "seo_name": "17-hornet",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 89,
+        "name": ".17 PMC/Aguila",
+        "seo_name": "17pmc-aquila",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 101,
+        "name": ".17 Rem",
+        "seo_name": "17-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 102,
+        "name": ".17 Rem Fireball",
+        "seo_name": "17-remington-fireball",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1095,
+        "name": "17-556",
+        "seo_name": "17-556",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1142,
+        "name": ".19 HSM",
+        "seo_name": "19-hsm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 313,
+        "name": "20 Gauge",
+        "seo_name": "20-gauge",
+        "type": "shotgun"
+    },
+    {
+        "cal_id": 334,
+        "name": ".20 Tactical",
+        "seo_name": "20-tactical",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 335,
+        "name": ".20 VarTarg",
+        "seo_name": "20-vartarg",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 103,
+        "name": ".204 Ruger",
+        "seo_name": "204-ruger",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1027,
+        "name": "20mm Caliber",
+        "seo_name": "20mm-caliber",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 988,
+        "name": "20mm Long Solothurn",
+        "seo_name": "20-long-solothurn",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 982,
+        "name": ".21 Sharp",
+        "seo_name": "21-sharp",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 104,
+        "name": ".218 Bee",
+        "seo_name": "218-bee",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 365,
+        "name": ".219 Zipper",
+        "seo_name": "219-zipper",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 907,
+        "name": ".22 ARC",
+        "seo_name": "22-arc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 320,
+        "name": ".22 BB",
+        "seo_name": "22bb",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 92,
+        "name": ".22 CB",
+        "seo_name": "22cb",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 474,
+        "name": ".22 Creedmoor",
+        "seo_name": "22-creedmoor",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 931,
+        "name": ".22 GT",
+        "seo_name": "22-gt",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 118,
+        "name": ".22 Hornet",
+        "seo_name": "22-hornet",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 360,
+        "name": ".22 Jet",
+        "seo_name": "22jet",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 411,
+        "name": ".22 Nosler",
+        "seo_name": "22-nosler",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 322,
+        "name": ".22 PPC",
+        "seo_name": "22ppc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 952,
+        "name": ".22 S/L/LR",
+        "seo_name": "22-sllr",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 93,
+        "name": ".22 Short",
+        "seo_name": "22-short",
+        "type": "rimfire"
+    },
+    {
+        "cal_id": 107,
+        "name": ".22 Spitfire",
+        "seo_name": "22-spitfire",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 343,
+        "name": ".22 TCM",
+        "seo_name": "22tcm",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 417,
+        "name": ".22 TCM 9R",
+        "seo_name": "22tcm9r",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 321,
+        "name": ".22 Win Auto",
+        "seo_name": "22-winchester-auto",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 96,
+        "name": ".22 Win Rimfire",
+        "seo_name": "22wrf",
+        "type": "rimfire"
+    },
+    {
+        "cal_id": 109,
+        "name": ".22-250",
+        "seo_name": "22-250",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 801,
+        "name": "22-6mm Remington",
+        "seo_name": "22-6mm-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 349,
+        "name": ".220 Russian",
+        "seo_name": "220-russian",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 105,
+        "name": ".220 Swift",
+        "seo_name": "220-swift",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 106,
+        "name": ".221 Fireball",
+        "seo_name": "221-fireball",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 110,
+        "name": ".222 Rem",
+        "seo_name": "222-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 112,
+        "name": ".222 Rem Mag",
+        "seo_name": "222-remington-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 602,
+        "name": ".222 Rimmed",
+        "seo_name": "222-rimmed",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 115,
+        "name": ".223 WSSM",
+        "seo_name": "223wssm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 798,
+        "name": ".223 Wylde",
+        "seo_name": "223wylde",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 439,
+        "name": ".224 Valkyrie",
+        "seo_name": "224-valkyrie",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 116,
+        "name": ".224 Weatherby Mag",
+        "seo_name": "224-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 117,
+        "name": ".225 Win",
+        "seo_name": "225-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 314,
+        "name": "24 Gauge",
+        "seo_name": "24-gauge",
+        "type": "shotgun"
+    },
+    {
+        "cal_id": 533,
+        "name": ".24 Nosler",
+        "seo_name": "24-nosler",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 119,
+        "name": ".240 Weatherby Mag",
+        "seo_name": "240-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 121,
+        "name": ".243 WSSM",
+        "seo_name": "243wssm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 120,
+        "name": ".243 Win",
+        "seo_name": "243-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 2,
+        "name": ".25 ACP",
+        "seo_name": "25acp",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 822,
+        "name": ".25 Creedmoor",
+        "seo_name": "25-creedmoor",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 964,
+        "name": ".25 GT",
+        "seo_name": "25-gt",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 4,
+        "name": ".25 NAA",
+        "seo_name": "25naa",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 395,
+        "name": ".25 Remington",
+        "seo_name": "25-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1003,
+        "name": ".25 Stevens",
+        "seo_name": "25-stevens",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1009,
+        "name": ".25 Stevens Short",
+        "seo_name": "25-stevens-short",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 129,
+        "name": ".25 WSSM",
+        "seo_name": "25wssm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 122,
+        "name": ".25-06 Rem",
+        "seo_name": "25-06-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 124,
+        "name": ".25-20 Win",
+        "seo_name": "25-20-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 125,
+        "name": ".25-35 Win",
+        "seo_name": "25-35-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 497,
+        "name": ".25-36 Marlin",
+        "seo_name": "25-36-marlin",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 380,
+        "name": ".25-45 Sharps",
+        "seo_name": "25-45-sharps",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 123,
+        "name": ".250-3000 Savage",
+        "seo_name": "250-savage",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 381,
+        "name": ".256 Win Mag",
+        "seo_name": "256-winchester-magnum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 127,
+        "name": ".257 Roberts",
+        "seo_name": "257-roberts",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 500,
+        "name": ".257 STW",
+        "seo_name": "257-stw",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 128,
+        "name": ".257 Weatherby Mag",
+        "seo_name": "257-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1012,
+        "name": "25x47 Lapua",
+        "seo_name": "25-47-lapua",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 363,
+        "name": ".26 Nosler",
+        "seo_name": "26nosler",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 130,
+        "name": ".260 Rem",
+        "seo_name": "260-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 131,
+        "name": ".264 Win Mag",
+        "seo_name": "264-winchester-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 679,
+        "name": ".27 Nosler",
+        "seo_name": "27nosler",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 134,
+        "name": ".270 WSM",
+        "seo_name": "270wsm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 132,
+        "name": ".270 Weatherby Mag",
+        "seo_name": "270-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 133,
+        "name": ".270 Win",
+        "seo_name": "270-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 691,
+        "name": ".277 Fury",
+        "seo_name": "277-fury",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 449,
+        "name": ".277 Wolverine",
+        "seo_name": "277-wolverine",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 315,
+        "name": "28 Gauge",
+        "seo_name": "28-gauge",
+        "type": "shotgun"
+    },
+    {
+        "cal_id": 374,
+        "name": ".28 Nosler",
+        "seo_name": "28nosler",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 136,
+        "name": ".280 Rem",
+        "seo_name": "280-remington-ackley-improved",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 135,
+        "name": ".280 Rem Ackley Imp.",
+        "seo_name": "280-remington-ackley-improved",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 137,
+        "name": ".284 Win",
+        "seo_name": "284-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 163,
+        "name": ".30 Carbine",
+        "seo_name": "30-carbine",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 530,
+        "name": ".30 Gibbs",
+        "seo_name": "30-gibbs",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 665,
+        "name": ".30 H&H Super Flanged",
+        "seo_name": "30-super-flanged",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 5,
+        "name": ".30 Luger",
+        "seo_name": "30-luger",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 389,
+        "name": ".30 Nosler",
+        "seo_name": "30nosler",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 164,
+        "name": ".30 Rem AR",
+        "seo_name": "30-remington-ar",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 323,
+        "name": ".30 Remington",
+        "seo_name": "30-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1021,
+        "name": ".30 Rimfire",
+        "seo_name": "30-rimfire",
+        "type": "rimfire"
+    },
+    {
+        "cal_id": 781,
+        "name": ".30 Super Carry",
+        "seo_name": "30-super-carry",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 165,
+        "name": ".30 TC",
+        "seo_name": "30tc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 753,
+        "name": ".30 WWG",
+        "seo_name": "30-wwg",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1089,
+        "name": ".30-03 Springfield",
+        "seo_name": "30-03",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 153,
+        "name": ".30-378 Weatherby Mag",
+        "seo_name": "30-378-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 156,
+        "name": ".30-40 Krag",
+        "seo_name": "30-40-krag",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 732,
+        "name": ".300 Blaser Mag",
+        "seo_name": "300-blaser-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 524,
+        "name": ".300 Dakota",
+        "seo_name": "300-dakota",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 139,
+        "name": ".300 H&H",
+        "seo_name": "300hh",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 527,
+        "name": ".300 HAM'R",
+        "seo_name": "300-hamr",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 391,
+        "name": ".300 Norma Mag",
+        "seo_name": "300-norma-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 467,
+        "name": ".300 PRC",
+        "seo_name": "300prc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 140,
+        "name": ".300 Pegasus",
+        "seo_name": "300-pegasus",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 141,
+        "name": ".300 RCM",
+        "seo_name": "300rcm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 142,
+        "name": ".300 RUM",
+        "seo_name": "300rum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 143,
+        "name": ".300 Rem SAUM",
+        "seo_name": "300saum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 617,
+        "name": ".300 Rook",
+        "seo_name": "300-rook",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 144,
+        "name": ".300 Savage",
+        "seo_name": "300-savage",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 575,
+        "name": ".300 Sherwood",
+        "seo_name": "300-sherwood",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 151,
+        "name": ".300 WSM",
+        "seo_name": "300wsm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 145,
+        "name": ".300 Weatherby Mag",
+        "seo_name": "300-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 146,
+        "name": ".300 Whisper",
+        "seo_name": "300-whisper",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 150,
+        "name": ".300 Win Mag",
+        "seo_name": "300-winchester-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 154,
+        "name": ".303 British",
+        "seo_name": "303-british",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 155,
+        "name": ".303 Savage",
+        "seo_name": "303-savage",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 158,
+        "name": ".307 Win",
+        "seo_name": "307-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 161,
+        "name": ".308 Marlin Express",
+        "seo_name": "308-marlin-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 162,
+        "name": ".308 Norma Mag",
+        "seo_name": "308-norma-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 644,
+        "name": ".310 Cadet",
+        "seo_name": "310-cadet",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 166,
+        "name": ".318 Westley Richards",
+        "seo_name": "318-westley-richards",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 7,
+        "name": ".32 ACP",
+        "seo_name": "32acp",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 979,
+        "name": ".32 Colt Lightning",
+        "seo_name": "32-colt-lightning",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1060,
+        "name": ".32 Extra Long Rimfire",
+        "seo_name": "32-extra-long",
+        "type": "rimfire"
+    },
+    {
+        "cal_id": 316,
+        "name": "32 Gauge",
+        "seo_name": "32-gauge",
+        "type": "shotgun"
+    },
+    {
+        "cal_id": 9,
+        "name": ".32 H&R Mag",
+        "seo_name": "32hr-mag",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 566,
+        "name": ".32 Ideal",
+        "seo_name": "32-ideal",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 376,
+        "name": ".32 Long Colt",
+        "seo_name": "32-long-colt",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 97,
+        "name": ".32 Long Rimfire",
+        "seo_name": "32-long",
+        "type": "rimfire"
+    },
+    {
+        "cal_id": 10,
+        "name": ".32 NAA",
+        "seo_name": "32naa",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 402,
+        "name": ".32 Remington",
+        "seo_name": "32rem",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 12,
+        "name": ".32 S&W",
+        "seo_name": "32sw",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 13,
+        "name": ".32 S&W Long",
+        "seo_name": "32sw-long",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 11,
+        "name": ".32 Short Colt",
+        "seo_name": "32-short-colt",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 1057,
+        "name": ".32 Short Rimfire",
+        "seo_name": "32-short",
+        "type": "rimfire"
+    },
+    {
+        "cal_id": 433,
+        "name": ".32 WSL",
+        "seo_name": "32-winchester-self-loading",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 174,
+        "name": ".32 Win Special",
+        "seo_name": "32-winchester-special",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 976,
+        "name": ".32-20 Marlin",
+        "seo_name": "32-20-marlin",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 167,
+        "name": ".32-20 Win",
+        "seo_name": "32-20-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 171,
+        "name": ".32-40 Win",
+        "seo_name": "32-40-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 372,
+        "name": ".320 Long",
+        "seo_name": "320-long",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 371,
+        "name": ".320 Short",
+        "seo_name": "320-short",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 173,
+        "name": ".325 WSM",
+        "seo_name": "325wsm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 15,
+        "name": ".327 Federal Mag",
+        "seo_name": "327-federal-magnum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 421,
+        "name": ".33 Nosler",
+        "seo_name": "33nosler",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 373,
+        "name": ".33 WCF",
+        "seo_name": "33-wcf",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 946,
+        "name": ".33 XC",
+        "seo_name": "33-xc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1075,
+        "name": ".330 Dakota",
+        "seo_name": "330-dakota",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 175,
+        "name": ".333 Jeffery",
+        "seo_name": "333-jeffery",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 554,
+        "name": ".333 Jeffery Flanged",
+        "seo_name": "333-jeffery-flanged",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 997,
+        "name": ".338 ARC",
+        "seo_name": "338-arc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 536,
+        "name": ".338 Blaser Mag",
+        "seo_name": "338-blaser-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 841,
+        "name": ".338 Edge",
+        "seo_name": "338-edge",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 178,
+        "name": ".338 Excalibur",
+        "seo_name": "338-excalibur",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 179,
+        "name": ".338 Federal",
+        "seo_name": "338-federal",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 180,
+        "name": ".338 Lapua Mag",
+        "seo_name": "338-lapua-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 181,
+        "name": ".338 Marlin Express",
+        "seo_name": "338-marlin-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 182,
+        "name": ".338 Norma Mag",
+        "seo_name": "338-norma-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 184,
+        "name": ".338 RCM",
+        "seo_name": "338rcm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 183,
+        "name": ".338 RUM",
+        "seo_name": "338rum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 837,
+        "name": ".338 Razorback",
+        "seo_name": "338-razorback",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 367,
+        "name": ".338 Spectre",
+        "seo_name": "338spectre",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 804,
+        "name": ".338 Weatherby RPM",
+        "seo_name": "338-weatherby-rpm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 342,
+        "name": ".338 Whisper",
+        "seo_name": "338-whisper",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 185,
+        "name": ".338 Win Mag",
+        "seo_name": "338-winchester-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 176,
+        "name": ".338-06",
+        "seo_name": "338-06",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 177,
+        "name": ".338-378 Weatherby Mag",
+        "seo_name": "338-378-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 186,
+        "name": ".340 Weatherby Mag",
+        "seo_name": "340-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 187,
+        "name": ".348 Win",
+        "seo_name": "348-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 193,
+        "name": ".35 Rem",
+        "seo_name": "35-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1139,
+        "name": ".35 S&W Auto",
+        "seo_name": "35-sw-auto",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 430,
+        "name": ".35 WSL",
+        "seo_name": "35-winchester-self-loading",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 759,
+        "name": ".35 WWG",
+        "seo_name": "35-wwg",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 194,
+        "name": ".35 Whelen",
+        "seo_name": "35-whelen",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 195,
+        "name": ".35 Win",
+        "seo_name": "35-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 471,
+        "name": ".350 Legend",
+        "seo_name": "350-legend",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 188,
+        "name": ".350 Rem Mag",
+        "seo_name": "350-remington-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 611,
+        "name": ".350 Rigby",
+        "seo_name": "350-rigby",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 356,
+        "name": ".351 WSL",
+        "seo_name": "351-winchester-self-loading",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 358,
+        "name": ".356 TSW",
+        "seo_name": "356-tsw",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 189,
+        "name": ".356 Win",
+        "seo_name": "356-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 16,
+        "name": ".357 Rem Max",
+        "seo_name": "357-remington-maximum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 17,
+        "name": ".357 SIG",
+        "seo_name": "357sig",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 190,
+        "name": ".358 Norma Mag",
+        "seo_name": "358-norma-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 191,
+        "name": ".358 ST Alaskan",
+        "seo_name": "358st-alaskan",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 192,
+        "name": ".358 Win",
+        "seo_name": "358-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 825,
+        "name": ".360 Buckhammer",
+        "seo_name": "360-buckhammer",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 632,
+        "name": ".360 Nitro Express",
+        "seo_name": "360-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 641,
+        "name": ".360 No. 2 Nitro Express",
+        "seo_name": "360-no-2-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 196,
+        "name": ".370 Sako Mag",
+        "seo_name": "370-sako-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 735,
+        "name": ".375 Blaser Mag",
+        "seo_name": "375-blaser-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 368,
+        "name": ".375 CheyTac",
+        "seo_name": "375-cheytac",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 521,
+        "name": ".375 Dakota",
+        "seo_name": "375-dakota",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 994,
+        "name": ".375 EnABELR",
+        "seo_name": "375-enabelr",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 198,
+        "name": ".375 Flanged Magnum Nitro Express",
+        "seo_name": "375-flanged-magnum-nitro-expre",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1098,
+        "name": ".375 Flanged Nitro Express",
+        "seo_name": "375-flanged-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 197,
+        "name": ".375 H&H Mag",
+        "seo_name": "375hh-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 318,
+        "name": ".375 JDJ",
+        "seo_name": "375jdj",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 199,
+        "name": ".375 RUM",
+        "seo_name": "375rum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 670,
+        "name": ".375 Raptor",
+        "seo_name": "375-raptor",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 200,
+        "name": ".375 Ruger",
+        "seo_name": "375-ruger",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 420,
+        "name": ".375 SOCOM",
+        "seo_name": "375socom",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 790,
+        "name": ".375 Swiss P",
+        "seo_name": "375-swiss-p",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 201,
+        "name": ".375 Weatherby Mag",
+        "seo_name": "375-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 341,
+        "name": ".375 Whisper",
+        "seo_name": "375-whisper",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 202,
+        "name": ".375 Win",
+        "seo_name": "375-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 203,
+        "name": ".376 Steyr",
+        "seo_name": "376-steyr",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 204,
+        "name": ".378 Weatherby Mag",
+        "seo_name": "378-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1024,
+        "name": ".38 AMU",
+        "seo_name": "38-amu",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 21,
+        "name": ".38 Auto",
+        "seo_name": "38acp",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 22,
+        "name": ".38 Long Colt",
+        "seo_name": "38-long-colt",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 1018,
+        "name": ".38 Rimfire",
+        "seo_name": "38-rimfire",
+        "type": "rimfire"
+    },
+    {
+        "cal_id": 26,
+        "name": ".38 S&W",
+        "seo_name": "38sw",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 23,
+        "name": ".38 Short Colt",
+        "seo_name": "38-short-colt",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 703,
+        "name": ".38 Special Short",
+        "seo_name": "38-special-short",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 25,
+        "name": ".38 Super Auto",
+        "seo_name": "38-super",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 392,
+        "name": ".38 Super Comp",
+        "seo_name": "38-super-comp",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 916,
+        "name": ".38 TJ",
+        "seo_name": "38-tj",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 20,
+        "name": ".38-40 Win",
+        "seo_name": "38-40-winchester",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 205,
+        "name": ".38-55 Win",
+        "seo_name": "38-55-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 206,
+        "name": ".38-56",
+        "seo_name": "38-56",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 961,
+        "name": ".38-70 Winchester",
+        "seo_name": "38-70",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 685,
+        "name": ".38/200",
+        "seo_name": "38-200",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 19,
+        "name": ".380 Long",
+        "seo_name": "380-long",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 838,
+        "name": ".380 Rimmed Short",
+        "seo_name": "380-rimmed-short",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 58,
+        "name": "4.6x30mm",
+        "seo_name": "4.6x30mm",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 30,
+        "name": ".40 Super",
+        "seo_name": "40-super",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 922,
+        "name": ".40-50 Sharps",
+        "seo_name": "40-50-sharps",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 207,
+        "name": ".40-60",
+        "seo_name": "40-60",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 208,
+        "name": ".40-65 Win",
+        "seo_name": "40-65-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 596,
+        "name": ".40-70 Sharps",
+        "seo_name": "40-70-sharps",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1145,
+        "name": ".40-72 WCF",
+        "seo_name": "40-72",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 329,
+        "name": ".40-82 Win",
+        "seo_name": "40-82-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 593,
+        "name": ".40-90 Sharps",
+        "seo_name": "40-90-sharps",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 209,
+        "name": ".400 A-Square",
+        "seo_name": "400-a-square",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 28,
+        "name": ".400 Cor-Bon",
+        "seo_name": "400-corbon",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 1066,
+        "name": ".400 H&H Mag",
+        "seo_name": "400hh-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 828,
+        "name": ".400 Legend",
+        "seo_name": "400-legend",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 614,
+        "name": ".400 Nitro Express",
+        "seo_name": "400-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 539,
+        "name": ".400 Whelen",
+        "seo_name": "400-whelen",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 515,
+        "name": ".400-360 Thin Rim Evans",
+        "seo_name": "400-360-evans",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 512,
+        "name": ".400-360 Thin Rim Fraser",
+        "seo_name": "400-360-fraser",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 506,
+        "name": ".400-360 Thin Rim Purdey",
+        "seo_name": "400-360-purdey",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 509,
+        "name": ".400-360 Thin Rim Richards",
+        "seo_name": "400-360-richards",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 427,
+        "name": ".401 WSL",
+        "seo_name": "401-winchester-self-loading",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 211,
+        "name": ".404 Jeffery",
+        "seo_name": "404-jeffery",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 213,
+        "name": ".405 Win",
+        "seo_name": "405-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 364,
+        "name": ".408 CheyTac",
+        "seo_name": "408-cheytac",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 468,
+        "name": ".41 Action Express",
+        "seo_name": "41action-express",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 31,
+        "name": ".41 Long Colt",
+        "seo_name": "41-long-colt",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 32,
+        "name": ".41 Rem Mag",
+        "seo_name": "41-remington-magnum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 1048,
+        "name": ".41 Short Colt",
+        "seo_name": "41-short-colt",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 369,
+        "name": ".41 Short Rimfire",
+        "seo_name": "41-short-rimfire",
+        "type": "rimfire"
+    },
+    {
+        "cal_id": 396,
+        "name": ".41 Special",
+        "seo_name": "41special",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 868,
+        "name": ".41 Swiss",
+        "seo_name": "41-swiss",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 317,
+        "name": ".410 Bore",
+        "seo_name": "410-bore",
+        "type": "shotgun"
+    },
+    {
+        "cal_id": 337,
+        "name": ".416 Barrett",
+        "seo_name": "416-barrett",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 214,
+        "name": ".416 Rem Mag",
+        "seo_name": "416-remington-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 215,
+        "name": ".416 Rigby",
+        "seo_name": "416-rigby",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 216,
+        "name": ".416 Ruger",
+        "seo_name": "416-ruger",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 217,
+        "name": ".416 Taylor",
+        "seo_name": "416-taylor",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 218,
+        "name": ".416 Weatherby Mag",
+        "seo_name": "416-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1119,
+        "name": ".42 Russian",
+        "seo_name": "42-russian",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 635,
+        "name": ".423 Mauser",
+        "seo_name": "423-mauser",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 219,
+        "name": ".425 Westley Richards",
+        "seo_name": "425-westley-richards",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 461,
+        "name": ".429 Desert Eagle",
+        "seo_name": "429-desert-eagle",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 572,
+        "name": ".43 Beaumont",
+        "seo_name": "43-beaumont",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1125,
+        "name": ".43 Dutch Beaumont",
+        "seo_name": "43-dutch",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 569,
+        "name": ".43 Egyptian",
+        "seo_name": "43-egyptian",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 382,
+        "name": ".43 Spanish",
+        "seo_name": "43-spanish",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 33,
+        "name": ".44 AMP",
+        "seo_name": "44amp",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 34,
+        "name": ".44 Colt",
+        "seo_name": "44-colt",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 36,
+        "name": ".44 S&W Russian",
+        "seo_name": "44sw-russian",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 37,
+        "name": ".44 S&W Special",
+        "seo_name": "44-special",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 898,
+        "name": ".44 Webley",
+        "seo_name": "44-webley",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 220,
+        "name": ".44-40 Win",
+        "seo_name": "44-40-winchester",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 397,
+        "name": ".44-77 Sharps",
+        "seo_name": "44-77-sharps",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 38,
+        "name": ".440 Cor-Bon",
+        "seo_name": "440-corbon",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 221,
+        "name": ".444 Marlin",
+        "seo_name": "444-marlin",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 348,
+        "name": ".445 SuperMag",
+        "seo_name": "445-super-magnum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 49,
+        "name": ".45 Auto Rim",
+        "seo_name": "45-auto-rim",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 605,
+        "name": ".45 Basic",
+        "seo_name": "45-basic",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1131,
+        "name": ".45 Cowboy Special",
+        "seo_name": "45-cowboy-special",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 52,
+        "name": ".45 GAP",
+        "seo_name": "45gap",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 394,
+        "name": ".45 HP",
+        "seo_name": "45hp",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 393,
+        "name": ".45 Raptor",
+        "seo_name": "45-raptor",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 53,
+        "name": ".45 Schofield",
+        "seo_name": "45-schofield",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 388,
+        "name": ".45 Special",
+        "seo_name": "45-special",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 54,
+        "name": ".45 Super",
+        "seo_name": "45-super",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 55,
+        "name": ".45 Win Mag",
+        "seo_name": "45-winchester-magnum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 387,
+        "name": ".45-100 Sharps",
+        "seo_name": "45-100-sharps",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 328,
+        "name": ".45-110",
+        "seo_name": "45-110",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 327,
+        "name": ".45-120",
+        "seo_name": "45-120",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 865,
+        "name": ".45-55",
+        "seo_name": "45-55",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 330,
+        "name": ".45-60",
+        "seo_name": "45-60",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 859,
+        "name": ".45-70-405",
+        "seo_name": "45-70-405",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 862,
+        "name": ".45-70-500",
+        "seo_name": "45-70-500",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 229,
+        "name": ".45-75",
+        "seo_name": "45-75",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 230,
+        "name": ".45-90",
+        "seo_name": "45-90",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 222,
+        "name": ".450 Ackley Mag",
+        "seo_name": "450-ackley-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 518,
+        "name": "450 Alaskan",
+        "seo_name": "450-alaskan",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 223,
+        "name": ".450 Assegai",
+        "seo_name": "450-assegai",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 319,
+        "name": ".450 AutoBond",
+        "seo_name": "450-autobond",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 224,
+        "name": ".450 Bushmaster",
+        "seo_name": "450-bushmaster",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 225,
+        "name": ".450 Marlin",
+        "seo_name": "450-marlin",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 226,
+        "name": ".450 Nitro",
+        "seo_name": "450-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 227,
+        "name": ".450 Rigby",
+        "seo_name": "450-rigby",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1051,
+        "name": ".450 SMC",
+        "seo_name": "450-smc",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 39,
+        "name": ".450 Short",
+        "seo_name": "450-short",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 347,
+        "name": ".450-400 Nitro",
+        "seo_name": "450-400-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 46,
+        "name": ".454 Casull",
+        "seo_name": "454-casull",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 47,
+        "name": ".455 Webley",
+        "seo_name": "455-webley",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 378,
+        "name": ".457 WWG",
+        "seo_name": "457-wwg",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 455,
+        "name": ".458 HAM'R",
+        "seo_name": "458-hamr",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 231,
+        "name": ".458 Lott",
+        "seo_name": "458-lott",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 232,
+        "name": ".458 SOCOM",
+        "seo_name": "458-socom",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 233,
+        "name": ".458 Win Mag",
+        "seo_name": "458-winchester-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 56,
+        "name": ".460 Rowland",
+        "seo_name": "460-rowland",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 57,
+        "name": ".460 S&W Mag",
+        "seo_name": "460sw-magnum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 235,
+        "name": ".460 Short A-Square",
+        "seo_name": "460-short",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 234,
+        "name": ".460 Weatherby Mag",
+        "seo_name": "460-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 236,
+        "name": ".470 Capstick",
+        "seo_name": "470-capstick",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 237,
+        "name": ".470 Nitro Express",
+        "seo_name": "470-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 59,
+        "name": ".475 Linebaugh",
+        "seo_name": "475-linebaugh",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 503,
+        "name": ".475 Nitro",
+        "seo_name": "475-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 653,
+        "name": ".475 No. 2 Nitro Express",
+        "seo_name": "475-no-2-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 238,
+        "name": ".475 Turnbull",
+        "seo_name": "475-turnbull",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 339,
+        "name": ".475 Wildey Magnum",
+        "seo_name": "475-wildey-magnum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 60,
+        "name": ".480 Ruger",
+        "seo_name": "480-ruger",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 715,
+        "name": ".495 A-Square",
+        "seo_name": "495-a-square",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 829,
+        "name": "4mm Randz Court",
+        "seo_name": "4mm-randz-court",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 249,
+        "name": "5.45x39mm",
+        "seo_name": "5.45x39mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 251,
+        "name": "5.6 x 52R",
+        "seo_name": "5.6x52r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 662,
+        "name": "5.6x33R",
+        "seo_name": "5.6x33r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 325,
+        "name": "5.6x50mm Rimmed",
+        "seo_name": "5.6x50r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 68,
+        "name": "5.75mm Velo-Dog",
+        "seo_name": "5.75mm-velo-dog",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 64,
+        "name": ".50 Action Express",
+        "seo_name": "50-action-express",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 359,
+        "name": ".50 Alaskan",
+        "seo_name": "50-alaskan",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 243,
+        "name": ".50 BMG",
+        "seo_name": "50bmg",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 65,
+        "name": ".50 Beowulf",
+        "seo_name": "50-beowulf",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 66,
+        "name": ".50 GI",
+        "seo_name": "50gi",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 1069,
+        "name": ".50 Spotter Tracer",
+        "seo_name": "50-spotter-tracer",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 880,
+        "name": ".50 Springfield Cadet",
+        "seo_name": "50-springfield-cadet",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 248,
+        "name": ".50-110",
+        "seo_name": "50-110",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 245,
+        "name": ".50-70",
+        "seo_name": "50-70",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 246,
+        "name": ".50-90",
+        "seo_name": "50-90",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 247,
+        "name": ".50-95",
+        "seo_name": "50-95",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 239,
+        "name": ".500 A-Square",
+        "seo_name": "500-a-square",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 440,
+        "name": ".500 Auto Max",
+        "seo_name": "500-auto-max",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 446,
+        "name": ".500 JRH",
+        "seo_name": "500-jrh",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 240,
+        "name": ".500 Jeffery",
+        "seo_name": "500-jeffery",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 61,
+        "name": ".500 Linebaugh",
+        "seo_name": "500-linebaugh",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 241,
+        "name": ".500 Nitro Express",
+        "seo_name": "500-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 62,
+        "name": ".500 S&W Mag",
+        "seo_name": "500sw-magnum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 63,
+        "name": ".500 S&W Special",
+        "seo_name": "500sw-special",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 326,
+        "name": ".500 Wyoming Express",
+        "seo_name": "500-wyoming-express",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 750,
+        "name": ".500-416 Nitro Express",
+        "seo_name": "500-416-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 623,
+        "name": ".500-450 Number 2",
+        "seo_name": "500-450-number-2",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 608,
+        "name": ".500-465 Nitro Express",
+        "seo_name": "500-465-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 242,
+        "name": ".505 Gibbs",
+        "seo_name": "505-gibbs",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 717,
+        "name": ".510 DTC",
+        "seo_name": "510-dtc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 340,
+        "name": ".510 Whisper",
+        "seo_name": "510-whisper",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 250,
+        "name": ".56-50",
+        "seo_name": "56-50",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 362,
+        "name": ".577 Nitro Express",
+        "seo_name": "577-nitro-express",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 324,
+        "name": ".577 Snider",
+        "seo_name": "577-snider",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 253,
+        "name": ".577-450 Martini-Henry",
+        "seo_name": "577-450-martini-henry",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 626,
+        "name": ".577-500 Number 2",
+        "seo_name": "577-500-number-2",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 98,
+        "name": "5mm Rem Rimfire Mag",
+        "seo_name": "5mm-remington-magnum",
+        "type": "rimfire"
+    },
+    {
+        "cal_id": 477,
+        "name": "6.5 SAUM 4S",
+        "seo_name": "6.5-saum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 676,
+        "name": "6.5 Weatherby RPM",
+        "seo_name": "6.5-weatherby-rpm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 344,
+        "name": "6.5-06",
+        "seo_name": "6.5-06",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 333,
+        "name": "6.5-284 Norma",
+        "seo_name": "6.5-284",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 408,
+        "name": "6.5-300 Weatherby Magnum",
+        "seo_name": "6.5-300-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 542,
+        "name": "6.5X52R",
+        "seo_name": "6.5x52r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 256,
+        "name": "6.5mm Grendel",
+        "seo_name": "6.5mm-grendel",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 436,
+        "name": "6.5mm PRC",
+        "seo_name": "6.5mm-prc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 263,
+        "name": "6.5mm Rem Mag",
+        "seo_name": "6.5mm-remington-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 772,
+        "name": "6.5x257 Roberts",
+        "seo_name": "6.5x257-roberts",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 257,
+        "name": "6.5x47mm Lapua",
+        "seo_name": "6.5x47mm-lapua",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 258,
+        "name": "6.5x50mm Japanese",
+        "seo_name": "6.5x50mm-japanese",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 259,
+        "name": "6.5x52mm Carcano",
+        "seo_name": "6.5x52mm-carcano",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 331,
+        "name": "6.5x53mm Mannlicher",
+        "seo_name": "6.5x53mm-mannlicher",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 260,
+        "name": "6.5x54mm Schonauer",
+        "seo_name": "6.5x54mm-schonauer",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 261,
+        "name": "6.5x55mm",
+        "seo_name": "6.5x55mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 262,
+        "name": "6.5x57mm",
+        "seo_name": "6.5x57mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 656,
+        "name": "6.5x58R",
+        "seo_name": "6.5x58r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 886,
+        "name": "6.5x58mm",
+        "seo_name": "6.5x58",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 729,
+        "name": "6.8 Western",
+        "seo_name": "6.8-western",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 264,
+        "name": "6.8mm Rem SPC",
+        "seo_name": "6.8mm-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 682,
+        "name": "6mm ARC",
+        "seo_name": "6mm-arc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1104,
+        "name": "6mm BR Remington",
+        "seo_name": "6mm-br-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 967,
+        "name": "6mm BRA",
+        "seo_name": "6mm-bra",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 268,
+        "name": "6mm Benchrest WSM",
+        "seo_name": "6mm-benchrest",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 405,
+        "name": "6mm Creedmoor",
+        "seo_name": "6mm-creedmoor",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 744,
+        "name": "6mm Dasher",
+        "seo_name": "6mm-dasher",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 726,
+        "name": "6mm GT",
+        "seo_name": "6mm-gt",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 856,
+        "name": "6mm Lee Navy",
+        "seo_name": "6mm-lee-navy",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 928,
+        "name": "6mm Max",
+        "seo_name": "6mm-max",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 269,
+        "name": "6mm Norma BR",
+        "seo_name": "6mm-norma",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 673,
+        "name": "6mm PPC",
+        "seo_name": "6mm-ppc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1077,
+        "name": "6mm PRC",
+        "seo_name": "6mm-prc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 270,
+        "name": "6mm Rem",
+        "seo_name": "6mm-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 375,
+        "name": "6mm Super LR",
+        "seo_name": "6mm-super-lr",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 271,
+        "name": "6mm XC",
+        "seo_name": "6mm-xc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 795,
+        "name": "6mm-06",
+        "seo_name": "6mm-06",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 266,
+        "name": "6x45mm",
+        "seo_name": "6x45mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 778,
+        "name": "6x47mm Lapua",
+        "seo_name": "6x47mm-lapua",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 265,
+        "name": "6x70R",
+        "seo_name": "6x70r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 272,
+        "name": "7-30 Waters",
+        "seo_name": "7-30-waters",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 943,
+        "name": "7-6.5 PRCW",
+        "seo_name": "7-6.5-prcw",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 273,
+        "name": "7.35x51mm Carcano",
+        "seo_name": "7.35x51mm-carcano",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 694,
+        "name": "7.5 FK",
+        "seo_name": "7.5-fk",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 69,
+        "name": "7.5mm Swiss Ordnance",
+        "seo_name": "7.5mm-swiss-ordnance",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 925,
+        "name": "7.5x53.5mm Swiss",
+        "seo_name": "7.5x53.5mm-swiss",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 274,
+        "name": "7.5x54mm French",
+        "seo_name": "7.5x54mm-french",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 275,
+        "name": "7.5x55mm Swiss",
+        "seo_name": "7.5x55mm-swiss",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 70,
+        "name": "7.62x25mm Tokarev",
+        "seo_name": "7.62x25mm-tokarev",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 71,
+        "name": "7.62x38R Nagant",
+        "seo_name": "7.62x38-nagant-revolver",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 973,
+        "name": "7.62x40mm Wilson Tactical",
+        "seo_name": "7.62x40mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 353,
+        "name": "7.62x45mm",
+        "seo_name": "7.62x45mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 357,
+        "name": "7.62x53R",
+        "seo_name": "7.62x53r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 277,
+        "name": "7.62x54R",
+        "seo_name": "7.62x54r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 72,
+        "name": "7.63x25mm Mauser",
+        "seo_name": "7.63x25mm-mauser",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 370,
+        "name": "7.65x20mm Longue",
+        "seo_name": "7.65x20",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 545,
+        "name": "7.65x53R",
+        "seo_name": "7.65x53r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 279,
+        "name": "7.65x53mm Argentine",
+        "seo_name": "7.65x53mm-mauser",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 284,
+        "name": "7.7 Japanese",
+        "seo_name": "7.7x58mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 775,
+        "name": "7.82 Patriot",
+        "seo_name": "7.82-patriot",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 295,
+        "name": "7.92x33mm Kurz",
+        "seo_name": "8mm-kurz",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1030,
+        "name": ".70-150 WCF",
+        "seo_name": "70-150-wcf",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 354,
+        "name": "7mm BR",
+        "seo_name": "7mm-br",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1063,
+        "name": "7mm Backcountry",
+        "seo_name": "7mm-backcountry",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 712,
+        "name": "7mm Blaser Magnum",
+        "seo_name": "7mm-blaser-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 940,
+        "name": "7mm Dakota",
+        "seo_name": "7mm-dakota",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 478,
+        "name": "7mm LRM",
+        "seo_name": "7mm-lrm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 286,
+        "name": "7mm Mauser",
+        "seo_name": "7mm-mauser",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 807,
+        "name": "7mm PRC",
+        "seo_name": "7mm-prc",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 290,
+        "name": "7mm RUM",
+        "seo_name": "7mm-rum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 289,
+        "name": "7mm Rem Mag",
+        "seo_name": "7mm-remington-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 291,
+        "name": "7mm Rem SAUM",
+        "seo_name": "7mm-saum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1072,
+        "name": "7mm SAW",
+        "seo_name": "7mm-saw",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 292,
+        "name": "7mm STW",
+        "seo_name": "7mm-stw",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 294,
+        "name": "7mm WSM",
+        "seo_name": "7mm-wsm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 293,
+        "name": "7mm Weatherby Mag",
+        "seo_name": "7mm-weatherby-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 282,
+        "name": "7mm x 57 Rimmed",
+        "seo_name": "7x57r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 285,
+        "name": "7mm-08 Rem",
+        "seo_name": "7mm-08-remington",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 385,
+        "name": "7x61 Sharpe & Hart Mag",
+        "seo_name": "7x61-sharpe",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 278,
+        "name": "7x64mm",
+        "seo_name": "7x64mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 281,
+        "name": "7x65R",
+        "seo_name": "7x65r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 958,
+        "name": "8.15x46R",
+        "seo_name": "8.15x46r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 784,
+        "name": "8.6 Blackout",
+        "seo_name": "8.6-blackout",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 297,
+        "name": "8mm Breda",
+        "seo_name": "8mm-breda",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 74,
+        "name": "8mm Gasser",
+        "seo_name": "8mm-gasser",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 400,
+        "name": "8mm Lebel Revolver",
+        "seo_name": "8mm-lebel-revolver",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 304,
+        "name": "8mm Rem Mag",
+        "seo_name": "8mm-remington-magnum",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 76,
+        "name": "8mm Roth Steyr",
+        "seo_name": "8mm-roth-steyr",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 934,
+        "name": "8mm-06 Springfield",
+        "seo_name": "8mm-06",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 75,
+        "name": "8x22mm Nambu",
+        "seo_name": "8mm-nambu",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 298,
+        "name": "8x50R Lebel",
+        "seo_name": "8mm-lebel",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 850,
+        "name": "8x50R Mannlicher",
+        "seo_name": "8x50r-mannlicher",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 889,
+        "name": "8x50R Siamese",
+        "seo_name": "8x50r-siamese",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 892,
+        "name": "8x52R Siamese",
+        "seo_name": "8x52r-siamese",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 895,
+        "name": "8x53R Murata",
+        "seo_name": "8x53r-murata",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 300,
+        "name": "8x56R",
+        "seo_name": "8x56mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1113,
+        "name": "8x57 JR",
+        "seo_name": "8x57mm-jrs",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 383,
+        "name": "8x57 JRS",
+        "seo_name": "8x57mm-jrs",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 985,
+        "name": "8x57J",
+        "seo_name": "8x57j",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 659,
+        "name": "8x58R",
+        "seo_name": "8x58r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 366,
+        "name": "8x60mm S",
+        "seo_name": "8x60mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 810,
+        "name": "8x64mm S",
+        "seo_name": "8x64s",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 305,
+        "name": "8x68mm S",
+        "seo_name": "8x68mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 306,
+        "name": "9.3x57mm",
+        "seo_name": "9.3x57mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 307,
+        "name": "9.3x62mm",
+        "seo_name": "9.3x62mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 336,
+        "name": "9.3x64mm Brenneke",
+        "seo_name": "9.3x64mm-brenneke",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 308,
+        "name": "9.3x72mm",
+        "seo_name": "9.3x72mm",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 309,
+        "name": "9.3x74R",
+        "seo_name": "9.3x74r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 1045,
+        "name": "9.4 Dutch",
+        "seo_name": "9.4-dutch",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 599,
+        "name": "9.5x47R",
+        "seo_name": "9.5x47r",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 398,
+        "name": "9mm Browning Long",
+        "seo_name": "9mm-browning-long",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 100,
+        "name": "9mm Flobert",
+        "seo_name": "9mm-flobert",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 955,
+        "name": "9mm Glisenti",
+        "seo_name": "9mm-glisenti",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 688,
+        "name": "9mm Major",
+        "seo_name": "9mm-major",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 84,
+        "name": "9mm Makarov",
+        "seo_name": "9mm-makarov",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 697,
+        "name": "9mm Super Comp",
+        "seo_name": "9mm-supercomp",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 720,
+        "name": "9mm Winchester Magnum",
+        "seo_name": "9mm-winchester-magnum",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 85,
+        "name": "9x18mm Ultra",
+        "seo_name": "9mm-ultra",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 77,
+        "name": "9x21mm",
+        "seo_name": "9x21mm",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 819,
+        "name": "9x22R",
+        "seo_name": "9x22r",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 700,
+        "name": "9x23 Super Comp",
+        "seo_name": "9x23-supercomp",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 78,
+        "name": "9x23mm Largo",
+        "seo_name": "9x23mm-largo",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 79,
+        "name": "9x23mm Steyr",
+        "seo_name": "9x23mm-steyr",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 80,
+        "name": "9x23mm Win",
+        "seo_name": "9x23mm-winchester",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 81,
+        "name": "9x25mm Dillon",
+        "seo_name": "9x25mm-dillon",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 345,
+        "name": "9x25mm Mauser",
+        "seo_name": "9x25-mauser",
+        "type": "handgun"
+    },
+    {
+        "cal_id": 443,
+        "name": "9x39mm",
+        "seo_name": "9-39",
+        "type": "rifle"
+    },
+    {
+        "cal_id": 494,
+        "name": "9x57mm Mauser",
+        "seo_name": "9x57mm-mauser",
+        "type": "rifle"
+    }
+]

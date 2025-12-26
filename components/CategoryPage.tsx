@@ -22,18 +22,19 @@ interface CategoryPageProps {
 const CategoryPage: React.FC<CategoryPageProps> = ({ initialProducts, kind, filters: initialFilters = {} }) => {
     // 1. NUQS State for URL-driven filters
     const [searchQuery, setSearchQuery] = useQueryState('q', parseAsString.withDefault(''));
-    const [inStockOnly, setInStockOnly] = useQueryState('is', parseAsBoolean.withDefault(false));
+    const [inStockOnly, setInStockOnly] = useQueryState('is', parseAsBoolean.withDefault(true));
 
     // 2. Filters State (NUQS + State)
     // We use NUQS for URL syncing but maintain local state for immediate UI feedback/composition
-    const [brandsFilter, setBrandsFilter] = useQueryState('brands', parseAsArrayOf(parseAsString).withDefault(initialFilters.brands || []));
-    const [calibersFilter, setCalibersFilter] = useQueryState('calibers', parseAsArrayOf(parseAsString).withDefault(initialFilters.calibers || []));
-    const [grainsFilter, setGrainsFilter] = useQueryState('grains', parseAsArrayOf(parseAsString).withDefault(initialFilters.grains || []));
-    const [casingsFilter, setCasingsFilter] = useQueryState('casings', parseAsArrayOf(parseAsString).withDefault(initialFilters.casings || []));
-    const [barrelLengthFilter, setBarrelLengthFilter] = useQueryState('barrel', parseAsArrayOf(parseAsString).withDefault(initialFilters.barrelLength || []));
-    const [capacityFilter, setCapacityFilter] = useQueryState('capacity', parseAsArrayOf(parseAsString).withDefault(initialFilters.capacity || []));
-    const [minPrice, setMinPrice] = useQueryState('min', parseAsFloat);
-    const [maxPrice, setMaxPrice] = useQueryState('max', parseAsFloat);
+    // Using shallow: false to ensure robust routing and avoid path reset issues
+    const [brandsFilter, setBrandsFilter] = useQueryState('brands', parseAsArrayOf(parseAsString).withDefault(initialFilters.brands || []).withOptions({ shallow: false }));
+    const [calibersFilter, setCalibersFilter] = useQueryState('calibers', parseAsArrayOf(parseAsString).withDefault(initialFilters.calibers || []).withOptions({ shallow: false }));
+    const [grainsFilter, setGrainsFilter] = useQueryState('grains', parseAsArrayOf(parseAsString).withDefault(initialFilters.grains || []).withOptions({ shallow: false }));
+    const [casingsFilter, setCasingsFilter] = useQueryState('casings', parseAsArrayOf(parseAsString).withDefault(initialFilters.casings || []).withOptions({ shallow: false }));
+    const [barrelLengthFilter, setBarrelLengthFilter] = useQueryState('barrel', parseAsArrayOf(parseAsString).withDefault(initialFilters.barrelLength || []).withOptions({ shallow: false }));
+    const [capacityFilter, setCapacityFilter] = useQueryState('capacity', parseAsArrayOf(parseAsString).withDefault(initialFilters.capacity || []).withOptions({ shallow: false }));
+    const [minPrice, setMinPrice] = useQueryState('min', parseAsFloat.withOptions({ shallow: false }));
+    const [maxPrice, setMaxPrice] = useQueryState('max', parseAsFloat.withOptions({ shallow: false }));
 
 
     const {
@@ -45,19 +46,42 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ initialProducts, kind, filt
     // 2. Load More State
     const [products, setProducts] = useState<Product[]>(initialProducts);
     const [offset, setOffset] = useState(initialProducts.length);
-    const [hasMore, setHasMore] = useState(true); // Assumption: if initial < 50, maybe false?
+    const [hasMore, setHasMore] = useState(true);
+
+    // Sync state with server-side updates
+    React.useEffect(() => {
+        setProducts(initialProducts);
+        setOffset(initialProducts.length);
+        setHasMore(initialProducts.length < 200 && initialProducts.length === 100); // Reset hasMore logic? If initial < 100, no more. If 100, maybe more.
+    }, [initialProducts]);
     const [isPending, startTransition] = useTransition();
 
     const handleLoadMore = () => {
+        if (products.length >= 200) return;
+
         startTransition(async () => {
-            const nextBatch = await getProducts(kind, 50, offset);
+            const currentFilters = {
+                search: searchQuery || undefined,
+                brandSlug: brandsFilter || undefined,
+                caliberSlug: calibersFilter || undefined,
+                grain: grainsFilter || undefined,
+                inStock: inStockOnly
+            };
+
+            const nextBatch = await getProducts(kind, 100, offset, currentFilters); // Fetch 100
             if (nextBatch.length === 0) {
                 setHasMore(false);
             } else {
                 setProducts(prev => {
                     const existingIds = new Set(prev.map(p => p.id));
                     const uniqueNewProducts = nextBatch.filter(p => !existingIds.has(p.id));
-                    return [...prev, ...uniqueNewProducts];
+                    const combined = [...prev, ...uniqueNewProducts];
+                    // Hard limit 200
+                    if (combined.length >= 200) {
+                        setHasMore(false);
+                        return combined.slice(0, 200);
+                    }
+                    return combined;
                 });
                 setOffset(prev => prev + nextBatch.length);
             }
@@ -163,6 +187,9 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ initialProducts, kind, filt
     }, [products]);
 
     // 4. Filtering Logic (Client-Side on loaded products)
+    // 4. Filtering Logic
+    // We rely on Server-Side Filtering now. 
+    // We ONLY filter Blocked Retailers client-side as that is a user-specific setting not in URL/Server.
     const filteredResults = useMemo(() => {
         let result = products.map(product => {
             const validOffers = product.offers.filter(
@@ -171,72 +198,8 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ initialProducts, kind, filt
             return { ...product, offers: validOffers };
         }).filter(product => product.offers.length > 0);
 
-        // Facet Filters
-        result = result.filter(p => {
-            if (brandsFilter.length && !brandsFilter.includes(p.brand.slug)) {
-                return false;
-            }
-
-            if (inStockOnly) {
-                const hasStock = p.offers.some(o => {
-                    // console.log(`[Filter] checking product ${p.id} offer:`, o.inStock, typeof o.inStock);
-                    return o.inStock;
-                });
-                if (!hasStock) return false;
-            }
-
-            if (calibersFilter.length > 0) {
-                // Check caliberSlug (priority) or caliber name
-                const matchesCaliber = calibersFilter.includes(p.caliberSlug || '') || (p.caliber && calibersFilter.includes(p.caliber));
-                if (!matchesCaliber) return false;
-            }
-
-            if (grainsFilter.length > 0) {
-                // p.grain is a number, filter acts on strings. stringify comparison.
-                if (kind === 'AMMO' && p.grain) {
-                    if (!grainsFilter.includes(p.grain.toString())) return false;
-                } else if (kind === 'AMMO' && !p.grain) {
-                    return false;
-                }
-            }
-
-            if (casingsFilter.length > 0 && p.casing) {
-                if (!casingsFilter.includes(p.casing)) return false;
-            }
-
-            if (barrelLengthFilter.length > 0 && p.barrelLength) {
-                if (!barrelLengthFilter.includes(p.barrelLength)) return false;
-            }
-
-            if (capacityFilter.length > 0 && p.capacity) {
-                if (!capacityFilter.includes(p.capacity)) return false;
-            }
-
-            // Price Filter
-            if (minPrice !== null || maxPrice !== null) {
-                // Find the best price for this product
-                const prices = p.offers.map(o => o.price);
-                if (prices.length === 0) return false;
-                const bestPrice = Math.min(...prices);
-
-                if (minPrice !== null && bestPrice < minPrice) return false;
-                if (maxPrice !== null && bestPrice > maxPrice) return false;
-            }
-
-            return true;
-        });
-
-        // Text Search
-        if (searchQuery.trim()) {
-            const fuse = new Fuse(result, {
-                keys: ['title', 'brand.name', 'caliber'],
-                threshold: 0.3,
-            });
-            result = fuse.search(searchQuery).map(r => r.item);
-        }
-
         return result;
-    }, [products, blockedRetailers, brandsFilter, calibersFilter, casingsFilter, grainsFilter, barrelLengthFilter, capacityFilter, inStockOnly, minPrice, maxPrice, searchQuery]);
+    }, [products, blockedRetailers]);
 
     const floorPrice = useMemo(() => {
         if (filteredResults.length === 0) return undefined;
