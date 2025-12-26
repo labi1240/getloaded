@@ -126,6 +126,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ initialProducts, kind, filt
         const capacityMap = new Map<string, { label: string, count: number }>();
 
         products.forEach(p => {
+            if (!p.brand) return;
             // Brands: Key by slug, store Name
             const brandKey = p.brand.slug;
             const brandEntry = brandsMap.get(brandKey) || { label: p.brand.name, count: 0 };

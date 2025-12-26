@@ -265,7 +265,7 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
             <div className="p-10 lg:p-14 flex-1">
               <div className="flex items-center justify-between mb-8">
                 <Link
-                  href={isAmmo ? `/ammo?brands=${product.brand.slug}` : `/firearms?brands=${product.brand.slug}`}
+                  href={isAmmo ? `/ammo/${product.brand.slug}` : `/firearms/${product.brand.slug}`}
                   className="text-[11px] font-black uppercase tracking-widest text-slate-400 hover:text-emerald-600 transition-colors"
                 >
                   {product.brand.name}
@@ -281,7 +281,7 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
                   label="Caliber"
                   value={product.caliber || 'N/A'}
                   icon={RiCrosshair2Line}
-                  href={product.caliberSlug ? (isAmmo ? `/ammo?calibers=${product.caliberSlug}` : `/firearms?calibers=${product.caliberSlug}`) : (product.caliber ? (isAmmo ? `/ammo?q=${encodeURIComponent(product.caliber)}` : `/firearms?q=${encodeURIComponent(product.caliber)}`) : undefined)}
+                  href={product.caliberSlug ? (isAmmo ? `/ammo/${product.caliberSlug}` : `/firearms/${product.caliberSlug}`) : (product.caliber ? (isAmmo ? `/ammo?q=${encodeURIComponent(product.caliber)}` : `/firearms?q=${encodeURIComponent(product.caliber)}`) : undefined)}
                 />
                 {isAmmo ? (
                   <>
@@ -291,7 +291,7 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
                         label="Mass"
                         value={`${product.grain} GR`}
                         icon={RiScales3Line}
-                        href={product.grain ? `/ammo?grains=${product.grain}` : undefined}
+                        href={product.grain ? `/ammo/${product.grain}gr` : undefined}
                       />
                     ) : product.gauge ? (
                       <SpecBadge
