@@ -1,343 +1,343 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
+  provider = "postgresql"
 }
 
 model AccessoryFitment {
-    id               Int            @id @default(autoincrement())
-    accessorySpecsId Int
-    fitmentType      FitmentType
-    firearmItemId    String?
-    platform         String?
-    note             String?
-    AccessorySpecs   AccessorySpecs @relation(fields: [accessorySpecsId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    CatalogItem      CatalogItem?   @relation(fields: [firearmItemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id               Int            @id @default(autoincrement())
+  accessorySpecsId Int
+  fitmentType      FitmentType
+  firearmItemId    String?
+  platform         String?
+  note             String?
+  AccessorySpecs   AccessorySpecs @relation(fields: [accessorySpecsId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  CatalogItem      CatalogItem?   @relation(fields: [firearmItemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model AccessorySpecs {
-    id               Int                @id @default(autoincrement())
-    itemId           String             @unique
-    accessoryTypeId  Int?
-    material         String?
-    color            String?
-    notes            String?
-    AccessoryFitment AccessoryFitment[]
-    AccessoryType    AccessoryType?     @relation(fields: [accessoryTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    CatalogItem      CatalogItem        @relation(fields: [itemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id               Int                @id @default(autoincrement())
+  itemId           String             @unique
+  accessoryTypeId  Int?
+  material         String?
+  color            String?
+  notes            String?
+  AccessoryFitment AccessoryFitment[]
+  AccessoryType    AccessoryType?     @relation(fields: [accessoryTypeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  CatalogItem      CatalogItem        @relation(fields: [itemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model AccessoryType {
-    id             Int              @id @default(autoincrement())
-    name           String           @unique
-    slug           String           @unique
-    AccessorySpecs AccessorySpecs[]
+  id             Int              @id @default(autoincrement())
+  name           String           @unique
+  slug           String           @unique
+  AccessorySpecs AccessorySpecs[]
 }
 
 model Alert {
-    id            String          @id
-    userId        String
-    type          AlertType
-    calId         Int?
-    itemId        String?
-    keyword       String?
-    targetCpr     Float?
-    excludeSteel  Boolean?        @default(false)
-    excludeReman  Boolean?        @default(false)
-    lastTriggered DateTime?       @db.Timestamptz(6)
-    isActive      Boolean?        @default(true)
-    createdAt     DateTime?       @default(now()) @db.Timestamptz(6)
-    Caliber       Caliber?        @relation(fields: [calId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    CatalogItem   CatalogItem?    @relation(fields: [itemId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    User          User            @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    AlertDelivery AlertDelivery[]
+  id            String          @id
+  userId        String
+  type          AlertType
+  calId         Int?
+  itemId        String?
+  keyword       String?
+  targetCpr     Float?
+  excludeSteel  Boolean?        @default(false)
+  excludeReman  Boolean?        @default(false)
+  lastTriggered DateTime?       @db.Timestamptz(6)
+  isActive      Boolean?        @default(true)
+  createdAt     DateTime?       @default(now()) @db.Timestamptz(6)
+  Caliber       Caliber?        @relation(fields: [calId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  CatalogItem   CatalogItem?    @relation(fields: [itemId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  User          User            @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  AlertDelivery AlertDelivery[]
 }
 
 model AlertDelivery {
-    id          String    @id
-    alertId     String
-    offerId     Int?
-    sentAt      DateTime? @default(now()) @db.Timestamptz(6)
-    fingerprint String    @db.VarChar(64)
-    userId      String
-    Alert       Alert     @relation(fields: [alertId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    Offer       Offer?    @relation(fields: [offerId], references: [id], onUpdate: NoAction)
-    User        User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id          String    @id
+  alertId     String
+  offerId     Int?
+  sentAt      DateTime? @default(now()) @db.Timestamptz(6)
+  fingerprint String    @db.VarChar(64)
+  userId      String
+  Alert       Alert     @relation(fields: [alertId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  Offer       Offer?    @relation(fields: [offerId], references: [id], onUpdate: NoAction)
+  User        User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
-    @@unique([alertId, fingerprint])
+  @@unique([alertId, fingerprint])
 }
 
 model AmmoSpecs {
-    id               Int           @id @default(autoincrement())
-    itemId           String        @unique
-    caliberId        Int
-    grain            Int?
-    gauge            String?
-    velocity         Int?
-    energy           Int?
-    casing           String?
-    bulletType       String?
-    restrictions     String[]
-    pressure         AmmoPressure? @default(UNKNOWN)
-    isSteelCase      Boolean?      @default(false)
-    isRemanufactured Boolean?      @default(false)
-    isSubsonic       Boolean?      @default(false)
-    Caliber          Caliber       @relation(fields: [caliberId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    CatalogItem      CatalogItem   @relation(fields: [itemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id               Int           @id @default(autoincrement())
+  itemId           String        @unique
+  caliberId        Int
+  grain            Int?
+  gauge            String?
+  velocity         Int?
+  energy           Int?
+  casing           String?
+  bulletType       String?
+  restrictions     String[]
+  pressure         AmmoPressure? @default(UNKNOWN)
+  isSteelCase      Boolean?      @default(false)
+  isRemanufactured Boolean?      @default(false)
+  isSubsonic       Boolean?      @default(false)
+  Caliber          Caliber       @relation(fields: [caliberId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  CatalogItem      CatalogItem   @relation(fields: [itemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model BlockedRetailer {
-    id         String    @id
-    userId     String
-    retailerId Int
-    createdAt  DateTime? @default(now()) @db.Timestamptz(6)
-    Retailer   Retailer  @relation(fields: [retailerId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    User       User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id         String    @id
+  userId     String
+  retailerId Int
+  createdAt  DateTime? @default(now()) @db.Timestamptz(6)
+  Retailer   Retailer  @relation(fields: [retailerId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  User       User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model Brand {
-    id          Int           @id @default(autoincrement())
-    name        String        @unique
-    slug        String        @unique
-    website     String?
-    logo        String?
-    description String?
-    CatalogItem CatalogItem[]
+  id          Int           @id @default(autoincrement())
+  name        String        @unique
+  slug        String        @unique
+  website     String?
+  logo        String?
+  description String?
+  CatalogItem CatalogItem[]
 }
 
 model Caliber {
-    id             Int              @id @default(autoincrement())
-    name           String
-    slug           String           @unique
-    type           String?
-    Alert          Alert[]
-    AmmoSpecs      AmmoSpecs[]
-    CaliberAlias   CaliberAlias[]
-    FirearmChamber FirearmChamber[]
+  id             Int              @id @default(autoincrement())
+  name           String
+  slug           String           @unique
+  type           String?
+  Alert          Alert[]
+  AmmoSpecs      AmmoSpecs[]
+  CaliberAlias   CaliberAlias[]
+  FirearmChamber FirearmChamber[]
 }
 
 model CaliberAlias {
-    id        Int     @id @default(autoincrement())
-    caliberId Int
-    alias     String  @unique
-    Caliber   Caliber @relation(fields: [caliberId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id        Int     @id @default(autoincrement())
+  caliberId Int
+  alias     String  @unique
+  Caliber   Caliber @relation(fields: [caliberId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model CatalogItem {
-    id               String             @id
-    kind             CatalogKind
-    slug             String             @unique
-    upc              String?            @unique
-    mpn              String?
-    title            String
-    image            String?
-    description      String?
-    brandId          Int?
-    createdAt        DateTime?          @default(now()) @db.Timestamptz(6)
-    updatedAt        DateTime?          @default(now()) @db.Timestamptz(6)
-    bestPrice        Float?
-    bestRetailerId   Int?
-    bestRetailerName String?
-    offerCount       Int?               @default(0)
-    bestCpr          Float?
-    bestCprShipped   Float?
-    upvotes          Int?               @default(0)
-    downvotes        Int?               @default(0)
-    AccessoryFitment AccessoryFitment[]
-    AccessorySpecs   AccessorySpecs?
-    Alert            Alert[]
-    AmmoSpecs        AmmoSpecs?
-    Brand            Brand?             @relation(fields: [brandId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    FirearmSpecs     FirearmSpecs?
-    Offer            Offer[]
-    OwnedFirearm     OwnedFirearm[]
+  id               String             @id
+  kind             CatalogKind
+  slug             String             @unique
+  upc              String?            @unique
+  mpn              String?
+  title            String
+  image            String?
+  description      String?
+  brandId          Int?
+  createdAt        DateTime?          @default(now()) @db.Timestamptz(6)
+  updatedAt        DateTime?          @default(now()) @db.Timestamptz(6)
+  bestPrice        Float?
+  bestRetailerId   Int?
+  bestRetailerName String?
+  offerCount       Int?               @default(0)
+  bestCpr          Float?
+  bestCprShipped   Float?
+  upvotes          Int?               @default(0)
+  downvotes        Int?               @default(0)
+  AccessoryFitment AccessoryFitment[]
+  AccessorySpecs   AccessorySpecs?
+  Alert            Alert[]
+  AmmoSpecs        AmmoSpecs?
+  Brand            Brand?             @relation(fields: [brandId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  FirearmSpecs     FirearmSpecs?
+  Offer            Offer[]
+  OwnedFirearm     OwnedFirearm[]
 }
 
 model FirearmCategory {
-    id           Int            @id @default(autoincrement())
-    name         String         @unique
-    slug         String         @unique
-    FirearmSpecs FirearmSpecs[]
+  id           Int            @id @default(autoincrement())
+  name         String         @unique
+  slug         String         @unique
+  FirearmSpecs FirearmSpecs[]
 }
 
 model FirearmChamber {
-    firearmSpecsId Int
-    caliberId      Int
-    note           String?
-    Caliber        Caliber      @relation(fields: [caliberId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    FirearmSpecs   FirearmSpecs @relation(fields: [firearmSpecsId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  firearmSpecsId Int
+  caliberId      Int
+  note           String?
+  Caliber        Caliber      @relation(fields: [caliberId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  FirearmSpecs   FirearmSpecs @relation(fields: [firearmSpecsId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
-    @@id([firearmSpecsId, caliberId])
+  @@id([firearmSpecsId, caliberId])
 }
 
 model FirearmSpecs {
-    id                Int                    @id @default(autoincrement())
-    itemId            String                 @unique
-    manufacturer      String?
-    model             String?
-    platform          String?
-    firearmCategoryId Int?
-    barrelLengthIn    Float?
-    actionType        String?
-    isThreaded        Boolean?               @default(false)
-    pressureRating    FirearmPressureRating? @default(UNKNOWN)
-    firearmType       String?                @db.VarChar(64)
-    capacity          String?
-    finish            String?
-    weight            String?
-    overallLength     String?
-    features          String?
-    sight             String?
-    safety            String?
-    FirearmChamber    FirearmChamber[]
-    FirearmCategory   FirearmCategory?       @relation(fields: [firearmCategoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-    CatalogItem       CatalogItem            @relation(fields: [itemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id                Int                    @id @default(autoincrement())
+  itemId            String                 @unique
+  manufacturer      String?
+  model             String?
+  platform          String?
+  firearmCategoryId Int?
+  barrelLengthIn    Float?
+  actionType        String?
+  isThreaded        Boolean?               @default(false)
+  pressureRating    FirearmPressureRating? @default(UNKNOWN)
+  firearmType       String?                @db.VarChar(64)
+  capacity          String?
+  finish            String?
+  weight            String?
+  overallLength     String?
+  features          String?
+  sight             String?
+  safety            String?
+  FirearmChamber    FirearmChamber[]
+  FirearmCategory   FirearmCategory?       @relation(fields: [firearmCategoryId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  CatalogItem       CatalogItem            @relation(fields: [itemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 model Offer {
-    id                Int             @id @default(autoincrement())
-    itemId            String
-    retailerId        Int
-    url               String
-    inStock           Boolean?        @default(true)
-    price             Float
-    currency          String?         @default("USD") @db.VarChar(3)
-    shippingCost      Float?
-    total             Float?
-    freeShipping      Boolean?        @default(false)
-    shippingNote      String?
-    shippingUpdatedAt DateTime?       @db.Timestamptz(6)
-    unitsCount        Int?            @default(1)
-    unitLabel         String?         @default("each")
-    cpr               Float?          @map("unitPrice")
-    totalUnitPrice    Float?
-    retailerSku       String?
-    isManuallyOOS     Boolean?        @default(false)
-    oosReportCount    Int?            @default(0)
-    lastStockChange   DateTime?       @db.Timestamptz(6)
-    lastSeen          DateTime?       @default(now()) @db.Timestamptz(6)
-    purchaseLimit     Int?
-    AlertDelivery     AlertDelivery[]
-    CatalogItem       CatalogItem     @relation(fields: [itemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    Retailer          Retailer        @relation(fields: [retailerId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    OfferHistory      OfferHistory[]  @ignore
+  id                Int             @id @default(autoincrement())
+  itemId            String
+  retailerId        Int
+  url               String
+  inStock           Boolean?        @default(true)
+  price             Float
+  currency          String?         @default("USD") @db.VarChar(3)
+  shippingCost      Float?
+  total             Float?
+  freeShipping      Boolean?        @default(false)
+  shippingNote      String?
+  shippingUpdatedAt DateTime?       @db.Timestamptz(6)
+  unitsCount        Int?            @default(1)
+  unitLabel         String?         @default("each")
+  cpr               Float?          @map("unitPrice")
+  totalUnitPrice    Float?
+  retailerSku       String?
+  isManuallyOOS     Boolean?        @default(false)
+  oosReportCount    Int?            @default(0)
+  lastStockChange   DateTime?       @db.Timestamptz(6)
+  lastSeen          DateTime?       @default(now()) @db.Timestamptz(6)
+  purchaseLimit     Int?
+  AlertDelivery     AlertDelivery[]
+  CatalogItem       CatalogItem     @relation(fields: [itemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  Retailer          Retailer        @relation(fields: [retailerId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  OfferHistory      OfferHistory[]
 
-    @@unique([itemId, retailerId, unitsCount, currency], map: "Offer_unique_idx")
+  @@unique([itemId, retailerId, unitsCount, currency], map: "Offer_unique_idx")
 }
 
 /// This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model OfferHistory {
-    time      DateTime @default(now())
-    offerId   Int
-    price     Float
-    unitPrice Float?
-    inStock   Boolean
-    Offer     Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  time      DateTime @default(now())
+  offerId   Int
+  price     Float
+  unitPrice Float?
+  inStock   Boolean
+  Offer     Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
 
-    @@index([offerId, time(sort: Desc)])
-    @@index([time(sort: Desc)])
-    @@ignore
+  @@index([offerId, time(sort: Desc)])
+  @@index([time(sort: Desc)])
+  @@ignore
 }
 
 model OwnedFirearm {
-    id            String      @id
-    userId        String
-    firearmItemId String
-    nickname      String?
-    createdAt     DateTime?   @default(now()) @db.Timestamptz(6)
-    CatalogItem   CatalogItem @relation(fields: [firearmItemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
-    User          User        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id            String      @id
+  userId        String
+  firearmItemId String
+  nickname      String?
+  createdAt     DateTime?   @default(now()) @db.Timestamptz(6)
+  CatalogItem   CatalogItem @relation(fields: [firearmItemId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  User          User        @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
-    @@unique([userId, firearmItemId])
+  @@unique([userId, firearmItemId])
 }
 
 model Retailer {
-    id              Int               @id @default(autoincrement())
-    name            String            @unique
-    domain          String?           @unique
-    logo            String?
-    rating          Float?
-    shippingRating  Int?
-    BlockedRetailer BlockedRetailer[]
-    Offer           Offer[]
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+  domain          String?           @unique
+  logo            String?
+  rating          Float?
+  shippingRating  Int?
+  BlockedRetailer BlockedRetailer[]
+  Offer           Offer[]
 }
 
 model User {
-    id              String            @id
-    name            String?
-    email           String?           @unique
-    emailVerified   DateTime?         @db.Timestamptz(6)
-    image           String?
-    createdAt       DateTime?         @default(now()) @db.Timestamptz(6)
-    updatedAt       DateTime?         @default(now()) @db.Timestamptz(6)
-    Alert           Alert[]
-    AlertDelivery   AlertDelivery[]
-    BlockedRetailer BlockedRetailer[]
-    OwnedFirearm    OwnedFirearm[]
+  id              String            @id
+  name            String?
+  email           String?           @unique
+  emailVerified   DateTime?         @db.Timestamptz(6)
+  image           String?
+  createdAt       DateTime?         @default(now()) @db.Timestamptz(6)
+  updatedAt       DateTime?         @default(now()) @db.Timestamptz(6)
+  Alert           Alert[]
+  AlertDelivery   AlertDelivery[]
+  BlockedRetailer BlockedRetailer[]
+  OwnedFirearm    OwnedFirearm[]
 }
 
 /// This table has subclasses and requires additional setup for migrations. Visit https://pris.ly/d/table-inheritance for more info.
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model raw_offer_ingest {
-    time              DateTime @db.Timestamptz(6)
-    bucket_5m         DateTime @db.Timestamptz(6)
-    group_id          String?
-    item_url          String?
-    item_type         String?
-    retailer_name     String?
-    offer_url         String?
-    price             Float?
-    shipping_text     String?
-    shipping_cost     Float?
-    total             Float?
-    in_stock          Boolean?
-    source            String?
-    offer_fingerprint String?
+  time              DateTime @db.Timestamptz(6)
+  bucket_5m         DateTime @db.Timestamptz(6)
+  group_id          String?
+  item_url          String?
+  item_type         String?
+  retailer_name     String?
+  offer_url         String?
+  price             Float?
+  shipping_text     String?
+  shipping_cost     Float?
+  total             Float?
+  in_stock          Boolean?
+  source            String?
+  offer_fingerprint String?
 
-    @@unique([offer_fingerprint, bucket_5m, time])
-    @@index([time(sort: Desc)])
-    @@ignore
+  @@unique([offer_fingerprint, bucket_5m, time])
+  @@index([time(sort: Desc)])
+  @@ignore
 }
 
 enum AlertType {
-    CALIBER
-    ITEM
-    KEYWORD
+  CALIBER
+  ITEM
+  KEYWORD
 }
 
 enum AmmoPressure {
-    UNKNOWN
-    STANDARD
-    PLUS_P
-    PLUS_P_PLUS
+  UNKNOWN
+  STANDARD
+  PLUS_P
+  PLUS_P_PLUS
 }
 
 enum CaliberType {
-    PISTOL
-    RIFLE
-    SHOTGUN
-    RIMFIRE
-    UNKNOWN
+  PISTOL
+  RIFLE
+  SHOTGUN
+  RIMFIRE
+  UNKNOWN
 }
 
 enum CatalogKind {
-    AMMO
-    FIREARM
-    ACCESSORY
+  AMMO
+  FIREARM
+  ACCESSORY
 }
 
 enum FirearmPressureRating {
-    UNKNOWN
-    STANDARD_ONLY
-    PLUS_P_OK
-    PLUS_P_PLUS_OK
+  UNKNOWN
+  STANDARD_ONLY
+  PLUS_P_OK
+  PLUS_P_PLUS_OK
 }
 
 enum FitmentType {
-    EXACT_MODEL
-    PLATFORM
-    UNIVERSAL
+  EXACT_MODEL
+  PLATFORM
+  UNIVERSAL
 }
