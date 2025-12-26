@@ -464,10 +464,10 @@ function mapToProduct(item: any): Product {
         shippingNote: offer.shippingNote,
         freeShipping: offer.freeShipping || false,
         retailer: {
-            id: offer.retailer.id,
-            name: offer.retailer.name,
-            domain: offer.retailer.domain,
-            logo: offer.retailer.logo
+            id: offer.Retailer.id,
+            name: offer.Retailer.name,
+            domain: offer.Retailer.domain,
+            logo: offer.Retailer.logo
         },
         roundCount: offer.unitsCount || undefined,
         // roundCount: offer.unitsCount || undefined,
