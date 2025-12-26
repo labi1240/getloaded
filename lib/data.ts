@@ -465,7 +465,7 @@ function mapToProduct(item: any): Product {
         freeShipping: offer.freeShipping || false,
         retailer: {
             id: offer.Retailer?.id || 0,
-            name: offer.Retailer?.name || 'Unknown Retailer',
+            name: offer.Retailer?.name || 'Mixed Retailer',
             domain: offer.Retailer?.domain || '',
             logo: offer.Retailer?.logo || null
         },

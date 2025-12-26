@@ -79,9 +79,9 @@ async function SmartContent({ params }: { params: Promise<{ slug: string[] }> })
         // Pass Hydrated State to Category Page
         // We construct the initialFilters object for NUQS to sync
         const initialClientFilters: any = {};
-        if (filters.brandSlug) initialClientFilters.brands = [filters.brandSlug];
-        if (filters.caliberSlug) initialClientFilters.calibers = [filters.caliberSlug];
-        if (filters.grain) initialClientFilters.grains = [filters.grain.toString()];
+        if (filters.brandSlug) initialClientFilters.brands = filters.brandSlug;
+        if (filters.caliberSlug) initialClientFilters.calibers = filters.caliberSlug;
+        if (filters.grain) initialClientFilters.grains = filters.grain;
 
         return <CategoryPage initialProducts={initialProducts} kind="AMMO" filters={initialClientFilters} />;
     }

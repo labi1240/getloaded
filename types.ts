@@ -51,3 +51,10 @@ export interface Product {
   // Market Data
   priceHistory?: number[]; // Array of lowest prices over time (e.g., 30 days)
 }
+
+export interface Retailer {
+  id: number;
+  name: string;
+  domain: string | null;
+  logo: string | null;
+}
