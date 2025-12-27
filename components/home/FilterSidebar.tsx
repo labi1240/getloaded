@@ -4,7 +4,7 @@ import { POPULAR_CALIBERS } from './constants';
 
 export const FilterSidebar: React.FC = () => {
   return (
-    <div className="w-full lg:w-64 flex-shrink-0 space-y-8">
+    <div className="w-full lg:w-64 shrink-0 space-y-8">
 
       {/* Parameters Header */}
       <div className="flex items-center justify-between">

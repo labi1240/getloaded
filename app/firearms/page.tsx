@@ -1,6 +1,18 @@
 import { Suspense } from 'react';
 import CategoryPage from '@/components/CategoryPage';
 import { getProducts } from '@/lib/data';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'GetLoaded | Shop Firearms - Handguns, Rifles, Shotguns & More',
+    description: 'Find in-stock firearms from top retailers. Compare prices on pistols, rifles, shotguns, and more. Real-time inventory from 100+ stores.',
+    keywords: ['firearms', 'guns', 'pistols', 'rifles', 'shotguns', 'buy guns online', 'gun deals', 'in-stock firearms'],
+    openGraph: {
+        title: 'GetLoaded | Shop Firearm Deals',
+        description: 'Compare prices from 100+ vetted retailers instantly. Find the best deals on firearms now.',
+        type: 'website',
+    }
+};
 
 async function FirearmList({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
     const params = await searchParams;
