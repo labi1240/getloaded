@@ -6,6 +6,8 @@ import { FilterSidebar } from './mycomponents/FilterSidebar';
 import { ProductList } from './mycomponents/ProductList';
 import { HomePage } from './mycomponents/HomePage';
 import { ChevronRight } from 'lucide-react';
+import { searchHomeProducts } from './actions';
+import { Product } from './types';
 
 type ViewState = 'home' | 'listings';
 
@@ -14,18 +16,32 @@ function App() {
   const [activeTab, setActiveTab] = useState<'ammo' | 'firearms'>('ammo');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const handleSearch = (term: string) => {
+  // Data State
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const handleSearch = async (term: string) => {
     setSearchQuery(term);
     setCurrentView('listings');
+    setLoading(true);
+
+    // Default to 'AMMO' for generic searches for now, or detect based on term
+    // Ideally we'd pass the active tab preference if searching from the results page
+    const results = await searchHomeProducts(term, 'AMMO');
+    setProducts(results);
+    setLoading(false);
   };
 
   const resetToHome = () => {
     setSearchQuery('');
     setCurrentView('home');
+    setProducts([]);
   };
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-brand selection:text-white">
+
+      {/* Header is always visible now */}
       <Header
         showSearch={currentView === 'listings'}
         onLogoClick={resetToHome}
@@ -71,7 +87,7 @@ function App() {
 
           <div className="flex flex-col lg:flex-row gap-8">
             <FilterSidebar />
-            <ProductList />
+            <ProductList products={products} loading={loading} />
           </div>
         </main>
       )}
