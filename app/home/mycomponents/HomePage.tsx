@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Search, ScanBarcode, ArrowRight, Zap, Target, Package, ChevronRight, Gift, Crosshair, Award, Settings, Shield } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Search, ScanBarcode, ArrowRight, Zap, Target, Package, ChevronRight, Gift, Crosshair, Award, Settings, Shield, TrendingUp, History } from 'lucide-react';
 import { BarcodeScanner } from './BarcodeScanner';
 import { MOCK_LISTINGS } from '../constants';
 import { Product } from '../types';
@@ -19,9 +19,29 @@ const POPULAR_BRANDS = [
   { name: 'Sig Sauer', domain: 'sigsauer.com' },
 ];
 
+const TRENDING_SEARCHES = [
+  { term: '9mm Luger', category: 'Handgun Ammo' },
+  { term: '5.56 NATO', category: 'Rifle Ammo' },
+  { term: 'Glock 19 Gen 5', category: 'Firearm' },
+  { term: 'CCI Mini-Mag', category: 'Rimfire' },
+];
+
 export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isScannerOpen, setIsScannerOpen] = useState(false);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target as Node)) {
+        setIsSearchFocused(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleSearch = () => {
     if (searchTerm.trim()) {
@@ -68,48 +88,102 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
       )}
 
       {/* Hero / Search Section */}
-      <section className="bg-white border-b border-slate-200 pt-16 pb-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center">
-        <div className="max-w-4xl w-full">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-            Find <span className="text-brand">In-Stock</span> Guns & Ammo
+      <section className="bg-white border-b border-slate-100 pt-20 pb-16 px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center relative overflow-hidden">
+
+        {/* Decorative Background Elements */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-40">
+          <div className="absolute top-[-10%] left-[-5%] w-96 h-96 bg-brand-50/50 rounded-full blur-3xl" />
+          <div className="absolute bottom-[-10%] right-[-5%] w-96 h-96 bg-blue-50/50 rounded-full blur-3xl" />
+        </div>
+
+        <div className="max-w-4xl w-full relative z-10">
+          <h1 className="text-4xl sm:text-6xl font-extrabold text-slate-900 tracking-tight mb-6 leading-tight">
+            Find <span className="text-transparent bg-clip-text bg-linear-to-r from-brand-600 to-brand-500">In-Stock</span><br className="hidden sm:block" /> Guns & Ammo Instantly
           </h1>
-          <p className="text-lg text-slate-500 mb-8 max-w-2xl mx-auto">
-            Scan UPCs, compare prices across 100+ vetted retailers, and never overpay again.
+          <p className="text-lg sm:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Stop overpaying. Compare live inventory from 100+ vetted retailers. Scan barcodes or search to find the best deals in seconds.
           </p>
 
           {/* Main Search Component */}
-          <div className="relative max-w-2xl mx-auto group z-10">
-            <div className="relative flex items-center bg-white rounded-xl border-2 border-slate-200 shadow-xl p-2 group-focus-within:border-brand transition-colors">
-              <div className="pl-4 pr-2">
-                <Search className="h-6 w-6 text-slate-400" />
+          <div ref={searchContainerRef} className="relative max-w-2xl mx-auto z-20">
+            <div className={`
+              relative flex items-center bg-white rounded-2xl shadow-2xl transition-all duration-300
+              ${isSearchFocused ? 'ring-2 ring-brand-500/50 shadow-brand-500/10' : 'border border-slate-200'}
+            `}>
+              <div className="pl-5 pr-3">
+                <Search className={`h-6 w-6 transition-colors ${isSearchFocused ? 'text-brand-600' : 'text-slate-400'}`} />
               </div>
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                onFocus={() => setIsSearchFocused(true)}
                 onKeyDown={handleKeyDown}
-                className="flex-1 bg-transparent border-none text-lg text-slate-900 placeholder-slate-400 focus:ring-0 px-2 py-2"
+                className="flex-1 bg-transparent border-none text-lg text-slate-900 placeholder-slate-400 focus:ring-0 px-2 py-4 h-14"
                 placeholder="Search 9mm, Glock 19, or 'Federal HST'..."
                 autoFocus
               />
 
-              {/* Barcode Scanner Button */}
-              <button
-                onClick={() => setIsScannerOpen(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg border border-slate-200 transition-colors mr-2 font-medium"
-                title="Scan Barcode"
-              >
-                <ScanBarcode className="h-5 w-5 text-slate-600" />
-                <span className="text-sm hidden sm:inline">Scan</span>
-              </button>
+              {/* Action Buttons Group */}
+              <div className="flex items-center gap-2 pr-2">
+                {/* Barcode Scanner Button */}
+                <button
+                  onClick={() => setIsScannerOpen(true)}
+                  className="flex items-center gap-2 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl transition-all group/scan"
+                  title="Scan Barcode"
+                >
+                  <ScanBarcode className="h-5 w-5 group-hover/scan:text-slate-900" />
+                  <span className="text-xs font-bold hidden sm:inline group-hover/scan:text-slate-900">Scan</span>
+                </button>
 
-              <button
-                onClick={handleSearch}
-                className="bg-brand hover:bg-brand-dark text-white p-3 rounded-lg transition-colors shadow-lg shadow-brand/20"
-              >
-                <ArrowRight className="h-5 w-5" />
-              </button>
+                <button
+                  onClick={handleSearch}
+                  className="bg-brand-600 hover:bg-brand-700 text-white p-3 rounded-xl transition-all shadow-lg shadow-brand-500/30 hover:shadow-brand-500/40 hover:scale-105 active:scale-95"
+                >
+                  <ArrowRight className="h-5 w-5" />
+                </button>
+              </div>
             </div>
+
+            {/* Dynamic Suggestions Dropdown */}
+            {isSearchFocused && (
+              <div className="absolute top-full left-0 right-0 mt-3 bg-white rounded-xl border border-slate-100 shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+
+                {/* Section Header */}
+                <div className="px-4 py-2 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
+                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                    <TrendingUp className="h-3 w-3" /> Trending Now
+                  </span>
+                </div>
+
+                {/* Suggestions List */}
+                <ul className="py-1">
+                  {TRENDING_SEARCHES.map((item, idx) => (
+                    <li key={idx}>
+                      <button
+                        className="w-full text-left px-4 py-3 hover:bg-slate-50 flex items-center justify-between group transition-colors"
+                        onClick={() => {
+                          setSearchTerm(item.term);
+                          onSearch(item.term);
+                          setIsSearchFocused(false);
+                        }}
+                      >
+                        <span className="text-slate-700 font-medium group-hover:text-brand-700">{item.term}</span>
+                        <span className="text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full group-hover:bg-brand-50 group-hover:text-brand-600 transition-colors">
+                          {item.category}
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {/* Quick Stat (optional flair) */}
+          <div className="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-slate-400">
+            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+            Live pricing from {MOCK_LISTINGS.length * 12}+ retailers updated seconds ago
           </div>
         </div>
       </section>
