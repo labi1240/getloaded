@@ -1,6 +1,9 @@
 import React from 'react';
 import { Search, Crosshair, Menu, Zap, ShieldCheck, ShoppingCart, User } from 'lucide-react';
 
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
 interface HeaderProps {
   showSearch?: boolean;
   onLogoClick?: () => void;
@@ -8,22 +11,49 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ showSearch = true, onLogoClick, onSearchSubmit }) => {
+  const pathname = usePathname();
+  const isActive = (path: string) => pathname === path;
+
   return (
     <header className="sticky top-0 z-50 bg-white/80 border-b border-slate-200 shadow-sm backdrop-blur-xl transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
 
           {/* Logo Section */}
-          <div
-            className="flex items-center shrink-0 gap-2.5 cursor-pointer group"
-            onClick={onLogoClick}
-          >
-            <div className="bg-linear-to-br from-brand-600 to-brand-700 rounded-lg p-1.5 shadow-lg shadow-brand-500/20 group-hover:shadow-brand-500/30 group-hover:scale-105 transition-all duration-300 ring-1 ring-white/20">
-              <Crosshair className="h-5 w-5 text-white" />
+          <div className="flex items-center shrink-0 gap-6">
+            <div
+              className="flex items-center gap-2.5 cursor-pointer group"
+              onClick={onLogoClick}
+            >
+              <div className="bg-linear-to-br from-brand-600 to-brand-700 rounded-lg p-1.5 shadow-lg shadow-brand-500/20 group-hover:shadow-brand-500/30 group-hover:scale-105 transition-all duration-300 ring-1 ring-white/20">
+                <Crosshair className="h-5 w-5 text-white" />
+              </div>
+              <span className="font-bold text-xl tracking-tight text-slate-900 hidden sm:block">
+                Ammo<span className="text-brand-600">Metric</span>
+              </span>
             </div>
-            <span className="font-bold text-xl tracking-tight text-slate-900 hidden sm:block">
-              Ammo<span className="text-brand-600">Metric</span>
-            </span>
+
+            {/* Navigation Links */}
+            <nav className="hidden md:flex items-center gap-1">
+              <Link
+                href="/"
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive('/')
+                    ? 'text-brand-700 bg-brand-50/80 shadow-sm shadow-brand-100 ring-1 ring-brand-100'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
+                  }`}
+              >
+                Firearms
+              </Link>
+              <Link
+                href="/ammo"
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${isActive('/ammo')
+                    ? 'text-brand-700 bg-brand-50/80 shadow-sm shadow-brand-100 ring-1 ring-brand-100'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
+                  }`}
+              >
+                Ammo
+              </Link>
+            </nav>
           </div>
 
           {/* Search Feature - Conditional Render */}
@@ -71,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({ showSearch = true, onLogoClick, 
             {/* Icons Group */}
             <div className="flex items-center gap-1">
               <button className="p-2 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors relative group">
-                <ShoppingCart className="h-5 w-5" />
+                {/* <ShoppingCart className="h-5 w-5" /> */}
                 <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-500 rounded-full ring-2 ring-white"></span>
               </button>
 
