@@ -1,6 +1,6 @@
 'use server';
 
-import { getProducts } from '@/lib/data';
+import { getProducts, getTopBrands, getTopRetailers } from '@/lib/data';
 import { Product as HomeProduct } from './types';
 import { Product as DBProduct } from '@/types';
 
@@ -47,4 +47,25 @@ function mapToHomeProduct(p: DBProduct): HomeProduct {
         casing: p.casing as any,
         roundCount: bestOffer?.roundCount
     };
+}
+
+export async function fetchTopBrands() {
+    const brands = await getTopBrands(12);
+    return brands.map(b => ({
+        name: b.name,
+        domain: b.slug, // using slug as domain proxy if needed, or website
+        logo: b.logo,
+        count: b._count.CatalogItem
+    }));
+}
+
+export async function fetchTopRetailers() {
+    const retailers = await getTopRetailers(8);
+    return retailers.map(r => ({
+        name: r.name,
+        domain: r.domain,
+        logo: r.logo,
+        count: r._count.Offer,
+        rating: r.rating || 0
+    }));
 }

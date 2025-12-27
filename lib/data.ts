@@ -138,6 +138,9 @@ export async function getProducts(
         }
     }
 
+
+    console.log('[getProducts] Querying with where:', JSON.stringify(where, null, 2));
+
     const items = await prisma.catalogItem.findMany({
         where,
         take: limit,
@@ -530,4 +533,52 @@ export async function isValidBrandSlug(slug: string): Promise<boolean> {
         where: { slug }
     });
     return count > 0;
+}
+
+export async function getTopBrands(limit = 8) {
+     // "use cache"
+     // cacheLife("days")
+    try {
+        const brands = await prisma.brand.findMany({
+            take: limit,
+            orderBy: {
+                CatalogItem: {
+                    _count: 'desc'
+                }
+            },
+            include: {
+                _count: {
+                    select: { CatalogItem: true }
+                }
+            }
+        });
+        return brands;
+    } catch (e) {
+        console.error('Error fetching top brands:', e);
+        return [];
+    }
+}
+
+export async function getTopRetailers(limit = 6) {
+     // "use cache"
+     // cacheLife("hours")
+    try {
+        const retailers = await prisma.retailer.findMany({
+            take: limit,
+            orderBy: {
+                Offer: {
+                    _count: 'desc'
+                }
+            },
+            include: {
+                _count: {
+                    select: { Offer: true }
+                }
+            }
+        });
+        return retailers;
+    } catch (e) {
+         console.error('Error fetching top retailers:', e);
+         return [];
+    }
 }

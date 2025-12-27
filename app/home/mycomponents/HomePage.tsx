@@ -4,22 +4,12 @@ import { Search, ScanBarcode, ArrowRight, Zap, Target, Package, ChevronRight, Gi
 import { BarcodeScanner } from './BarcodeScanner';
 import { MOCK_LISTINGS } from '../constants';
 import { Product } from '../types';
-// import Link from 'next/link';
 
 interface HomePageProps {
   onSearch: (term: string) => void;
+  topBrands?: Array<{ name: string; domain: string | null; logo: string | null; count: number }>;
+  topRetailers?: Array<{ name: string; domain: string | null; logo: string | null; count: number; rating: number }>;
 }
-
-const POPULAR_BRANDS = [
-  { name: 'Federal Premium', domain: 'federalpremium.com' },
-  { name: 'CCI Ammunition', domain: 'cci-ammunition.com' },
-  { name: 'Hornady', domain: 'hornady.com' },
-  { name: 'Winchester', domain: 'winchester.com' },
-  { name: 'Remington', domain: 'remington.com' },
-  { name: 'PMC Ammo', domain: 'pmcammo.com' },
-  { name: 'Fiocchi', domain: 'fiocchiusa.com' },
-  { name: 'Sig Sauer', domain: 'sigsauer.com' },
-];
 
 const TRENDING_SEARCHES = [
   { term: '9mm Luger', category: 'Handgun Ammo' },
@@ -36,7 +26,7 @@ function toSlug(text: string): string {
     .replace(/(^-|-$)/g, '');
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
+export const HomePage: React.FC<HomePageProps> = ({ onSearch, topBrands = [], topRetailers = [] }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [isScannerOpen, setIsScannerOpen] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
@@ -235,7 +225,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                     <div className="space-y-3">
                       {getPreviewItems('ammo', 'Handgun').map(item => (
                         <div key={item.id} className="flex items-center gap-3 group cursor-pointer" onClick={() => onSearch(item.name)}>
-                          <div className="w-10 h-10 bg-white rounded border border-slate-200 flex items-center justify-center p-1 flex-shrink-0">
+                          <div className="w-10 h-10 bg-white rounded border border-slate-200 flex items-center justify-center p-1 shrink-0">
                             <img src={item.image} className="max-w-full max-h-full" alt="" />
                           </div>
                           <div className="min-w-0 flex-1">
@@ -270,7 +260,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                     <div className="space-y-3">
                       {getPreviewItems('ammo', 'Rifle').map(item => (
                         <div key={item.id} className="flex items-center gap-3 group cursor-pointer" onClick={() => onSearch(item.name)}>
-                          <div className="w-10 h-10 bg-white rounded border border-slate-200 flex items-center justify-center p-1 flex-shrink-0">
+                          <div className="w-10 h-10 bg-white rounded border border-slate-200 flex items-center justify-center p-1 shrink-0">
                             <img src={item.image} className="max-w-full max-h-full" alt="" />
                           </div>
                           <div className="min-w-0 flex-1">
@@ -305,7 +295,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                     <div className="space-y-3">
                       {getPreviewItems('ammo', 'Rimfire').map(item => (
                         <div key={item.id} className="flex items-center gap-3 group cursor-pointer" onClick={() => onSearch(item.name)}>
-                          <div className="w-10 h-10 bg-white rounded border border-slate-200 flex items-center justify-center p-1 flex-shrink-0">
+                          <div className="w-10 h-10 bg-white rounded border border-slate-200 flex items-center justify-center p-1 shrink-0">
                             <img src={item.image} className="max-w-full max-h-full" alt="" />
                           </div>
                           <div className="min-w-0 flex-1">
@@ -340,7 +330,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                     <div className="space-y-3">
                       {getPreviewItems('ammo', 'Shotgun').map(item => (
                         <div key={item.id} className="flex items-center gap-3 group cursor-pointer" onClick={() => onSearch(item.name)}>
-                          <div className="w-10 h-10 bg-white rounded border border-slate-200 flex items-center justify-center p-1 flex-shrink-0">
+                          <div className="w-10 h-10 bg-white rounded border border-slate-200 flex items-center justify-center p-1 shrink-0">
                             <img src={item.image} className="max-w-full max-h-full" alt="" />
                           </div>
                           <div className="min-w-0 flex-1">
@@ -370,7 +360,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                   <div className="space-y-3">
                     {getPreviewItems('firearm', 'Handgun').map(item => (
                       <div key={item.id} className="flex items-center gap-3 group cursor-pointer" onClick={() => onSearch(item.name)}>
-                        <div className="w-10 h-10 bg-slate-50 rounded border border-slate-100 flex items-center justify-center p-1 flex-shrink-0">
+                        <div className="w-10 h-10 bg-slate-50 rounded border border-slate-100 flex items-center justify-center p-1 shrink-0">
                           <img src={item.image} className="max-w-full max-h-full" alt="" />
                         </div>
                         <div className="min-w-0 flex-1">
@@ -391,7 +381,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                   <div className="space-y-3">
                     {getPreviewItems('firearm', 'Rifle').map(item => (
                       <div key={item.id} className="flex items-center gap-3 group cursor-pointer" onClick={() => onSearch(item.name)}>
-                        <div className="w-10 h-10 bg-slate-50 rounded border border-slate-100 flex items-center justify-center p-1 flex-shrink-0">
+                        <div className="w-10 h-10 bg-slate-50 rounded border border-slate-100 flex items-center justify-center p-1 shrink-0">
                           <img src={item.image} className="max-w-full max-h-full" alt="" />
                         </div>
                         <div className="min-w-0 flex-1">
@@ -412,7 +402,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                   <div className="space-y-3">
                     {getPreviewItems('firearm', 'Shotgun').map(item => (
                       <div key={item.id} className="flex items-center gap-3 group cursor-pointer" onClick={() => onSearch(item.name)}>
-                        <div className="w-10 h-10 bg-slate-50 rounded border border-slate-100 flex items-center justify-center p-1 flex-shrink-0">
+                        <div className="w-10 h-10 bg-slate-50 rounded border border-slate-100 flex items-center justify-center p-1 shrink-0">
                           <img src={item.image} className="max-w-full max-h-full" alt="" />
                         </div>
                         <div className="min-w-0 flex-1">
@@ -448,7 +438,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                 <div className="w-full md:w-1/3 space-y-2">
                   {getPreviewItems('part', 'any').map(item => (
                     <div key={item.id} className="flex items-center gap-3 bg-white p-2 rounded border border-slate-200" onClick={() => onSearch(item.name)}>
-                      <div className="w-8 h-8 flex items-center justify-center flex-shrink-0">
+                      <div className="w-8 h-8 flex items-center justify-center shrink-0">
                         <img src={item.image} className="max-w-full max-h-full" alt="" />
                       </div>
                       <div className="min-w-0">
@@ -462,27 +452,70 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
             </div>
 
             {/* Popular Brands Section */}
-            <div className="space-y-6 pt-6 border-t border-slate-200">
-              <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                <Award className="h-6 w-6 text-brand" /> Popular Brands
-              </h2>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {POPULAR_BRANDS.map((brand) => (
-                  <button
-                    key={brand.name}
-                    onClick={() => onSearch(brand.name)}
-                    className="group relative flex items-center justify-center h-24 bg-white border border-slate-200 rounded-xl hover:border-brand/40 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-6"
-                  >
-                    <img
-                      src={`https://logo.clearbit.com/${brand.domain}?size=128`}
-                      alt={brand.name}
-                      className="max-h-full max-w-full object-contain opacity-60 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-                    />
-                    <span className="sr-only">{brand.name}</span>
-                  </button>
-                ))}
+            {topBrands.length > 0 && (
+              <div className="space-y-6 pt-6 border-t border-slate-200">
+                <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                  <Award className="h-6 w-6 text-brand" /> Popular Brands
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                  {topBrands.map((brand) => (
+                    <button
+                      key={brand.name}
+                      onClick={() => onSearch(brand.name)}
+                      className="group relative flex flex-col items-center justify-center p-4 bg-white border border-slate-200 rounded-xl hover:border-brand/40 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                    >
+                      <div className="h-12 w-full flex items-center justify-center mb-2">
+                        <img
+                          src={brand.logo || `https://logo.clearbit.com/${brand.domain || brand.name.replace(/\s+/g, '').toLowerCase() + '.com'}?size=128`}
+                          alt={brand.name}
+                          className="max-h-full max-w-full object-contain opacity-70 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = 'https://placehold.co/100x50?text=' + brand.name.charAt(0);
+                          }}
+                        />
+                      </div>
+                      <span className="text-xs font-medium text-slate-500 group-hover:text-brand">{brand.count}+ Products</span>
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Top Retailers Section */}
+            {topRetailers.length > 0 && (
+              <div className="space-y-6 pt-8 border-t border-slate-200">
+                <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                  <Shield className="h-6 w-6 text-brand" /> Trusted Retailers
+                </h2>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  {topRetailers.map((retailer) => (
+                    <div key={retailer.name} className="flex items-center gap-4 bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                      <div className="w-12 h-12 bg-slate-50 rounded-lg flex items-center justify-center p-2 border border-slate-100">
+                        <img
+                          src={retailer.logo || `https://logo.clearbit.com/${retailer.domain || retailer.name.replace(/\s+/g, '').toLowerCase() + '.com'}?size=64`}
+                          alt={retailer.name}
+                          className="max-w-full max-h-full object-contain"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                          }}
+                        />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="font-bold text-slate-900 text-sm truncate">{retailer.name}</div>
+                        <div className="text-xs text-slate-500">{retailer.count.toLocaleString()} Active Offers</div>
+                        <div className="flex items-center gap-1 mt-1">
+                          <div className="flex text-yellow-400">
+                            {[...Array(5)].map((_, i) => (
+                              <svg key={i} className={`w-3 h-3 ${i < Math.round(retailer.rating || 5) ? 'fill-current' : 'text-slate-200 fill-current'}`} viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
           </div>
 

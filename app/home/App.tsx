@@ -6,7 +6,7 @@ import { FilterSidebar } from './mycomponents/FilterSidebar';
 import { ProductList } from './mycomponents/ProductList';
 import { HomePage } from './mycomponents/HomePage';
 import { ChevronRight } from 'lucide-react';
-import { searchHomeProducts } from './actions';
+import { searchHomeProducts, fetchTopBrands, fetchTopRetailers } from './actions';
 import { Product } from './types';
 
 type ViewState = 'home' | 'listings';
@@ -18,7 +18,26 @@ function App() {
 
   // Data State
   const [products, setProducts] = useState<Product[]>([]);
+
   const [loading, setLoading] = useState(false);
+  const [topBrands, setTopBrands] = useState<any[]>([]);
+  const [topRetailers, setTopRetailers] = useState<any[]>([]);
+
+  React.useEffect(() => {
+    const initData = async () => {
+      try {
+        const [brands, retailers] = await Promise.all([
+          fetchTopBrands(),
+          fetchTopRetailers()
+        ]);
+        setTopBrands(brands);
+        setTopRetailers(retailers);
+      } catch (e) {
+        console.error("Failed to load home data", e);
+      }
+    };
+    initData();
+  }, []);
 
   const handleSearch = async (term: string) => {
     setSearchQuery(term);
@@ -41,17 +60,12 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-brand selection:text-white">
 
-      {/* Header is always visible now */}
-      <Header
-        showSearch={currentView === 'listings'}
-        onLogoClick={resetToHome}
-        onSearchSubmit={handleSearch}
-      />
 
-      {currentView === 'listings' && <MarketPulse />}
+
+
 
       {currentView === 'home' ? (
-        <HomePage onSearch={handleSearch} />
+        <HomePage onSearch={handleSearch} topBrands={topBrands} topRetailers={topRetailers} />
       ) : (
         /* Listings View */
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
