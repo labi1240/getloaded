@@ -117,7 +117,9 @@ export async function getProducts(
                     }
                 };
             }
-            where.FirearmSpecs = firearmSpecsWhere;
+            if (Object.keys(firearmSpecsWhere).length > 0) {
+                where.FirearmSpecs = firearmSpecsWhere;
+            }
         } else {
             const ammoSpecsWhere: any = {};
             if (filters.caliberSlug && filters.caliberSlug.length > 0) {
@@ -130,7 +132,9 @@ export async function getProducts(
                     ammoSpecsWhere.grain = { in: validGrains };
                 }
             }
-            where.AmmoSpecs = ammoSpecsWhere;
+            if (Object.keys(ammoSpecsWhere).length > 0) {
+                where.AmmoSpecs = ammoSpecsWhere;
+            }
         }
     }
 
