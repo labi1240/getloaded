@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
+import Link from 'next/link';
 import { Search, ScanBarcode, ArrowRight, Zap, Target, Package, ChevronRight, Gift, Crosshair, Award, Settings, Shield, TrendingUp, History } from 'lucide-react';
 import { BarcodeScanner } from './BarcodeScanner';
 import { MOCK_LISTINGS } from '../constants';
 import { Product } from '../types';
+// import Link from 'next/link';
 
 interface HomePageProps {
   onSearch: (term: string) => void;
@@ -25,6 +27,14 @@ const TRENDING_SEARCHES = [
   { term: 'Glock 19 Gen 5', category: 'Firearm' },
   { term: 'CCI Mini-Mag', category: 'Rimfire' },
 ];
+
+function toSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/\./g, '-')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
 
 export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -213,9 +223,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                     <ul className="grid grid-cols-2 gap-2 mb-6">
                       {['9mm Luger', '45 ACP', '380 Auto', '10mm', '38 Spl', '357 Mag', '40 S&W', '5.7x28'].map(cal => (
                         <li key={cal}>
-                          <button onClick={() => onSearch(cal)} className="flex items-center text-xs font-medium text-slate-600 hover:text-brand transition-colors">
+                          <Link href={`/ammo/${toSlug(cal)}`} className="flex items-center text-xs font-medium text-slate-600 hover:text-brand transition-colors">
                             <ChevronRight className="h-3 w-3 mr-1 text-slate-400" /> {cal}
-                          </button>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -248,9 +258,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                     <ul className="grid grid-cols-2 gap-2 mb-6">
                       {['5.56 NATO', '223 Rem', '308 Win', '7.62x39', '300 Blk', '6.5 Creed', '30-06', '45-70'].map(cal => (
                         <li key={cal}>
-                          <button onClick={() => onSearch(cal)} className="flex items-center text-xs font-medium text-slate-600 hover:text-brand transition-colors">
+                          <Link href={`/ammo/${toSlug(cal)}`} className="flex items-center text-xs font-medium text-slate-600 hover:text-brand transition-colors">
                             <ChevronRight className="h-3 w-3 mr-1 text-slate-400" /> {cal}
-                          </button>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -283,9 +293,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                     <ul className="grid grid-cols-2 gap-2 mb-6">
                       {['22 LR', '22 WMR', '17 HMR', '22 Short', '22 Long'].map(cal => (
                         <li key={cal}>
-                          <button onClick={() => onSearch(cal)} className="flex items-center text-xs font-medium text-slate-600 hover:text-brand transition-colors">
+                          <Link href={`/ammo/${toSlug(cal)}`} className="flex items-center text-xs font-medium text-slate-600 hover:text-brand transition-colors">
                             <ChevronRight className="h-3 w-3 mr-1 text-slate-400" /> {cal}
-                          </button>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -318,9 +328,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                     <ul className="grid grid-cols-2 gap-2 mb-6">
                       {['12 Gauge', '20 Gauge', '410 Bore', '16 Gauge', '28 Gauge'].map(cal => (
                         <li key={cal}>
-                          <button onClick={() => onSearch(cal)} className="flex items-center text-xs font-medium text-slate-600 hover:text-brand transition-colors">
+                          <Link href={`/ammo/${toSlug(cal)}`} className="flex items-center text-xs font-medium text-slate-600 hover:text-brand transition-colors">
                             <ChevronRight className="h-3 w-3 mr-1 text-slate-400" /> {cal}
-                          </button>
+                          </Link>
                         </li>
                       ))}
                     </ul>
@@ -370,9 +380,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                       </div>
                     ))}
                   </div>
-                  <button onClick={() => onSearch('Handguns')} className="w-full mt-4 py-2 text-sm text-brand font-medium border border-brand/20 rounded-lg hover:bg-brand/5 transition-colors">
+                  <Link href="/firearms/handgun" className="flex items-center justify-center w-full mt-4 py-2 text-sm text-brand font-medium border border-brand/20 rounded-lg hover:bg-brand/5 transition-colors">
                     View All Handguns
-                  </button>
+                  </Link>
                 </div>
 
                 {/* Rifles */}
@@ -391,9 +401,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                       </div>
                     ))}
                   </div>
-                  <button onClick={() => onSearch('Rifles')} className="w-full mt-4 py-2 text-sm text-brand font-medium border border-brand/20 rounded-lg hover:bg-brand/5 transition-colors">
+                  <Link href="/firearms/rifle" className="flex items-center justify-center w-full mt-4 py-2 text-sm text-brand font-medium border border-brand/20 rounded-lg hover:bg-brand/5 transition-colors">
                     View All Rifles
-                  </button>
+                  </Link>
                 </div>
 
                 {/* Shotguns */}
@@ -412,9 +422,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                       </div>
                     ))}
                   </div>
-                  <button onClick={() => onSearch('Shotguns')} className="w-full mt-4 py-2 text-sm text-brand font-medium border border-brand/20 rounded-lg hover:bg-brand/5 transition-colors">
+                  <Link href="/firearms/shotgun" className="flex items-center justify-center w-full mt-4 py-2 text-sm text-brand font-medium border border-brand/20 rounded-lg hover:bg-brand/5 transition-colors">
                     View All Shotguns
-                  </button>
+                  </Link>
                 </div>
 
               </div>
