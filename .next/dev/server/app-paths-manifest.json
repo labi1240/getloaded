@@ -1,7 +1,0 @@
-{
-  "/ammo/[...slug]/page": "app/ammo/[...slug]/page.js",
-  "/ammo/page": "app/ammo/page.js",
-  "/firearms/[...slug]/page": "app/firearms/[...slug]/page.js",
-  "/firearms/page": "app/firearms/page.js",
-  "/page": "app/page.js"
-}

@@ -52,7 +52,7 @@ export async function getOffers(itemId: string): Promise<Offer[]> {
 
 
 export async function getProducts(
-    kind: 'FIREARM' | 'AMMO',
+    kind: 'FIREARM' | 'AMMO' | 'ACCESSORY',
     limit = 100,
     skip = 0,
     filters?: {
@@ -61,6 +61,7 @@ export async function getProducts(
         caliberSlug?: string[];
         grain?: string[];
         inStock?: boolean;
+        retailers?: string[];
     }
 ): Promise<Product[]> {
     // "use cache"
@@ -93,16 +94,22 @@ export async function getProducts(
         where.Brand = { slug: { in: filters.brandSlug } };
     }
 
-    // Handle In Stock
+    // Handle Offers (In Stock & Retailers)
+    const offerCriteria: Prisma.OfferWhereInput = {};
+
     if (filters?.inStock) {
-        // Must have at least one In Stock offer
-        where.Offer = {
-            some: {
-                inStock: true
-            }
-        };
+        offerCriteria.inStock = true;
+    }
+
+    if (filters?.retailers && filters.retailers.length > 0) {
+        offerCriteria.Retailer = { name: { in: filters.retailers } };
+    }
+
+    if (Object.keys(offerCriteria).length > 0) {
+        where.Offer = { some: offerCriteria };
     } else {
-        // Default behavior: Must have at least one offer (in stock or not)
+        // Default behavior if NO specific offer filters: ensure at least one offer exists
+        // This prevents showing products with 0 offers (orphaned catalog items)
         where.offerCount = { gt: 0 };
     }
 
@@ -170,7 +177,8 @@ export async function getProducts(
                 include: {
                     Caliber: true
                 }
-            }
+            },
+            AccessorySpecs: true
         },
         orderBy: [
             // Requirement: Default Sort Price Per Round.
@@ -485,7 +493,7 @@ function mapToProduct(item: any): Product {
     const product: Product = {
         id: item.id,
         slug: item.slug, // Map slug
-        kind: item.kind === 'FIREARM' ? 'FIREARM' : 'AMMO',
+        kind: item.kind,
         title: item.title,
         image: item.image || '/placeholder.jpg',
         brand: brand,
@@ -536,8 +544,8 @@ export async function isValidBrandSlug(slug: string): Promise<boolean> {
 }
 
 export async function getTopBrands(limit = 8) {
-     // "use cache"
-     // cacheLife("days")
+    "use cache"
+    cacheLife("days")
     try {
         const brands = await prisma.brand.findMany({
             take: limit,
@@ -560,8 +568,8 @@ export async function getTopBrands(limit = 8) {
 }
 
 export async function getTopRetailers(limit = 6) {
-     // "use cache"
-     // cacheLife("hours")
+    // "use cache"
+    // cacheLife("hours")
     try {
         const retailers = await prisma.retailer.findMany({
             take: limit,
@@ -578,7 +586,41 @@ export async function getTopRetailers(limit = 6) {
         });
         return retailers;
     } catch (e) {
-         console.error('Error fetching top retailers:', e);
-         return [];
+        console.error('Error fetching top retailers:', e);
+        return [];
     }
+}
+
+export async function getTopCalibers(
+    type: 'handgun' | 'rifle' | 'shotgun' | 'rimfire',
+    limit = 8
+): Promise<{ name: string; slug: string; count: number }[]> {
+    "use cache"
+    cacheLife("hours")
+
+    // Fetch calibers of the specified type, ordered by the number of associated AmmoSpecs (products)
+    const calibers = await prisma.caliber.findMany({
+        where: {
+            type: type,
+            // Ensure caliber has at least one product
+            AmmoSpecs: { some: {} }
+        },
+        include: {
+            _count: {
+                select: { AmmoSpecs: true }
+            }
+        },
+        orderBy: {
+            AmmoSpecs: {
+                _count: 'desc'
+            }
+        },
+        take: limit
+    });
+
+    return calibers.map(c => ({
+        name: c.name,
+        slug: c.slug,
+        count: c._count.AmmoSpecs
+    }));
 }

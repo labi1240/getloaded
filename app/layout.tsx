@@ -3,11 +3,11 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { GlobalProvider } from '@/components/GlobalProvider';
-import Navbar from '@/components/Navbar';
 import CompareTrayWrapper from '@/components/CompareTrayWrapper';
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { getRetailers } from '@/lib/data';
 import RetailerHydrator from '@/components/RetailerHydrator';
+import { Header } from '@/components/home/Header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -30,7 +30,8 @@ export default function RootLayout({
                             <RetailerFetcher />
                         </Suspense>
                         <Suspense>
-                            <Navbar />
+                            {/* <Navbar /> */}
+                            <Header />
                         </Suspense>
                         <main>
                             {children}

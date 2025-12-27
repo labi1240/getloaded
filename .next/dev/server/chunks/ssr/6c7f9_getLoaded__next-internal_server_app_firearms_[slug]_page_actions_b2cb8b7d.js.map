@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 6, "column": 0}, "map": {"version":3,"sources":["file:///Users/lovepreetgill/Downloads/getLoaded/.next-internal/server/app/firearms/%5Bslug%5D/page/actions.js%20%28server%20actions%20loader%29"],"sourcesContent":["export {getProductsByIds as '40d38bff938054d9cfcbbc3fdbf3a03734482f8398'} from 'ACTIONS_MODULE0'\nexport {getProducts as '7018251b6cb52c5d302280bcf1b6e45d3e7dba4ea1'} from 'ACTIONS_MODULE0'\nexport {$$RSC_SERVER_CACHE_0 as '80fcf35f570cfd8eb3398618ec045de9c789c811a8'} from 'ACTIONS_MODULE1'\nexport {$$RSC_SERVER_CACHE_1 as 'c006162ab3a899e7d73137c4b086f1730b265ad903'} from 'ACTIONS_MODULE1'\nexport {$$RSC_SERVER_CACHE_4 as 'c029eb3f883a459029afd42c430fafeef4462046b5'} from 'ACTIONS_MODULE1'\nexport {$$RSC_SERVER_CACHE_3 as 'c05eec283681c380e9d4394ceddcb02fbdb46ef476'} from 'ACTIONS_MODULE1'\nexport {$$RSC_SERVER_CACHE_6 as 'c0735ce8044084cc47eed8ce73c42b73b6f33c84a6'} from 'ACTIONS_MODULE1'\nexport {$$RSC_SERVER_CACHE_5 as 'c0a256c4f7e7072aab1cf2560b5aeaca8abe7556e7'} from 'ACTIONS_MODULE1'\nexport {$$RSC_SERVER_CACHE_2 as 'f0f08d3c95c925e03e3df0f8a758d6ddf9a3d15e8b'} from 'ACTIONS_MODULE1'\n"],"names":[],"mappings":";AAAA;AAEA"}}]
-}

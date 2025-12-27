@@ -9,6 +9,7 @@ async function FirearmList({ searchParams }: { searchParams: Promise<{ [key: str
     const search = typeof params.q === 'string' ? params.q : undefined;
     const brandSlug = params.brands ? (Array.isArray(params.brands) ? params.brands : [params.brands]) : undefined;
     const caliberSlug = params.calibers ? (Array.isArray(params.calibers) ? params.calibers : [params.calibers]) : undefined;
+    const retailers = params.retailers ? (Array.isArray(params.retailers) ? params.retailers : [params.retailers]) : undefined;
 
     // Default InStock to TRUE unless explicitly 'false'
     const inStockParam = params.is;
@@ -18,7 +19,8 @@ async function FirearmList({ searchParams }: { searchParams: Promise<{ [key: str
         search,
         brandSlug,
         caliberSlug,
-        inStock
+        inStock,
+        retailers
     });
 
     return <CategoryPage kind="FIREARM" initialProducts={products} />;

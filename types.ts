@@ -32,7 +32,7 @@ export interface Brand {
 export interface Product {
   id: string;
   slug: string; // Added slug
-  kind: 'FIREARM' | 'AMMO';
+  kind: 'FIREARM' | 'AMMO' | 'ACCESSORY';
   title: string;
   image: string;
   brand: Brand;
