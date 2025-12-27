@@ -119,7 +119,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onSearch }) => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onFocus={() => setIsSearchFocused(true)}
                 onKeyDown={handleKeyDown}
-                className="flex-1 bg-transparent border-none text-lg text-slate-900 placeholder-slate-400 focus:ring-0 px-2 py-4 h-14"
+                className="flex-1 bg-transparent border-none text-lg text-slate-900 placeholder-slate-400 focus:ring-0 focus:outline-none px-2 py-4 h-14"
                 placeholder="Search 9mm, Glock 19, or 'Federal HST'..."
                 autoFocus
               />
