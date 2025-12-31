@@ -5,13 +5,12 @@ import { cacheLife, cacheTag } from 'next/cache';
 
 // 1. Retailers (Static, Long Cache)
 export async function getRetailers() {
-  "use cache";
-  cacheLife("days");
+//   "use cache";       // 1. Uncomment this
+//   cacheLife("days"); // 2. Uncomment this
 
   const retailers = await prisma.retailer.findMany({
     orderBy: { name: 'asc' },
   });
-
   return retailers;
 }
 
