@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap --config next-sitemap.config.cjs"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
