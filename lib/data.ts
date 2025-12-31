@@ -4,8 +4,8 @@ import { cacheLife, cacheTag } from 'next/cache';
 import { Prisma } from '@prisma/client';
 
 export async function getRetailers(): Promise<Retailer[]> {
-    "use cache"
-    cacheLife("days")
+    // "use cache"
+    // cacheLife("days")
     const retailers = await prisma.retailer.findMany({
         orderBy: { name: 'asc' }
     });
@@ -19,9 +19,9 @@ export async function getRetailers(): Promise<Retailer[]> {
 
 
 export async function getOffers(itemId: string): Promise<Offer[]> {
-    "use cache"
-    cacheLife("hours")
-    cacheTag(`offers-${itemId}`)
+    // "use cache"
+    // cacheLife("hours")
+    // cacheTag(`offers-${itemId}`)
     const offers = await prisma.offer.findMany({
         where: { itemId },
         include: { Retailer: true },
@@ -64,12 +64,12 @@ export async function getProducts(
         retailers?: string[];
     }
 ): Promise<Product[]> {
-    "use cache"
-    cacheLife("minutes")
+    // "use cache"
+    // cacheLife("minutes")
 
     // Create a cache tag that uniquely identifies this query
     const filterKey = JSON.stringify(filters || {});
-    cacheTag(`products-${kind.toLowerCase()}-${Buffer.from(filterKey).toString('base64')}`);
+    // cacheTag(`products-${kind.toLowerCase()}-${Buffer.from(filterKey).toString('base64')}`);
 
     const where: Prisma.CatalogItemWhereInput = {
         kind: kind,
@@ -192,8 +192,8 @@ export async function getProducts(
 }
 
 export async function getProduct(id: string): Promise<Product | null> {
-    "use cache"
-    cacheLife("minutes")
+    // "use cache"
+    // cacheLife("minutes")
     const item = await prisma.catalogItem.findUnique({
         where: { id },
         include: {
@@ -230,8 +230,8 @@ export async function getProduct(id: string): Promise<Product | null> {
 
 
 export async function getProductBySlug(slug: string): Promise<Product | null> {
-    "use cache"
-    cacheLife("max")
+    // "use cache"
+    // cacheLife("max")
     const item = await prisma.catalogItem.findUnique({
         where: { slug },
         include: {
@@ -300,9 +300,9 @@ export async function getProductsByIds(ids: string[]): Promise<Product[]> {
 
 
 export async function getPairedProduct(itemId: string): Promise<Product | null> {
-    "use cache"
-    cacheLife("minutes")
-
+    // "use cache"
+    // cacheLife("minutes")
+    
     // 1. Get the item to determine its type and specs
     const item = await prisma.catalogItem.findUnique({
         where: { id: itemId },
@@ -526,8 +526,8 @@ function mapToProduct(item: any): Product {
 }
 
 export async function isValidCaliberSlug(slug: string): Promise<boolean> {
-    "use cache"
-    cacheLife("days")
+    // "use cache"
+    // cacheLife("days")
     const count = await prisma.caliber.count({
         where: { slug }
     });
@@ -535,8 +535,8 @@ export async function isValidCaliberSlug(slug: string): Promise<boolean> {
 }
 
 export async function isValidBrandSlug(slug: string): Promise<boolean> {
-    "use cache"
-    cacheLife("days")
+    // "use cache"
+    // cacheLife("days")
     const count = await prisma.brand.count({
         where: { slug }
     });
@@ -568,8 +568,8 @@ export async function getTopBrands(limit = 8) {
 }
 
 export async function getTopRetailers(limit = 6) {
-    "use cache"
-    cacheLife("hours")
+    // "use cache"
+    // cacheLife("hours")
     try {
         const retailers = await prisma.retailer.findMany({
             take: limit,
@@ -626,8 +626,8 @@ export async function getTopCalibers(
 }
 
 export async function getPriceHistory(itemId: string): Promise<PriceHistoryPoint[]> {
-    "use cache"
-    cacheLife("hours")
+    // "use cache"
+    // cacheLife("hours")
 
     try {
         // Query to get the minimum price and unit price per day PER RETAILER for this catalog item
