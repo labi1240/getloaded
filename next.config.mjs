@@ -7,6 +7,8 @@ const nextConfig = {
         remotePatterns: [
             { protocol: 'https', hostname: 'logo.clearbit.com' },
             { protocol: 'https', hostname: 'placehold.co' },
+            { protocol: 'https', hostname: 'images.ammometric.com' },
+            { protocol: 'https', hostname: 'pub-e8693513b15ffde1022b7f6a0ae2d0f2.r2.dev' },
             { protocol: 'https', hostname: 'd3hpw7f66a218f.cloudfront.net' }, // Common CDN seen in industry
             // Add other potential image sources if known
         ],

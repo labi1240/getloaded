@@ -14,8 +14,13 @@ import { Footer } from '@/components/Footer';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'AmmoTerminal',
-    description: 'Real-time pricing for ammo and firearms',
+    // Defines how the title looks on inner pages (e.g., "Page Name | AmmoMetric")
+    title: {
+        template: '%s | AmmoMetric',
+        default: 'AmmoMetric | Real-time pricing for ammo and firearms', // Fallback title
+    },
+    description: 'Real-time pricing and inventory search for ammunition and firearms across top retailers.',
+    //
 };
 
 export default function RootLayout({
