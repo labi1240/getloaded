@@ -12,11 +12,16 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.9",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "@remixicon/react": "4.2.0",
     "@tanstack/react-table": "^8.21.3",
+    "@tremor/react": "^3.18.7",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
+    "framer-motion": "^12.23.26",
     "fuse.js": "7.0.0",
     "lucide-react": "^0.562.0",
     "next": "^16.0.10",
@@ -26,7 +31,10 @@
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-router-dom": "^7.10.1",
-    "react-zxing": "^2.1.0"
+    "react-zxing": "^2.1.0",
+    "recharts": "^2.15.4",
+    "tailwind-merge": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",

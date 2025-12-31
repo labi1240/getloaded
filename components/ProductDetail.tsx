@@ -28,6 +28,7 @@ import {
   RiCheckboxCircleFill
 } from '@remixicon/react';
 import OptimizedBallisticPairing from './OptimizedBallisticPairing';
+import PriceHistoryChart from './PriceHistoryChart';
 
 // --- Ballistics Simulation Engine (Ammo Only) ---
 
@@ -586,13 +587,14 @@ const ProductDetail: React.FC<{ initialProduct?: Product, pairedProduct?: Produc
                     <div className="mt-5 text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">Category: {product.kind}</div>
                   </div>
                 </div>
-                <div className="bg-slate-50/50 p-16 rounded-[4rem] border border-slate-200 h-[560px] flex flex-col relative overflow-hidden shadow-inner">
+                <div className="bg-slate-50/50 p-16 rounded-[4rem] border border-slate-200 min-h-[560px] flex flex-col relative overflow-hidden shadow-inner">
                   <h3 className="text-[12px] font-black uppercase tracking-[0.4em] text-slate-400 mb-12 font-mono">TRANSACTION_FLOW_VISUALIZATION</h3>
-                  <div className="flex-1 bg-white rounded-[3rem] border border-slate-200 flex flex-col items-center justify-center p-20 shadow-2xl shadow-slate-900/5">
-                    <RiHistoryLine className="size-24 text-slate-100 mb-10" />
-                    <div className="text-center">
-                      <p className="text-base font-black uppercase tracking-[0.4em] text-slate-300 font-mono">INDEXING_MARKET_FLOW...</p>
-                      <p className="text-xs text-slate-400 font-medium mt-4 max-w-[320px] leading-relaxed">Financial aggregates are compiled from verified retailer endpoints every 240 seconds.</p>
+                  <div className="flex-1 w-full">
+                    <PriceHistoryChart data={product.priceHistory || []} isAmmo={isAmmo} />
+                    <div className="mt-8 text-center">
+                      <p className="text-xs text-slate-400 font-medium max-w-[320px] mx-auto leading-relaxed italic">
+                        Financial aggregates are compiled from verified retailer endpoints every 240 seconds. Historical trends represent daily minimum valuations.
+                      </p>
                     </div>
                   </div>
                 </div>

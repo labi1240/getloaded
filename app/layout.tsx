@@ -8,6 +8,8 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { getRetailers } from '@/lib/data';
 import RetailerHydrator from '@/components/RetailerHydrator';
 import { Header } from '@/components/home/Header';
+import { Footer } from '@/components/Footer';
+// import { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,7 +25,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en">
-            <body suppressHydrationWarning className={`${inter.className} min-h-screen bg-slate-50 font-sans text-slate-900 pb-24 transition-colors duration-300`}>
+            <body suppressHydrationWarning className={`${inter.className} min-h-screen bg-slate-50 font-sans text-slate-900 transition-colors duration-300`}>
                 <NuqsAdapter>
                     <GlobalProvider>
                         <Suspense>
@@ -33,9 +35,10 @@ export default function RootLayout({
                             {/* <Navbar /> */}
                             <Header />
                         </Suspense>
-                        <main>
+                        <main className="min-h-[calc(100vh-400px)]">
                             {children}
                         </main>
+                        <Footer />
                         <CompareTrayWrapper />
                     </GlobalProvider>
                 </NuqsAdapter>

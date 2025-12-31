@@ -1,5 +1,5 @@
 import prisma from './prisma';
-import { Product, Offer, Brand, Retailer } from '../types';
+import { Product, Offer, Brand, Retailer, PriceHistoryPoint } from '../types';
 import { cacheLife, cacheTag } from 'next/cache';
 import { Prisma } from '@prisma/client';
 
@@ -623,4 +623,36 @@ export async function getTopCalibers(
         slug: c.slug,
         count: c._count.AmmoSpecs
     }));
+}
+
+export async function getPriceHistory(itemId: string): Promise<PriceHistoryPoint[]> {
+    // "use cache"
+    // cacheLife("hours")
+
+    try {
+        // Query to get the minimum price and unit price per day PER RETAILER for this catalog item
+        const history = await prisma.$queryRaw<any[]>`
+            SELECT 
+                date_trunc('day', oh.time) as day,
+                r.name as "retailerName",
+                MIN(oh.price) as min_price,
+                MIN(oh."unitPrice") as min_unit_price
+            FROM "OfferHistory" oh
+            JOIN "Offer" o ON oh."offerId" = o.id
+            JOIN "Retailer" r ON o."retailerId" = r.id
+            WHERE o."itemId" = ${itemId}
+            GROUP BY day, r.name
+            ORDER BY day ASC
+        `;
+
+        return history.map(point => ({
+            time: point.day.toISOString(),
+            price: Number(point.min_price),
+            unitPrice: point.min_unit_price ? Number(point.min_unit_price) : undefined,
+            retailerName: point.retailerName
+        }));
+    } catch (e) {
+        console.error('Error fetching price history:', e);
+        return [];
+    }
 }

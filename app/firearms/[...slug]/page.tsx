@@ -2,7 +2,7 @@
 import React, { Suspense } from 'react';
 import ProductLoading from '@/components/ProductLoading';
 import { notFound } from 'next/navigation';
-import { getProductBySlug, getOffers, getPairedProduct, getProducts, isValidCaliberSlug, isValidBrandSlug } from '@/lib/data';
+import { getProductBySlug, getOffers, getPairedProduct, getProducts, isValidCaliberSlug, isValidBrandSlug, getPriceHistory } from '@/lib/data';
 import ProductDetail from '@/components/ProductDetail';
 import CategoryPage from '@/components/CategoryPage';
 
@@ -21,10 +21,13 @@ async function SmartContent({ params }: { params: Promise<{ slug: string[] }> })
     if (segments.length === 1) {
         const product = await getProductBySlug(segments[0]);
         if (product && product.kind === 'FIREARM') {
-            const offers = await getOffers(product.id);
-            const pairedProduct = await getPairedProduct(product.id);
-            const productWithOffers = { ...product, offers };
-            return <ProductDetail initialProduct={productWithOffers} pairedProduct={pairedProduct} />;
+            const [offers, pairedProduct, priceHistory] = await Promise.all([
+                getOffers(product.id),
+                getPairedProduct(product.id),
+                getPriceHistory(product.id)
+            ]);
+            const productWithData = { ...product, offers, priceHistory };
+            return <ProductDetail initialProduct={productWithData} pairedProduct={pairedProduct} />;
         }
     }
 
