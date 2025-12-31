@@ -4,11 +4,11 @@ import { getProducts } from '@/lib/data';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'GetLoaded | Shop In-Stock Ammunition - Compare Prices & Deals',
+    title: 'AmmoMetric | Shop In-Stock Ammunition - Compare Prices & Deals',
     description: 'Search and compare prices on thousands of in-stock ammunition options. Find 9mm, 5.56, .223, and more from trusted retailers at the best prices.',
     keywords: ['ammo', 'ammunition', 'bulk ammo', '9mm ammo', '5.56 ammo', 'cheap ammo', 'in-stock ammo', 'ammo deals'],
     openGraph: {
-        title: 'GetLoaded | Shop Ammunition Deals',
+        title: 'AmmoMetric | Shop Ammunition Deals',
         description: 'Compare prices from 100+ vetted retailers instantly. Find the best deals on ammo now.',
         type: 'website',
     }

@@ -1,10 +1,69 @@
-
+// app/firearms/[...slug]/page.tsx
 import React, { Suspense } from 'react';
 import ProductLoading from '@/components/ProductLoading';
 import { notFound } from 'next/navigation';
 import { getProductBySlug, getOffers, getPairedProduct, getProducts, isValidCaliberSlug, isValidBrandSlug, getPriceHistory } from '@/lib/data';
 import ProductDetail from '@/components/ProductDetail';
 import CategoryPage from '@/components/CategoryPage';
+import { Metadata } from 'next';
+
+// --- NEW: Dynamic Metadata Generator ---
+export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
+    const { slug: segments } = await params;
+
+    // A. Single Product
+    if (segments.length === 1) {
+        const product = await getProductBySlug(segments[0]);
+        if (product && product.kind === 'FIREARM') {
+            const bestPrice = product.offers?.[0]?.price ? `$${product.offers[0].price}` : 'great prices';
+            
+            return {
+                title: `${product.title} | AmmoMetric`,
+                description: `Buy ${product.title} online. Compare inventory from top gun stores. Best price found: ${bestPrice}.`,
+                openGraph: {
+                    title: product.title,
+                    description: `Find in-stock ${product.title}. Lowest price: ${bestPrice}.`,
+                    images: product.image ? [product.image] : [],
+                    type: 'article'
+                }
+            };
+        }
+    }
+
+    // B. Category (e.g. /firearms/glock or /firearms/9mm-luger)
+    const activeFilters: string[] = [];
+    
+    for (const segment of segments) {
+        if (await isValidCaliberSlug(segment)) {
+            activeFilters.push(formatSlug(segment));
+        } else if (await isValidBrandSlug(segment)) {
+            activeFilters.push(formatSlug(segment));
+        }
+    }
+
+    if (activeFilters.length > 0) {
+        const titleStr = activeFilters.join(' ');
+        return {
+            title: `${titleStr} Guns For Sale | AmmoMetric`,
+            description: `Shop huge inventory of ${titleStr} firearms. Compare prices on pistols, rifles, and shotguns.`,
+            openGraph: {
+                title: `${titleStr} Guns In Stock`,
+                description: `Best deals on ${titleStr} firearms.`,
+                type: 'website'
+            }
+        };
+    }
+
+    return {
+        title: 'Firearm Search | AmmoMetric',
+        description: 'Find in-stock firearms at the lowest prices.'
+    };
+}
+
+// Helper
+function formatSlug(slug: string) {
+    return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+}
 
 export default function FirearmsSmartRoute({ params }: { params: Promise<{ slug: string[] }> }) {
     return (
