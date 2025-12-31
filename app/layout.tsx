@@ -43,7 +43,7 @@ export default function RootLayout({
                     <GlobalProvider>
                         <Script 
                             src="http://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=edd05a5dabdd39656eef563e80b203f3c6556ce1" 
-                            strategy="afterInteractive" 
+                            strategy="beforeInteractive" 
                         />
                         <Suspense>
                             <RetailerFetcher />
