@@ -1,6 +1,6 @@
 "use client"
-import React from 'react';
-import { Search, Crosshair, Menu, Zap, ShieldCheck, ShoppingCart, User } from 'lucide-react';
+import React, { useState } from 'react';
+import { Search, Crosshair, Menu, Zap, ShieldCheck, ShoppingCart, User, X } from 'lucide-react';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -13,6 +13,8 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ showSearch = true, onLogoClick, onSearchSubmit }) => {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const isActive = (path: string) => pathname === path;
 
   return (
@@ -85,6 +87,16 @@ export const Header: React.FC<HeaderProps> = ({ showSearch = true, onLogoClick, 
           {/* Right Actions */}
           <div className="flex items-center gap-2 sm:gap-4">
 
+            {/* Mobile Search Toggle */}
+             {showSearch && (
+              <button 
+                className="sm:hidden p-2 rounded-full text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+              >
+                <Search className="h-5 w-5" />
+              </button>
+            )}
+
             {/* Vetted Badge (Desktop) */}
             <button className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-slate-600 hover:text-brand-700 hover:bg-brand-50 transition-all duration-200 text-sm font-medium border border-transparent hover:border-brand-100">
               <ShieldCheck className="h-4 w-4 text-brand-600" />
@@ -110,14 +122,65 @@ export const Header: React.FC<HeaderProps> = ({ showSearch = true, onLogoClick, 
                 <User className="h-5 w-5" />
               </button>
 
-              <button className="md:hidden p-2 rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-100 focus:outline-none ml-1">
-                <Menu className="h-6 w-6" />
+              <button
+                className="md:hidden p-2 rounded-md text-slate-500 hover:text-slate-900 hover:bg-slate-100 focus:outline-none ml-1"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
             </div>
 
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden border-t border-slate-200 bg-white">
+          <div className="px-4 pt-2 pb-6 space-y-1">
+            <Link
+              href="/firearms"
+              className="block px-3 py-3 rounded-md text-base font-medium text-slate-900 hover:bg-slate-50 hover:text-brand-600"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Firearms
+            </Link>
+            <Link
+              href="/ammo"
+              className="block px-3 py-3 rounded-md text-base font-medium text-slate-900 hover:bg-slate-50 hover:text-brand-600"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Ammo
+            </Link>
+            <div className="border-t border-slate-100 my-2 pt-2">
+              <button className="w-full flex items-center gap-2 px-3 py-3 text-base font-medium text-slate-600 hover:text-brand-600">
+                <ShieldCheck className="h-5 w-5 text-brand-600" /> Vetted Retailers
+              </button>
+              <button className="w-full flex items-center gap-2 px-3 py-3 text-base font-medium text-slate-600 hover:text-brand-600">
+                <Zap className="h-5 w-5 text-amber-500" /> Deals
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Search Bar */}
+      {showSearch && isSearchOpen && (
+        <div className="sm:hidden px-4 pb-4 animate-in slide-in-from-top-2 border-t border-slate-100 pt-4">
+          <div className="relative group/input">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Search className="h-4 w-4 text-slate-400 group-focus-within/input:text-brand-600 transition-colors" />
+            </div>
+            <input
+              type="text"
+              autoFocus
+              onKeyDown={(e) => e.key === 'Enter' && onSearchSubmit?.(e.currentTarget.value)}
+              className="block w-full pl-10 pr-12 py-2 border border-slate-200 rounded-xl leading-5 bg-slate-50/50 text-slate-900 placeholder-slate-400 focus:outline-none focus:bg-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 text-base transition-all duration-200 shadow-sm hover:border-slate-300"
+              placeholder="Search caliber, SKU, or brand..."
+            />
+          </div>
+        </div>
+      )}
     </header>
   );
 };

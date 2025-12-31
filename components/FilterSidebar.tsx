@@ -72,7 +72,7 @@ const FilterSidebar: React.FC<FilterSidebarProps> = ({ kind, facets, filters, se
 
   return (
     <aside className="w-full lg:w-72 shrink-0">
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 sticky top-8 shadow-xs max-h-[85vh] overflow-y-auto no-scrollbar">
+      <div className="bg-white rounded-2xl border border-slate-200 p-6 lg:sticky lg:top-8 shadow-xs lg:max-h-[85vh] lg:overflow-y-auto no-scrollbar">
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
           <div className="flex items-center gap-2 text-slate-900">
             <RiFilter3Line className="size-5" />

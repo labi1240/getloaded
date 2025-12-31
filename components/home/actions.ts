@@ -4,7 +4,6 @@ import { getProducts, getTopBrands, getTopRetailers, getTopCalibers as getRefTop
 import { Product as HomeProduct } from './types';
 import { Product as DBProduct } from '@/types';
 import { cacheLife } from 'next/cache';
-import { MOCK_LISTINGS } from './constants';
 
 export async function searchHomeProducts(query: string, kind: 'AMMO' | 'FIREARM' | 'ACCESSORY' = 'AMMO'): Promise<HomeProduct[]> {
     try {
@@ -58,11 +57,11 @@ export async function fetchFeaturedAccessories(limit = 3): Promise<HomeProduct[]
         if (products.length > 0) {
             return products.map(mapToHomeProduct);
         }
-        // Fallback to mocks if no real accessories found
-        return MOCK_LISTINGS.filter(i => i.category === 'part').slice(0, limit);
+        // No real accessories found
+        return [];
     } catch (e) {
         console.error('Failed to fetch accessories:', e);
-        return MOCK_LISTINGS.filter(i => i.category === 'part').slice(0, limit);
+        return [];
     }
 }
 

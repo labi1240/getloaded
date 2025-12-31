@@ -23,19 +23,20 @@ export const ProductCard: React.FC<Props> = ({ listing }) => {
       )}
 
       {/* Image Section */}
-      <div className="sm:w-48 p-4 flex items-center justify-center bg-white flex-shrink-0 border-r border-slate-100/50 relative">
+      <div className="sm:w-48 p-4 flex items-center justify-center bg-white flex-shrink-0 border-r border-slate-100/50 relative min-h-[160px] sm:min-h-0">
         <img
           src={listing.image}
           alt={listing.name}
-          className="max-h-32 object-contain group-hover:scale-105 transition-transform duration-300"
+          className="max-h-32 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+          loading="lazy"
         />
         {isReman && (
-          <div className="absolute top-2 left-2 bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-200 flex items-center gap-1">
+          <div className="absolute top-2 left-2 bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-200 flex items-center gap-1 z-10">
             <ShieldAlert className="h-3 w-3" /> RELOAD
           </div>
         )}
         {isUsed && (
-          <div className="absolute top-2 left-2 bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded border border-slate-300 flex items-center gap-1">
+          <div className="absolute top-2 left-2 bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-0.5 rounded border border-slate-300 flex items-center gap-1 z-10">
             <PackageOpen className="h-3 w-3" /> USED
           </div>
         )}

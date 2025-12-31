@@ -1,11 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const isActive = (path: string) => pathname === path;
 
@@ -14,6 +16,22 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
+            <div className="flex items-center sm:hidden mr-2">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                aria-controls="mobile-menu"
+                aria-expanded={isMobileMenuOpen}
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                <span className="sr-only">Open main menu</span>
+                {isMobileMenuOpen ? (
+                  <X className="block h-6 w-6" aria-hidden="true" />
+                ) : (
+                  <Menu className="block h-6 w-6" aria-hidden="true" />
+                )}
+              </button>
+            </div>
             <Link href="/" className="shrink-0 flex items-center cursor-pointer">
               {/* Simple text logo based on Refactoring UI's advice to start simple */}
               <span className="text-white text-xl font-bold tracking-tight">AmmoTerminal</span>
@@ -48,6 +66,35 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Mobile menu, show/hide based on menu state. */}
+      {isMobileMenuOpen && (
+        <div className="sm:hidden" id="mobile-menu">
+          <div className="pt-2 pb-3 space-y-1 bg-slate-800">
+            <Link
+              href="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`${isActive('/') ? 'bg-slate-900 border-brand-500 text-white' : 'border-transparent text-slate-300 hover:bg-slate-700 hover:text-white'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium`}
+            >
+              Firearms
+            </Link>
+            <Link
+              href="/ammo"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`${isActive('/ammo') ? 'bg-slate-900 border-brand-500 text-white' : 'border-transparent text-slate-300 hover:bg-slate-700 hover:text-white'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium`}
+            >
+              Ammo
+            </Link>
+            <Link
+              href="/preferences"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`${isActive('/preferences') ? 'bg-slate-900 border-brand-500 text-white' : 'border-transparent text-slate-300 hover:bg-slate-700 hover:text-white'} block pl-3 pr-4 py-2 border-l-4 text-base font-medium`}
+            >
+              Preferences
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

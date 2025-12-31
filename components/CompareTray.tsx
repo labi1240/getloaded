@@ -1,7 +1,10 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { MOCK_PRODUCTS } from '../constants';
 import { RiCloseLine, RiScales3Line, RiDeleteBin7Line } from '@remixicon/react';
+import { getProductsByIds } from '@/lib/actions';
+import { Product } from '@/types';
 
 interface CompareTrayProps {
   compareIds: string[];
@@ -10,22 +13,38 @@ interface CompareTrayProps {
 
 const CompareTray: React.FC<CompareTrayProps> = ({ compareIds, setCompareIds }) => {
   const router = useRouter();
+  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      if (compareIds.length === 0) {
+        setSelectedProducts([]);
+        return;
+      }
+      try {
+        const products = await getProductsByIds(compareIds);
+        setSelectedProducts(products);
+      } catch (error) {
+        console.error('Failed to fetch compare products:', error);
+      }
+    };
+    
+    fetchProducts();
+  }, [compareIds]);
 
   if (compareIds.length === 0) return null;
-
-  const selectedProducts = compareIds.map(id => MOCK_PRODUCTS.find(p => p.id === id)).filter(Boolean);
 
   return (
     <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-2xl px-4">
       <div className="bg-slate-900 rounded-2xl shadow-2xl border border-slate-700 p-3 flex items-center gap-4 text-white">
         <div className="flex -space-x-3 overflow-hidden p-1">
           {selectedProducts.map((p) => (
-            <div key={p!.id} className="relative group">
+            <div key={p.id} className="relative group">
               <div className="h-12 w-12 rounded-lg bg-white p-1 ring-2 ring-slate-900 overflow-hidden shadow-xs">
-                <img src={p!.image} className="h-full w-full object-contain" alt="" />
+                <img src={p.image} className="h-full w-full object-contain" alt="" />
               </div>
               <button
-                onClick={() => setCompareIds(compareIds.filter(id => id !== p!.id))}
+                onClick={() => setCompareIds(compareIds.filter(id => id !== p.id))}
                 className="absolute -top-1 -right-1 h-5 w-5 bg-red-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
               >
                 <RiCloseLine className="size-3" />

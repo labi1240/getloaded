@@ -1,21 +1,43 @@
-import React from 'react';
-import { SlidersHorizontal, RefreshCw } from 'lucide-react';
+"use client"
+import React, { useState } from 'react';
+import { SlidersHorizontal, RefreshCw, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { POPULAR_CALIBERS } from './constants';
 
 export const FilterSidebar: React.FC = () => {
-  return (
-    <div className="w-full lg:w-64 shrink-0 space-y-8">
+  const [isOpen, setIsOpen] = useState(false);
 
-      {/* Parameters Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-slate-900 font-bold">
-          <SlidersHorizontal className="h-4 w-4" />
-          <span>Parameters</span>
-        </div>
-        <button className="text-xs text-brand hover:text-brand-dark flex items-center gap-1 uppercase tracking-wider font-bold">
-          <RefreshCw className="h-3 w-3" /> Reset
+  return (
+    <>
+      {/* Mobile Filter Toggle */}
+      <div className="lg:hidden mb-4">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-full flex items-center justify-between bg-white p-4 rounded-lg border border-slate-200 shadow-sm text-slate-900 font-bold"
+        >
+          <div className="flex items-center gap-2">
+            <SlidersHorizontal className="h-5 w-5 text-brand" />
+            <span>Filters & Parameters</span>
+          </div>
+          {isOpen ? <ChevronUp className="h-5 w-5 text-slate-400" /> : <ChevronDown className="h-5 w-5 text-slate-400" />}
         </button>
       </div>
+
+      {/* Sidebar Container */}
+      <div className={`
+        w-full lg:w-64 shrink-0 space-y-8
+        ${isOpen ? 'block' : 'hidden lg:block'}
+      `}>
+
+        {/* Parameters Header */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 text-slate-900 font-bold">
+            <SlidersHorizontal className="h-4 w-4" />
+            <span>Parameters</span>
+          </div>
+          <button className="text-xs text-brand hover:text-brand-dark flex items-center gap-1 uppercase tracking-wider font-bold">
+            <RefreshCw className="h-3 w-3" /> Reset
+          </button>
+        </div>
 
       {/* Safety Filter */}
       <div className="bg-white rounded-lg p-4 border border-slate-200 shadow-sm">
@@ -91,5 +113,6 @@ export const FilterSidebar: React.FC = () => {
       </div>
 
     </div>
+    </>
   );
 };

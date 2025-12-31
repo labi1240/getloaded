@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState, useTransition } from 'react';
 import Fuse from 'fuse.js';
-import { RiSearch2Line, RiLoader4Line } from '@remixicon/react';
+import { RiSearch2Line, RiLoader4Line, RiFilter3Line, RiCloseLine } from '@remixicon/react';
 import { useGlobal } from './GlobalProvider';
 import FilterSidebar from './FilterSidebar';
 import MarketPulse from './MarketPulse';
@@ -47,6 +47,7 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ initialProducts, kind, filt
     const [products, setProducts] = useState<Product[]>(initialProducts);
     const [offset, setOffset] = useState(initialProducts.length);
     const [hasMore, setHasMore] = useState(true);
+    const [showMobileFilters, setShowMobileFilters] = useState(false);
 
     // Sync state with server-side updates
     React.useEffect(() => {
@@ -229,13 +230,43 @@ const CategoryPage: React.FC<CategoryPageProps> = ({ initialProducts, kind, filt
     };
 
     return (
-        <div className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-10">
-            <FilterSidebar
-                kind={kind}
-                facets={facets}
-                filters={filters}
-                setFilters={setFilters}
-            />
+        <div className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-10 relative">
+            {/* Mobile Filter Toggle */}
+            <div className="lg:hidden w-full">
+                <button
+                    onClick={() => setShowMobileFilters(true)}
+                    className="w-full flex items-center justify-center gap-2 bg-white border border-slate-200 text-slate-900 font-bold py-3 rounded-xl shadow-sm hover:bg-slate-50 transition-colors"
+                >
+                    <RiFilter3Line className="size-5" />
+                    Filters & Parameters
+                </button>
+            </div>
+
+            {/* Mobile Filter Overlay */}
+            {showMobileFilters && (
+                <div className="fixed inset-0 z-50 bg-slate-900/50 lg:hidden" onClick={() => setShowMobileFilters(false)}></div>
+            )}
+
+            <div className={`
+                fixed inset-y-0 left-0 z-50 w-80 bg-white transform transition-transform duration-300 ease-in-out lg:transform-none lg:static lg:w-auto lg:bg-transparent lg:block
+                ${showMobileFilters ? 'translate-x-0 shadow-2xl' : '-translate-x-full lg:translate-x-0'}
+            `}>
+                <div className="h-full overflow-y-auto p-6 lg:p-0">
+                    <div className="flex items-center justify-between mb-6 lg:hidden">
+                        <span className="text-lg font-black uppercase tracking-widest text-slate-900">Filters</span>
+                        <button onClick={() => setShowMobileFilters(false)} className="p-2 text-slate-400 hover:text-slate-900">
+                            <RiCloseLine className="size-6" />
+                        </button>
+                    </div>
+                    
+                    <FilterSidebar
+                        kind={kind}
+                        facets={facets}
+                        filters={filters}
+                        setFilters={setFilters}
+                    />
+                </div>
+            </div>
 
             <div className="flex-1 min-w-0">
                 <header className="mb-10">

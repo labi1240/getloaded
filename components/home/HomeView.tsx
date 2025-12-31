@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { Target, Package, ChevronRight, Gift, Crosshair, Award, Settings, Shield, Zap } from 'lucide-react';
 import { HomeSearch } from './HomeSearch';
 import { ImageWithFallback } from '../ImageWithFallback'; // Adjusted path assuming HomeView is in components/home/
-import { MOCK_LISTINGS } from './constants';
 import { Product } from './types';
 
 interface HomeViewProps {
@@ -69,7 +68,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
           {/* Quick Stat (optional flair) */}
           <div className="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-slate-400">
             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-            Live pricing from {MOCK_LISTINGS.length * 12}+ retailers updated seconds ago
+            Live pricing from 100+ retailers updated seconds ago
           </div>
         </div>
       </section>

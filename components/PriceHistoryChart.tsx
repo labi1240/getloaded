@@ -157,12 +157,12 @@ const PriceHistoryChart: React.FC<PriceHistoryChartProps> = ({ data, isAmmo }) =
             {/* CHART CONTAINER - Shadcn Styled */}
             <Card className="rounded-[2.5rem] border-slate-200 shadow-sm overflow-hidden bg-white">
                 <CardHeader className="p-10 pb-0">
-                    <div className="flex items-center justify-between mb-8">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4 sm:gap-0">
                         <div className="flex items-center gap-3">
                             <div className="h-0.5 w-6 bg-slate-900" />
                             <CardTitle className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-900 font-mono">TEMPORAL_PRICE_FLUX</CardTitle>
                         </div>
-                        <CardDescription className="text-[9px] font-bold text-slate-300 font-mono uppercase tracking-[0.2em]">UNIT: USD/NODE</CardDescription>
+                        <CardDescription className="text-[9px] font-bold text-slate-300 font-mono uppercase tracking-[0.2em] self-start sm:self-auto ml-9 sm:ml-0">UNIT: USD/NODE</CardDescription>
                     </div>
 
                     {/* INTERACTIVE LEGEND - Integrated with Toggles */}

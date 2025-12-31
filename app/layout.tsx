@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { GlobalProvider } from '@/components/GlobalProvider';
@@ -12,6 +12,13 @@ import { Footer } from '@/components/Footer';
 // import { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
+
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    themeColor: '#ffffff',
+};
 
 export const metadata: Metadata = {
     // Defines how the title looks on inner pages (e.g., "Page Name | AmmoMetric")
