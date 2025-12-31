@@ -1,12 +1,11 @@
 // app/ammo/[...slug]/page.tsx
 import React, { Suspense } from 'react';
 import ProductLoading from '@/components/ProductLoading';
-import { notFound } from 'next/navigation';
 import { getProductBySlug, getOffers, getPairedProduct, getProducts, isValidCaliberSlug, isValidBrandSlug, getPriceHistory } from '@/lib/data';
 import ProductDetail from '@/components/ProductDetail';
 import CategoryPage from '@/components/CategoryPage';
 import { Metadata } from 'next';
-
+import { notFound } from 'next/navigation'
 // --- NEW: Dynamic Metadata Generator ---
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }): Promise<Metadata> {
     const { slug: segments } = await params;
