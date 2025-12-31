@@ -3,7 +3,11 @@ import { Product, Offer, Brand, Retailer, PriceHistoryPoint } from '../types';
 import { Prisma } from '@prisma/client';
 import { cacheLife, cacheTag } from 'next/cache';
 
-// 1. Retailers (Static, Long Cache)
+// ==========================================
+// 1. STATIC DATA (Long Cache)
+// Specs, Images, Descriptions rarely change.
+// ==========================================
+
 export async function getRetailers() {
   "use cache";
   cacheLife("days");
@@ -14,11 +18,66 @@ export async function getRetailers() {
   return retailers;
 }
 
-// 2. Offers (Dynamic/Short Cache - Prices change often)
+// Matches your "Engineering Profile" - Static Data
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+    "use cache";
+    cacheLife("weeks"); // ✅ Specs/Images cached for weeks
+
+    const item = await prisma.catalogItem.findUnique({
+        where: { slug },
+        include: {
+            Brand: true,
+            // ❌ OFFERS REMOVED: Fetched separately via getOffers()
+            FirearmSpecs: {
+                include: {
+                    FirearmChamber: { include: { Caliber: true } }
+                }
+            },
+            AmmoSpecs: {
+                include: { Caliber: true }
+            }
+        }
+    });
+
+    if (!item) return null;
+    return mapToProduct(item);
+}
+
+// Same logic for ID-based fetch - keep it static
+export async function getProduct(id: string): Promise<Product | null> {
+    "use cache";
+    cacheLife("weeks"); 
+    
+    const item = await prisma.catalogItem.findUnique({
+        where: { id },
+        include: {
+            Brand: true,
+            // ❌ OFFERS REMOVED
+            FirearmSpecs: {
+                include: {
+                    FirearmChamber: { include: { Caliber: true } }
+                }
+            },
+            AmmoSpecs: {
+                include: { Caliber: true }
+            }
+        }
+    });
+
+    if (!item) return null;
+    return mapToProduct(item);
+}
+
+// ==========================================
+// 2. DYNAMIC DATA (Short Cache)
+// Prices, Stock Status, Charts update frequently.
+// ==========================================
+
+// Matches your "Market Liquidity" - Dynamic Prices
 export async function getOffers(itemId: string): Promise<Offer[]> {
     "use cache";
-    cacheLife("hours"); 
-    cacheTag(`offers-${itemId}`); // Keep tag if you plan to invalidate specific item offers
+    cacheLife("hours"); // ✅ Updates daily/hourly
+    cacheTag(`offers-${itemId}`); 
 
     const offers = await prisma.offer.findMany({
         where: { itemId },
@@ -48,7 +107,42 @@ export async function getOffers(itemId: string): Promise<Offer[]> {
     }));
 }
 
-// 3. Products List (Search/Filter)
+// Matches your "Price Flux" Chart
+export async function getPriceHistory(itemId: string): Promise<PriceHistoryPoint[]> {
+    "use cache";
+    cacheLife("hours");
+
+    try {
+        const history = await prisma.$queryRaw<any[]>`
+            SELECT 
+                date_trunc('day', oh.time) as day,
+                r.name as "retailerName",
+                MIN(oh.price) as min_price,
+                MIN(oh."unitPrice") as min_unit_price
+            FROM "OfferHistory" oh
+            JOIN "Offer" o ON oh."offerId" = o.id
+            JOIN "Retailer" r ON o."retailerId" = r.id
+            WHERE o."itemId" = ${itemId}
+            GROUP BY day, r.name
+            ORDER BY day ASC
+        `;
+
+        return history.map(point => ({
+            time: point.day.toISOString(),
+            price: Number(point.min_price),
+            unitPrice: point.min_unit_price ? Number(point.min_unit_price) : undefined,
+            retailerName: point.retailerName
+        }));
+    } catch (e) {
+        console.error('Error fetching price history:', e);
+        return [];
+    }
+}
+
+// ==========================================
+// 3. CATALOG & SEARCH (Medium Cache)
+// ==========================================
+
 export async function getProducts(
     kind: 'FIREARM' | 'AMMO' | 'ACCESSORY',
     limit = 100,
@@ -63,7 +157,7 @@ export async function getProducts(
     }
 ): Promise<Product[]> {
     "use cache";
-    cacheLife("minutes"); // Cache search results briefly to handle high traffic
+    cacheLife("minutes"); // Brief cache for search results
 
     const where: Prisma.CatalogItemWhereInput = {
         kind: kind,
@@ -161,60 +255,7 @@ export async function getProducts(
     return items.map(mapToProduct);
 }
 
-// 4. Single Product (Static-ish)
-export async function getProduct(id: string): Promise<Product | null> {
-    "use cache";
-    cacheLife("hours"); // Products don't change often, offers are fetched separately via getOffers if needed dynamic
-    
-    const item = await prisma.catalogItem.findUnique({
-        where: { id },
-        include: {
-            Brand: true,
-            Offer: {
-                include: { Retailer: true },
-                orderBy: { price: 'asc' }
-            },
-            FirearmSpecs: {
-                include: {
-                    FirearmChamber: { include: { Caliber: true } }
-                }
-            },
-            AmmoSpecs: {
-                include: { Caliber: true }
-            }
-        }
-    });
-
-    if (!item) return null;
-    return mapToProduct(item);
-}
-
-export async function getProductBySlug(slug: string): Promise<Product | null> {
-    "use cache";
-    cacheLife("hours");
-
-    const item = await prisma.catalogItem.findUnique({
-        where: { slug },
-        include: {
-            Brand: true,
-            FirearmSpecs: {
-                include: {
-                    FirearmChamber: { include: { Caliber: true } }
-                }
-            },
-            AmmoSpecs: {
-                include: { Caliber: true }
-            }
-        }
-    });
-
-    if (!item) return null;
-    return mapToProduct(item);
-}
-
 export async function getProductsByIds(ids: string[]): Promise<Product[]> {
-    // No cache directive here usually, as this is often used for dynamic carts/comparisons
-    // But you can add one if needed.
     if (!ids || ids.length === 0) return [];
 
     const items = await prisma.catalogItem.findMany({
@@ -239,7 +280,8 @@ export async function getProductsByIds(ids: string[]): Promise<Product[]> {
     return items.map(mapToProduct);
 }
 
-// 5. Cross-Sells / Paired Items
+// 4. CROSS-SELLS (Medium Cache)
+// Kept logic as-is: fetches one best offer for the card display
 export async function getPairedProduct(itemId: string): Promise<Product | null> {
     "use cache";
     cacheLife("hours");
@@ -354,7 +396,7 @@ export async function getPairedProduct(itemId: string): Promise<Product | null> 
     return mapToProduct(pairedItem);
 }
 
-// Helper Mapper
+// 5. HELPER MAPPERS
 function mapToProduct(item: any): Product {
     const brand: Brand = {
         id: item.Brand?.id || 0,
@@ -418,7 +460,8 @@ function mapToProduct(item: any): Product {
     return product;
 }
 
-// 6. Validation Helpers (Long Cache)
+// 6. VALIDATION & TOP LISTS (Static / Long Cache)
+
 export async function isValidCaliberSlug(slug: string): Promise<boolean> {
     "use cache";
     cacheLife("days");
@@ -433,7 +476,6 @@ export async function isValidBrandSlug(slug: string): Promise<boolean> {
     return count > 0;
 }
 
-// 7. Top Lists (Dashboard data)
 export async function getTopBrands(limit = 8) {
     "use cache";
     cacheLife("days");
@@ -492,35 +534,4 @@ export async function getTopCalibers(
         slug: c.slug,
         count: c._count.AmmoSpecs
     }));
-}
-
-export async function getPriceHistory(itemId: string): Promise<PriceHistoryPoint[]> {
-    "use cache";
-    cacheLife("hours");
-
-    try {
-        const history = await prisma.$queryRaw<any[]>`
-            SELECT 
-                date_trunc('day', oh.time) as day,
-                r.name as "retailerName",
-                MIN(oh.price) as min_price,
-                MIN(oh."unitPrice") as min_unit_price
-            FROM "OfferHistory" oh
-            JOIN "Offer" o ON oh."offerId" = o.id
-            JOIN "Retailer" r ON o."retailerId" = r.id
-            WHERE o."itemId" = ${itemId}
-            GROUP BY day, r.name
-            ORDER BY day ASC
-        `;
-
-        return history.map(point => ({
-            time: point.day.toISOString(),
-            price: Number(point.min_price),
-            unitPrice: point.min_unit_price ? Number(point.min_unit_price) : undefined,
-            retailerName: point.retailerName
-        }));
-    } catch (e) {
-        console.error('Error fetching price history:', e);
-        return [];
-    }
 }

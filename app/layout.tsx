@@ -9,6 +9,7 @@ import { getRetailers } from '@/lib/data';
 import RetailerHydrator from '@/components/RetailerHydrator';
 import { Header } from '@/components/home/Header';
 import { Footer } from '@/components/Footer';
+import Script from 'next/script';
 // import { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -40,6 +41,10 @@ export default function RootLayout({
             <body suppressHydrationWarning className={`${inter.className} min-h-screen bg-slate-50 font-sans text-slate-900 transition-colors duration-300`}>
                 <NuqsAdapter>
                     <GlobalProvider>
+                        <Script 
+                            src="http://classic.avantlink.com/affiliate_app_confirm.php?mode=js&authResponse=edd05a5dabdd39656eef563e80b203f3c6556ce1" 
+                            strategy="afterInteractive" 
+                        />
                         <Suspense>
                             <RetailerFetcher />
                         </Suspense>
