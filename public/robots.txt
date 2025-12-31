@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://getloaded.vercel.app
+
+# Sitemaps
+Sitemap: https://getloaded.vercel.app/sitemap.xml
+Sitemap: https://getloaded.vercel.app/server-sitemap.xml
